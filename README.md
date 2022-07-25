@@ -1,1 +1,1 @@
-# GitLab-Note
+# GitLab Note
