@@ -69,4 +69,5 @@ Notify.test_email('<이메일 주소>', '<제목>', '<내용>').deliver_now
 <hr>
 
 ## 참고
+- **Google 앱 비밀번호** - https://support.google.com/accounts/answer/185833?hl=ko
 - **Rails Console** - https://docs.gitlab.com/ee/administration/operations/rails_console.html
