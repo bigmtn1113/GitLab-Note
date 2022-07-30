@@ -2,8 +2,8 @@
 
 ## 1. GitLab UI 설정
 ### Admin - Settings - General에서 Sign-up restrictions 확장 후, Send confirmation email on sign-up 체크
-![image](https://user-images.githubusercontent.com/46125158/181908515-c96da3c8-1ab4-4f3f-8453-bab4e0842b28.png)  
-※ Require admin approval for new sign-ups를 체크하면 스스로 가입하지 못하고 admin이 승인을 해 줘야 함. 이러면 승인이 되어야 email이 전송됨
+![image](https://user-images.githubusercontent.com/46125158/181909276-8a2525b4-c6b5-4eee-ac2b-53da52796824.png)  
+※ **Require admin approval for new sign-ups**를 체크하면 스스로 가입하지 못하고 admin이 승인을 해 줘야 함. 이러면 승인이 되어야 email이 전송됨
 
 <hr>
 
