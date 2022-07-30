@@ -16,9 +16,16 @@
 ## 해결
 ### core.autocrlf 설정
 ```shell
+# Windows
 git config --global core.autocrlf true
 ```
+```shell
+# Unix
+# CRLF를 LF로 변환하는 것은 허용하되, LF를 CRLF로 변환하는 것은 불허
+git config --global core.autocrlf input
+```
 ※ 특정 프로젝트에만 적용하고 싶다면 --global 옵션 생략
+
 
 
 <hr>
