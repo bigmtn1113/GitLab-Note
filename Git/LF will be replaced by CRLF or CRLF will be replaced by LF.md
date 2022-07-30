@@ -1,4 +1,4 @@
-# warning: LF will be replaced by CRLF or CRLF will be replaced by LF.md
+# LF will be replaced by CRLF or CRLF will be replaced by LF.md
 
 ## 원인
 ### OS마다 줄바꿈을 처리하는 방법 차이 존재
