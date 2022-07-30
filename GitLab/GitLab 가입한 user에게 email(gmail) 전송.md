@@ -66,3 +66,7 @@ Notify.test_email('<이메일 주소>', '<제목>', '<내용>').deliver_now
 ## 회원 가입 후, Email 수신 확인
 ![image](https://user-images.githubusercontent.com/46125158/181909093-3cbe36d9-ebd7-437c-a1f4-dce4d1e40d9d.png)
 
+<hr>
+
+## 참고
+- **Rails Console** - https://docs.gitlab.com/ee/administration/operations/rails_console.html
