@@ -1,7 +1,6 @@
 # Backup and Restore
 
 ### 구성 현황
-- **Omnibus 패키지로 GitLab 설치**
 - **GitLab 버전 - 최소 12.2**
 - **Docker Container 내에서 GitLab 실행**
 
