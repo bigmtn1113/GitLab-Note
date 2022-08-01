@@ -6,7 +6,7 @@
 
 <hr>
 
-## GitLab 설정 파일 수정
+## GitLab 설정 파일 수정 및 적용
 ### `/etc/gitlab/gitlab.rb`
 ```ruby
 gitlab_rails['object_store']['enabled'] = true
@@ -25,8 +25,14 @@ gitlab_rails['object_store']['objects']['pages']['bucket'] = '<pages>'
 ※ Access Key와 Secret Access Key 대신 IAM으로 S3 연결  
 ※ '<>' 부분은 버킷명 입력
 
+### GitLab 설정 파일 적용
+```bash
+sudo gitlab-ctl reconfigure
+```
+
 <hr>
 
 ## 참고
 - **Object storage** - https://docs.gitlab.com/ee/administration/object_storage.html
 - **GitLab IAM Permissions** - https://docs.gitlab.com/ee/administration/object_storage.html#iam-permissions
+- **Omnibus GitLab reconfigure** - https://docs.gitlab.com/ee/administration/restart_gitlab.html#omnibus-gitlab-reconfigure
