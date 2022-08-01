@@ -39,7 +39,7 @@ gitlab_rails['smtp_openssl_verify_mode'] = 'peer'
 
 ### GitLab 설정 파일 적용
 ```shell
-gitlab-ctl reconfigure
+sudo gitlab-ctl reconfigure
 ```
 
 <hr>
@@ -71,3 +71,4 @@ Notify.test_email('<이메일 주소>', '<제목>', '<내용>').deliver_now
 ## 참고
 - **Google 앱 비밀번호** - https://support.google.com/accounts/answer/185833?hl=ko
 - **Rails Console** - https://docs.gitlab.com/ee/administration/operations/rails_console.html
+- **Omnibus GitLab reconfigure** - https://docs.gitlab.com/ee/administration/restart_gitlab.html#omnibus-gitlab-reconfigure
