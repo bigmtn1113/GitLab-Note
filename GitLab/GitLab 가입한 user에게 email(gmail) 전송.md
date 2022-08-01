@@ -17,7 +17,7 @@
 <hr>
 
 ## 3. GitLab 설정 파일 수정 및 적용
-### /etc/gitlab/gitlab.rb 내용 수정
+### `/etc/gitlab/gitlab.rb` 파일 수정
 ```ruby
 ...
 gitlab_rails['smtp_enable'] = true
@@ -37,7 +37,7 @@ gitlab_rails['smtp_openssl_verify_mode'] = 'peer'
 ...
 ```
 
-### GitLab 설정 파일 적용
+### 변경 사항 적용
 ```bash
 sudo gitlab-ctl reconfigure
 ```
