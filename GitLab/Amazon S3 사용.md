@@ -9,9 +9,13 @@
 ## GitLab 설정 파일 수정 및 적용
 ### `/etc/gitlab/gitlab.rb`
 ```ruby
+# 'use_iam_profile' => true. Access Key와 Secret Access Key 대신 IAM으로 S3 연결
+
 gitlab_rails['object_store']['enabled'] = true
 gitlab_rails['object_store']['proxy_download'] = true
 gitlab_rails['object_store']['connection'] = {'provider' => 'AWS', 'region' => 'ap-northeast-2', 'use_iam_profile' => true }
+
+# '<>' 부분은 버킷명 입력
 
 gitlab_rails['object_store']['objects']['artifacts']['bucket'] = '<artifacts>'
 gitlab_rails['object_store']['objects']['external_diffs']['bucket'] = '<external-diffs>'
@@ -22,8 +26,6 @@ gitlab_rails['object_store']['objects']['dependency_proxy']['bucket'] = '<depend
 gitlab_rails['object_store']['objects']['terraform_state']['bucket'] = '<terraform-state>'
 gitlab_rails['object_store']['objects']['pages']['bucket'] = '<pages>'
 ```
-※ Access Key와 Secret Access Key 대신 IAM으로 S3 연결  
-※ '<>' 부분은 버킷명 입력
 
 ### GitLab 설정 파일 적용
 ```bash
