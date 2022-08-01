@@ -7,7 +7,7 @@
 <hr>
 
 ## GitLab 설정 파일 수정 및 적용
-### `/etc/gitlab/gitlab.rb`
+### `/etc/gitlab/gitlab.rb` 파일 수정
 ```ruby
 # 'use_iam_profile' => true. Access Key와 Secret Access Key 대신 IAM으로 S3 연결
 
@@ -27,7 +27,7 @@ gitlab_rails['object_store']['objects']['terraform_state']['bucket'] = '<terrafo
 gitlab_rails['object_store']['objects']['pages']['bucket'] = '<pages>'
 ```
 
-### GitLab 설정 파일 적용
+### 변경 사항 적용
 ```bash
 sudo gitlab-ctl reconfigure
 ```
