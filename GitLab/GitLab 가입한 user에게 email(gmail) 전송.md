@@ -18,7 +18,7 @@
 
 ## 3. GitLab 설정 파일 수정 및 적용
 ### /etc/gitlab/gitlab.rb 내용 수정
-```shell
+```ruby
 ...
 gitlab_rails['smtp_enable'] = true
 gitlab_rails['smtp_address'] = "smtp.gmail.com"
@@ -38,7 +38,7 @@ gitlab_rails['smtp_openssl_verify_mode'] = 'peer'
 ```
 
 ### GitLab 설정 파일 적용
-```shell
+```bash
 sudo gitlab-ctl reconfigure
 ```
 
@@ -46,13 +46,13 @@ sudo gitlab-ctl reconfigure
 
 ## 4. GitLab 메일 발송 테스트
 ### Rails Console 접속
-```shell
-gitlab-rails console
+```bash
+sudo gitlab-rails console
 ```
 ※ Rails Console은 문제를 해결하거나 GitLab 애플리케이션의 직접 액세스를 통해서만 수행할 수 있는 일부 데이터를 검색해야 하는 GitLab 시스템 관리자를 위한 것
 
 ### 테스트 메일 전송
-```shell
+```ruby
 Notify.test_email('<이메일 주소>', '<제목>', '<내용>').deliver_now
 ```
 
