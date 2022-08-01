@@ -63,9 +63,15 @@ gitlab_rails['backup_upload_remote_directory'] = '<backups>'
 ※ Access Key와 Secret Access Key 대신 IAM으로 S3 연결  
 ※ '<>' 부분은 버킷명 입력
 
+### GitLab 설정 파일 적용
+```bash
+sudo gitlab-ctl reconfigure
+```
+
 <hr>
 
 ## 참고
 - **Backup** - https://docs.gitlab.com/ee/raketasks/backup_gitlab.html
 - **Restore** - https://docs.gitlab.com/ee/raketasks/restore_gitlab.html
 - **원격(클라우드) 스토리지에 백업 업로드** - https://docs.gitlab.com/ee/raketasks/backup_gitlab.html#uploading-backups-to-a-remote-cloud-storage
+- **Omnibus GitLab reconfigure** - https://docs.gitlab.com/ee/administration/restart_gitlab.html#omnibus-gitlab-reconfigure
