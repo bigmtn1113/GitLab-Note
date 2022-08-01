@@ -57,11 +57,12 @@ docker exec -it <container name> gitlab-rake gitlab:check SANITIZE=true
 
 ### GitLab 설정 파일(`/etc/gitlab/gitlab.rb`) 파일 수정
 ```ruby
+# Access Key와 Secret Access Key 대신 IAM으로 S3 연결
+# '<>' 부분은 버킷명 입력
+
 gitlab_rails['backup_upload_connection'] = {'provider' => 'AWS', 'region' => 'ap-northeast-2', 'use_iam_profile' => true }
 gitlab_rails['backup_upload_remote_directory'] = '<backups>'
 ```
-※ Access Key와 Secret Access Key 대신 IAM으로 S3 연결  
-※ '<>' 부분은 버킷명 입력
 
 ### GitLab 설정 파일 적용
 ```bash
