@@ -15,7 +15,7 @@ gitlab_rails['backup_upload_connection'] = {'provider' => 'AWS', 'region' => 'ap
 gitlab_rails['backup_upload_remote_directory'] = '<backups>'
 ```
 
-### GitLab 설정 파일 적용
+### 변경  적용
 ```bash
 sudo gitlab-ctl reconfigure
 ```
