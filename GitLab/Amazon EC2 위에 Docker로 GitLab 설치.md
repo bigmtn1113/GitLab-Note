@@ -94,5 +94,12 @@ external_url 'https://gitlab.example.com'
 
 <hr>
 
+### ※ root 초기 패스워드 확인
+```bash
+sudo docker exec -it <container name> grep 'Password:' /etc/gitlab/initial_root_password
+```
+
+<hr>
+
 ## 참고
 - **GitLab Docker image를 이용한 GitLab 설치** - https://docs.gitlab.com/ee/install/docker.html
