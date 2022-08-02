@@ -74,6 +74,16 @@ nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl"
 letsencrypt['enable'] = false
 ...
 ```
+EC2(GitLab)로 오는 트래픽은 ELB를 거치게 되는데 이 ELB의 443 포트 리스너는 ACM에서 발급 받은 인증서를 사용중  
+이 ELB가 443번 포트 접근 트래픽을 EC2의 80번 포트로 전달하므로 EC2 자체에서 SSL/TLS 관련 설정할 필요가 없음  
+- http를 https로 redirect X
+- https 활성화 X
+- 무료 SSL/TLS 인증서를 사용할 수 있게 해주는 Let's Encrypt 사용 X
+
+※ **X-Forwarded-Proto**  
+서버 액세스 로그에는 서버와 로드 밸런서 간에 사용되는 프로토콜만 포함  
+여기에는 클라이언트와 로드 밸런서 간에 사용되는 프로토콜에 대한 정보가 포함되어 있지 않음  
+클라이언트와 로드 밸런서 간에 사용된 프로토콜 확인을 위한 X-Forwarded-Proto 설정
 
 <hr>
 
@@ -101,3 +111,4 @@ sudo docker exec -it <container name> grep 'Password:' /etc/gitlab/initial_root_
 
 ## 참고
 - **GitLab Docker image를 이용한 GitLab 설치** - https://docs.gitlab.com/ee/install/docker.html
+- **X-Forwarded-Proto** - https://docs.aws.amazon.com/elasticloadbalancing/latest/application/x-forwarded-headers.html#x-forwarded-proto
