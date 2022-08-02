@@ -92,8 +92,6 @@ external_url 'https://gitlab.example.com'
 ```
 ![image](https://user-images.githubusercontent.com/46125158/182332529-701c321f-4669-4206-89e8-ede054317f03.png)
 
-<hr>
-
 ### ※ root 초기 패스워드 확인
 ```bash
 sudo docker exec -it <container name> grep 'Password:' /etc/gitlab/initial_root_password
