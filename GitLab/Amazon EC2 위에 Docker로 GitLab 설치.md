@@ -1,5 +1,10 @@
 # Amazon EC2 위에 Docker로 GitLab 설치.md
 
+## Architecture 참고
+![Image](https://user-images.githubusercontent.com/46125158/182595173-d38263c1-163e-4eac-944c-1dd34b7d0c5e.png)
+
+<hr>
+
 ## 전제 조건
 ### docker 설치
 ```bash
