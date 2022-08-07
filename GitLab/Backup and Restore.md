@@ -1,6 +1,8 @@
 # Backup and Restore
 
-### 구성 현황
+<br>
+
+## 구성 현황
 - **GitLab 버전 - 최소 12.2**
 - **Docker Container 내에서 GitLab 실행**
 
@@ -24,7 +26,7 @@ Docker Container 내에서 GitLab을 실행 할 때 마운트를 진행했으므
 docker exec -it <container name> ls /etc/gitlab/
 ```
 
-<hr>
+<br>
 
 ## Restore
 ### 3. 프로세스 종료 후, Restore 진행
