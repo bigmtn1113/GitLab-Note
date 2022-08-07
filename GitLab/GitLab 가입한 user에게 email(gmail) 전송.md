@@ -1,11 +1,13 @@
 # GitLab 가입한 user에게 email(gmail) 전송
 
+<br>
+
 ## 1. GitLab UI 설정
 ### Admin - Settings - General에서 Sign-up restrictions 확장 후, Send confirmation email on sign-up 체크
 ![image](https://user-images.githubusercontent.com/46125158/181909276-8a2525b4-c6b5-4eee-ac2b-53da52796824.png)  
 ※ **Require admin approval for new sign-ups**를 체크하면 스스로 가입하지 못하고 admin이 승인을 해 줘야 함. 이러면 승인이 되어야 email이 전송됨
 
-<hr>
+<br>
 
 ## 2. Google 계정의 앱 비밀번호 생성
 ### Google 계정 - 보안 - Google에 로그인 - 앱 비밀번호에서 앱 비밀번호를 생성할 앱 및 기기 선택
@@ -14,7 +16,7 @@
 생성된 비밀번호 저장  
 ※ 앱 비밀번호를 설정하려면 2단계 인증 사용이 활성화 되어 있어야 함
 
-<hr>
+<br>
 
 ## 3. GitLab 설정 파일 수정 및 적용
 ### `/etc/gitlab/gitlab.rb` 파일 수정
@@ -42,7 +44,7 @@ gitlab_rails['smtp_openssl_verify_mode'] = 'peer'
 sudo gitlab-ctl reconfigure
 ```
 
-<hr>
+<br>
 
 ## 4. GitLab 메일 발송 테스트
 ### Rails Console 접속
@@ -56,14 +58,14 @@ sudo gitlab-rails console
 Notify.test_email('<이메일 주소>', '<제목>', '<내용>').deliver_now
 ```
 
-<hr>
+<br>
 
-## Email 수신 확인
+## 5. Email 수신 확인
 ![image](https://user-images.githubusercontent.com/46125158/181909077-a36128ff-683f-4761-b898-a98970081c73.png)
 
-<hr>
+<br>
 
-## 회원 가입 후, Email 수신 확인
+## 6. 회원 가입 후, Email 수신 확인
 ![image](https://user-images.githubusercontent.com/46125158/181909093-3cbe36d9-ebd7-437c-a1f4-dce4d1e40d9d.png)
 
 <hr>
