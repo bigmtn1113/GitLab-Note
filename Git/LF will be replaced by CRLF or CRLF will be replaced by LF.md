@@ -1,5 +1,7 @@
 # LF will be replaced by CRLF or CRLF will be replaced by LF.md
 
+<br>
+
 ## 원인
 ### OS마다 줄바꿈을 처리하는 방법 차이 존재
 - **Unix** - 파일의 줄 바꿈에 **LF(Line Feed)** 사용
@@ -24,8 +26,6 @@ git config --global core.autocrlf true
 git config --global core.autocrlf input
 ```
 ※ 특정 프로젝트에만 적용하고 싶다면 --global 옵션 생략
-
-
 
 <hr>
 
