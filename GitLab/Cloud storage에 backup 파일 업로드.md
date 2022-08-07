@@ -1,6 +1,8 @@
 # Cloud storage에 backup 파일 업로드
 
-### 사전 조건
+<br>
+
+## 사전 조건
 - **[Amazon S3 사용](https://github.com/kva231/GitLab-Note/blob/master/GitLab/Amazon%20S3%20%EC%82%AC%EC%9A%A9.md)**
 
 <hr>
