@@ -1,5 +1,7 @@
 # GitHub commit 시, contributions(잔디) 문제
 
+<br>
+
 ## 원인
 ### 사용자 정보 불일치
 ![image](https://user-images.githubusercontent.com/46125158/181903026-869211e0-3378-4e68-b2ba-0cb8033ef52f.png)  
