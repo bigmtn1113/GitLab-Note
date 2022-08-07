@@ -60,7 +60,7 @@ services:
 hostname, external_url에서 [gitlab.example.com](http://gitlab.example.com)은 사용할 도메인으로 변경  
 gitlab을 설치한 ec2 인스턴스의 ssh 포트를 22번으로 사용하고 있다면 포트 변경 필수. ex) 2222
 
-<hr>
+<br>
 
 ## GitLab 설정 파일 수정
 ### `/srv/gitlab/config/gitlab.rb` 파일 수정
@@ -90,7 +90,7 @@ EC2(GitLab)로 오는 트래픽은 ELB를 거치게 되는데 이 ELB의 443 포
 여기에는 클라이언트와 로드 밸런서 간에 사용되는 프로토콜에 대한 정보가 포함되어 있지 않음  
 클라이언트와 로드 밸런서 간에 사용된 프로토콜 확인을 위한 X-Forwarded-Proto 설정
 
-<hr>
+<br>
 
 ## GitLab 시작 및 확인
 ```bash
