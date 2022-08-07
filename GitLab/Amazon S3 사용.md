@@ -1,6 +1,8 @@
 # Amazon S3 사용
 
-### 구성 현황
+<br>
+
+## 구성 현황
 - **GitLab EC2에 S3 권한(PutObject, GetObject, DeleteObject)이 들어있는 Role 할당**
 - **Docker Container 내에서 GitLab 실행**
 
