@@ -6,6 +6,8 @@
 GitHub 계정은 kva231인데, 사용자는 bigmtn이므로 contributions(잔디)에 기록되지 않음  
 ※ bigmtn는 `git config --global`로 설정된 사용자였고 `git config --local`로 설정된 사용자는 없어서 global 사용자로 commit됨
 
+<hr>
+
 ## 해결
 ### git config 설정
 ![Cap 2022-07-30 17-54-13-307](https://user-images.githubusercontent.com/46125158/181903197-8b64e739-c841-422a-a43b-aac868beb4a9.png)  
