@@ -1,5 +1,7 @@
 # git config
 
+<br>
+
 ## system
 ### /etc/gifconfig
 파일 시스템의 모든 사용자와 모든 저장소에 적용되는 설정  
@@ -8,7 +10,7 @@
 git config --system
 ```
 
-<hr>
+<br>
 
 ## global
 ### ~/.gitconfig, ~/.config/git/config
@@ -18,7 +20,7 @@ git config --system
 git config --global
 ```
 
-<hr>
+<br>
 
 ## local
 ### .git/config
@@ -28,7 +30,7 @@ git config --global
 git config --local
 ```
 
-<hr>
+<br>
 
 ## 적용 우선순위
 **local → global → system**
