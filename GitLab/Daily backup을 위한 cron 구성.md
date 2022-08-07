@@ -1,5 +1,7 @@
 # Daily backup을 위한 cron 구성
 
+<br>
+
 CI/CD 시크릿 변수, two-factor 인증 정보 등과 같은 정보들은 명령어로 자동으로 백업 되지 않으니 별도로 백업 진행해야 하나,  
 Docker Container 내에서 GitLab을 실행 할 때 마운트를 진행했으므로 마운트한 경로(/srv/gitlab/config)에 자동으로 저장됨
 
@@ -7,7 +9,7 @@ Docker Container 내에서 GitLab을 실행 할 때 마운트를 진행했으므
 
 <hr>
 
-### 구성 현황
+## 구성 현황
 - **GitLab 버전 - 최소 12.2**
 - **Docker Container 내에서 GitLab 실행**
 
