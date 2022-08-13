@@ -5,9 +5,12 @@
 ## 요구 사항
 - **GitLab이 설치된 서버와 별도의 서버에 설치**
 - **토큰 얻기**
-  - **shared runner** - 관리자가 GitLab Admin Area으로 이동 후, **Overview > Runners** 클릭
-  - **group runner** - **group 선택 > Settings > CI/CD**로 이동 후, Runners 섹션 확장
-  - **project-specific runner** - **project 선택 > Settings > CI/CD**로 이동 후, Runners 섹션 확장
+  - **shared runner** - 관리자가 GitLab Admin Area으로 이동 후, **Overview > Runners** 클릭  
+    ![image](https://user-images.githubusercontent.com/46125158/184480031-62867cc6-58fc-4d5a-b9c3-3cba39610aa6.png)
+  - **group runner** - group 선택 후, **CI/CD > Runners** 클릭
+    ![image](https://user-images.githubusercontent.com/46125158/184480161-b2b4f123-10f0-4a5e-8fb9-792af384726a.png)
+  - **project-specific runner** - **project 선택 > Settings > CI/CD**로 이동 후, Runners 섹션 확장  
+    ![image](https://user-images.githubusercontent.com/46125158/184480318-5782fe9d-5195-40a0-afa8-a7456dfcdf93.png)
 
 <br>
 
