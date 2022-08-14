@@ -3,7 +3,7 @@
 <br>
 
 ## 요구 사항
-- **GitLab이 설치된 서버와 별도의 서버에 설치**
+- **GitLab이 설치된 서버와 별도의 서버에 GitLab Runner 설치**
 - **토큰 얻기**
   - **shared runner** - 관리자가 GitLab Admin Area으로 이동 후, **Overview > Runners** 클릭  
     ![image](https://user-images.githubusercontent.com/46125158/184480031-62867cc6-58fc-4d5a-b9c3-3cba39610aa6.png)
