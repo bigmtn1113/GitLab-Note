@@ -27,7 +27,18 @@ SSH 또는 HTTPS 사용 가능하나, SSH 권장
 
 
 ### HTTPS로 복제
-
+1. Project로 이동 후, **Clone** 클릭. **Clone with HTTPS**에 대한 URL 복사
+2. **git clone** 실행  
+  ```bash
+  git clone https://gitlab.com/gitlab-tests/sample-project.git
+  ```
+3. **username 및 password** 입력  
+  계정에 대해 **2FA**를 활성화한 경우, 계정 암호 대신 `read_repository` 또는 `write_repository` 권한이 있는 Personal Access Token을 사용  
+  **2FA**를 활성화하지 않은 경우, 계정 암호 사용
+4. Project 명과 동일한 이름의 디렉터리로 이동해 파일 확인  
+  ```bash
+  cd sample-project
+  ```
 
 <hr>
 
