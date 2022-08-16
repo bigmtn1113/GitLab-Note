@@ -16,7 +16,7 @@ ssh -V
 <hr>
 
 ## SSH key pair 생성
-### ED25519 SSH Key 생성
+### ED25519 SSH key pair 생성
 ```bash
 ssh-keygen -t ed25519
 
