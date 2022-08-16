@@ -24,7 +24,7 @@
 SSH 또는 HTTPS 사용 가능하나, SSH 권장
 
 ### SSH로 복제
-1. 
+1. GitLab 계정에 SSH 키 추가
 2. Project로 이동 후, **Clone** 클릭. **Clone with SSH**에 대한 URL 복사
 3. **git clone** 실행  
   ```bash
