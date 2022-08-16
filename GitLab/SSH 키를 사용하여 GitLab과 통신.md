@@ -1,4 +1,4 @@
-# RSSH 키를 사용하여 GitLab과 통신
+# SSH 키를 사용하여 GitLab과 통신
 
 <br>
 
