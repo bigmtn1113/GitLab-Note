@@ -75,11 +75,11 @@ Warning: Permanently added 'gitlab.example.com' (ECDSA) to the list of known hos
 `~/.ssh/config` 파일에 여러 옵션을 기록함으로써 번거롭게 명령어를 사용할 필요가 없음
 
 ```bash
-# ssh aws-web으로 사용 가능
-# ssh ec2-user@aws-web -p1234 -i ~/.ssh/id_ed25519와 동일
-Host aws-web
-    HostName xxx.xxx.xxx.xxx
-    User ec2-user
+# ssh gitlab으로 사용 가능
+# ssh git@gitlab.example.com -p1234 -i ~/.ssh/id_ed25519와 동일
+Host gitlab
+    HostName gitlab.example.com
+    User git
     Port 1234
     IdentityFile ~/.ssh/id_ed25519
 ```
