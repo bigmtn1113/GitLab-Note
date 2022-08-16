@@ -48,7 +48,25 @@ cat ~/.ssh/id_ed25519.pub
 ```
 
 ### GitLab에 SSH 키 등록
+**User Settings > SSH Keys**로 이동 후, **Key**란에 복사한 내용 입력하고 **Add key** 버튼 클릭  
+※ **만료 날짜**는 선택 사항  
+![image](https://user-images.githubusercontent.com/46125158/184799488-f40d92bf-d432-4b05-a532-bc92f3907e82.png)
 
+### 확인 및 연결 테스트
+**User Settings > SSH Keys > Your SSH keys**  
+![image](https://user-images.githubusercontent.com/46125158/184799213-75b24f73-1d46-4f1b-a36e-bcdf99c6d525.png)
+
+```bash
+# 연결 테스트
+ssh -T git@gitlab.example.com
+
+The authenticity of host 'gitlab.example.com (35.231.145.151)' can't be established.
+ECDSA key fingerprint is SHA256:HbW3g8zUjNSksFbqTiUWPWg2Bq1x8xdGUrliXFzSnUw.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'gitlab.example.com' (ECDSA) to the list of known hosts.
+
+# Welcome to GitLab, @username! 출력 확인
+```
 
 <hr>
 
