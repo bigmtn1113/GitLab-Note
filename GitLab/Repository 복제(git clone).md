@@ -53,4 +53,3 @@ SSH 또는 HTTPS 사용 가능하나, SSH 권장
 
 ## 참고
 - **Command line Git** - https://docs.gitlab.com/ee/gitlab-basics/start-using-git.html
-- **SSH 키를 사용하여 GitLab과 통신** - https://docs.gitlab.com/ee/user/ssh.html
