@@ -58,7 +58,7 @@ cat ~/.ssh/id_ed25519.pub
 
 ```bash
 # 연결 테스트
-# gitlab.example.com은 GitLab 인스턴스 URL로 
+# gitlab.example.com은 GitLab 인스턴스 URL로 변경
 ssh -T git@gitlab.example.com
 
 The authenticity of host 'gitlab.example.com (35.231.145.151)' can't be established.
