@@ -16,7 +16,7 @@
   
   `--global` 옵션은 시스템에서 수행하는 모든 작업에 항상 이 정보를 사용하도록 Git에 지시
   
-  다른 옵션 참고: https://github.com/kva231/GitLab-Note/blob/master/Git/git%20config.md
+  다른 옵션 참고: https://github.com/bigmtn1113/GitLab-Note/blob/master/Git/git%20config.md
 
 <hr>
 
