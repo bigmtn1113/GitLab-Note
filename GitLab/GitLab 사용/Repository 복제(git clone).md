@@ -24,7 +24,7 @@
 SSH 또는 HTTPS 사용 가능하나, SSH 권장
 
 ### SSH로 복제
-1. [GitLab 계정에 SSH 키 추가](https://github.com/kva231/GitLab-Note/blob/master/GitLab/SSH%20%ED%82%A4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20GitLab%EA%B3%BC%20%ED%86%B5%EC%8B%A0.md)
+1. [GitLab 계정에 SSH 키 추가](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/SSH%20%ED%82%A4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20GitLab%EA%B3%BC%20%ED%86%B5%EC%8B%A0.md)
 2. Project로 이동 후, **Clone** 클릭. **Clone with SSH**에 대한 URL 복사
 3. **git clone** 실행  
   ```bash
