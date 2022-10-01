@@ -19,7 +19,7 @@ stages:
   - build
   - test
 
-.extends-tags:
+.extends-tags:        # .<name>
   tags:
     - SharedRunner
 
