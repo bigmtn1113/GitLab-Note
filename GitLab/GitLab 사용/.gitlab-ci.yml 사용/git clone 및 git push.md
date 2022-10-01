@@ -1,4 +1,4 @@
-# .gitlab-ci.yml에서 git clone 및 git push
+# git clone 및 git push
 
 <br>
 
