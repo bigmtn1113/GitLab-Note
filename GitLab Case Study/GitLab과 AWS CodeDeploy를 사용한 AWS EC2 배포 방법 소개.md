@@ -28,4 +28,7 @@
 <hr>
 
 ## 참고
-- **내용** - 링크
+- **EC2/온프레미스 컴퓨팅 플랫폼의 배포** - https://docs.aws.amazon.com/ko_kr/codedeploy/latest/userguide/deployment-steps-server.html
+- **CodeDeploy에 대한 서비스 역할 생성** - https://docs.aws.amazon.com/ko_kr/codedeploy/latest/userguide/getting-started-create-service-role.html
+- **Amazon EC2 인스턴스에 대한 IAM 인스턴스 프로파일 만들기** - https://docs.aws.amazon.com/ko_kr/codedeploy/latest/userguide/getting-started-create-iam-instance-profile.html
+- **AppSpec 'hooks' 섹션** - https://docs.aws.amazon.com/ko_kr/codedeploy/latest/userguide/reference-appspec-file-structure-hooks.html#appspec-hooks-server
