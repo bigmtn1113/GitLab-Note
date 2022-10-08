@@ -8,8 +8,8 @@
 <br>
 
 ## Architecture
-![image](https://user-images.githubusercontent.com/46125158/194706856-97b697bb-cfa4-470b-9f90-342f781f600b.png)
-
+![image](https://user-images.githubusercontent.com/46125158/194706856-97b697bb-cfa4-470b-9f90-342f781f600b.png)  
+![image](https://user-images.githubusercontent.com/46125158/194710384-52237765-7b4c-4073-a241-8683dd6075b7.png)
 
 <br>
 
