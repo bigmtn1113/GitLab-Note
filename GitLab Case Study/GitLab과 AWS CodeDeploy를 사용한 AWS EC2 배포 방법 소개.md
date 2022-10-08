@@ -8,6 +8,7 @@
 <br>
 
 ## Architecture
+![image](https://user-images.githubusercontent.com/46125158/194706856-97b697bb-cfa4-470b-9f90-342f781f600b.png)
 
 
 <br>
