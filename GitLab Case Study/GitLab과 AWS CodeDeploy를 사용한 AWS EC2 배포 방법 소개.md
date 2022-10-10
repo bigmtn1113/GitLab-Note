@@ -3,7 +3,7 @@
 <br>
 
 ## 시나리오
-개발자들이 GitLab을 이용해 소스 코드를 수정하면 GitLab Runner가 '빌드 결과물이 담긴 Application revision 파일을 S3 Bucket에 업로드 하고 deployment를 생성'하는 내용이 적힌 .gitlab-ci.yml 파일을 실행하고 AWS CodeDeploy는 배포 그룹 및 배포 내용에 맞게 배포를 진행. 이때 AWS EC2에 설치된 CodeDeploy Agent는 S3 Bucket에 업로드 된 revision 파일을 복사하고 이 파일을 이용해 배포를 수행
+개발자들이 GitLab을 이용해 소스 코드를 수정하면 GitLab Runner가 '빌드 결과물이 담긴 Application revision 파일을 S3 Bucket에 업로드 하고 deployment를 생성'하는 내용이 적힌 .gitlab-ci.yml 파일을 실행한 후 AWS CodeDeploy는 배포 그룹 및 배포 내용에 맞게 배포를 진행. 이때 AWS EC2에 설치된 CodeDeploy Agent는 S3 Bucket에 업로드 된 revision 파일을 복사하고 이 파일을 이용해 배포를 수행
 
 ### Demo
 Apache Web Server에 배포 테스트 진행
