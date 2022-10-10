@@ -1,4 +1,4 @@
-# GitLab과 AWS CodeDeploy를 사용한 AWS EC2 배포 방법 소개
+# GitLab과 AWS CodeDeploy를 사용한 AWS EC2에 Java 배포 방법 소개
 
 <br>
 
