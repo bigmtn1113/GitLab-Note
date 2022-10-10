@@ -13,18 +13,25 @@
 
 <br>
 
-## 사전 작업
-
-- **Architecture 대로 인프라 구성**
-- **S3 Bucket 및 directory, CodeDeploy Application, CodeDeploy Deployment Group 생성(이름은 .gitlab-ci.yml 파일 참고)**
-- **EC2(WEB)에 CodeDeploy Agent 와 Java 설치**
-
-<hr/>
-
-## 내용
-
-### 내용
-
+## 유의 사항
+- **S3 Bucket 및 directory, CodeDeploy Application, CodeDeploy Deployment Group**
+  - 각 이름은 .gitlab-ci.yml에서 변수로 사용
+  - CodeDeploy Deployment Group에서 배포 유형은 Blue/Green
+- **Auto Scaling Group이 사용할 Launch Template**
+  - EC2(WEB)에 CodeDeploy Agent와 Java 설치 후 AMI를 생성하고 이 AMI로 Launch Template 생성
+- **CodeDeploy에 대한 서비스 역할**
+  - EC2/온프레미스 배포의 경우 AWSCodeDeployRole 정책 연결
+  - 시작 템플릿으로 Auto Scaling 그룹을 생성한 경우 다음 권한을 추가
+    - ec2:RunInstances
+    - ec2:CreateTags
+    - iam:PassRole
+- **EC2(WEB)에 대한 IAM 인스턴스 프로파일**
+  - 애플리케이션이 저장되는 Amazon S3 버킷에 액세스할 수 있는 권한이 필요
+    - s3:Get*
+    - s3:List*
+    - Resource는 Amazon S3 버킷 arn
+- **EC2(GitLab Runner)와 연결된 IAM Role에 AWSCodeDeployDeployerAccess 정책 추가**
+- **EC2(WEB)에서 사용할 web server port는 8080**
 
 <hr>
 
