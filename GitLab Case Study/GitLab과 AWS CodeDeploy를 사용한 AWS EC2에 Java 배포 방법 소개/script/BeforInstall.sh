@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# 기존의 relese 환경을 삭제
-if [ -d /spring-boot-helloworld/release ]; then
-    sudo rm -rf /spring-boot-helloworld/release
-fi
-sudo mkdir -vp /spring-boot-helloworld/release
+TM=$(date +%F_%T)
+
+# 이전에 실행되었던 jar 파일을 백업 
+# mv /spring-boot-helloworld/*.jar /spring-boot-helloworld/$TM.jar
