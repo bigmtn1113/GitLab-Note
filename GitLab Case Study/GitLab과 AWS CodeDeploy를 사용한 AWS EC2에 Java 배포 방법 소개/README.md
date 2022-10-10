@@ -39,13 +39,26 @@
 
 ## AWS CodeDeploy
 ### Lifecycle 이벤트 hooks 이해
-- **ApplicationStop** – application revision이 다운로드되기 전에도 발생. application을 안전하게 종료하거나 배포 준비 중에 현재 설치된 패키지를 제거하도록 스크립트 지정. AppSpec 파일은 인스턴스에 배포하기 전에는 인스턴스에 존재하지 않으므로 인스턴스에 처음으로 배포할 때는 ApplicationStop 후크가 실행되지 않음. 인스턴스에 두 번째로 배포할 때 ApplicationStop 후크 사용 가능
-- **DownloadBundle** - 애플리케이션 수정 파일을 임시 위치인 `/opt/codedeploy-agent/deployment-root/deployment-group-id/deployment-id/deployment-archive`폴더로 복사. CodeDeploy 에이전트에 예약되어 있으므로 스크립트 실행에 사용 불가
-- **BeforeInstall** - 파일 암호화 해제 및 현재 버전의 백업 만들기와 같은 사전 설치 작업에 사용 가능
-- **Install** - revision 파일을 임시 위치에서 최종 대상 폴더(files의 destination에 명시한 경로)로 복사. CodeDeploy 에이전트에 예약되어 있으므로 스크립트 실행에 사용 불가
-- **AfterInstall** – 애플리케이션 구성 또는 파일 권한 변경과 같은 작업에 사용 가능
-- **ApplicationStart** - 일반적으로 'ApplicationStop'에서 중지한 서비스를 다시 시작할 때 사용
-- **ValidateService** - 마지막 배포 수명 주기 이벤트. 배포가 성공적으로 완료되었는지 확인하는 데 사용
+- **ApplicationStop**
+  - application revision이 다운로드되기 전에도 발생
+  - application을 안전하게 종료하거나 배포 준비 중에 현재 설치된 패키지를 제거하도록 스크립트 지정
+  - AppSpec 파일은 인스턴스에 배포하기 전에는 인스턴스에 존재하지 않으므로 인스턴스에 처음으로 배포할 때는 ApplicationStop 후크가 실행되지 않음
+  - 인스턴스에 두 번째로 배포할 때 ApplicationStop 후크 사용 가능
+- **DownloadBundle**
+  - 애플리케이션 수정 파일을 임시 위치인 `/opt/codedeploy-agent/deployment-root/deployment-group-id/deployment-id/deployment-archive`폴더로 복사
+  - CodeDeploy 에이전트에 예약되어 있으므로 스크립트 실행에 사용 불가
+- **BeforeInstall**
+  - 파일 암호화 해제 및 현재 버전의 백업 만들기와 같은 사전 설치 작업에 사용 가능
+- **Install**
+  - revision 파일을 임시 위치에서 최종 대상 폴더(files의 destination에 명시한 경로)로 복사
+  - CodeDeploy 에이전트에 예약되어 있으므로 스크립트 실행에 사용 불가
+- **AfterInstall**
+  - 애플리케이션 구성 또는 파일 권한 변경과 같은 작업에 사용 가능
+- **ApplicationStart**
+  - 일반적으로 'ApplicationStop'에서 중지한 서비스를 다시 시작할 때 사용
+- **ValidateService**
+  - 마지막 배포 수명 주기 이벤트
+  - 배포가 성공적으로 완료되었는지 확인하는 데 사용
 
 <hr>
 
