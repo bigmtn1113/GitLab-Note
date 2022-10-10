@@ -16,7 +16,7 @@
 ## 사전 작업
 
 - **Architecture 대로 인프라 구성**
-- **S3 Bucket, CodeDeploy Application, CodeDeploy Deployment Group 생성(이름은 .gitlab-ci.yml 파일 참고)**
+- **S3 Bucket 및 directory, CodeDeploy Application, CodeDeploy Deployment Group 생성(이름은 .gitlab-ci.yml 파일 참고)**
 - **EC2(WEB)에 CodeDeploy Agent 와 Java 설치**
 
 <hr/>
