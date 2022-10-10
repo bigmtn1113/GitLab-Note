@@ -21,6 +21,12 @@
   - CodeDeploy Deployment Group에서 배포 유형은 Blue/Green
 - **Auto Scaling Group이 사용할 Launch Template**
   - EC2(WEB)에 CodeDeploy Agent와 Java 설치 후 AMI를 생성하고 이 AMI로 Launch Template 생성
+- **EC2(WEB)에서 사용할 web server port는 8080**
+  
+<br>
+
+## AWS CodeDeploy
+### IAM Role
 - **CodeDeploy에 대한 서비스 역할**
   - EC2/온프레미스 배포의 경우 AWSCodeDeployRole 정책 연결
   - 시작 템플릿으로 Auto Scaling 그룹을 생성한 경우 다음 권한을 추가
@@ -33,11 +39,7 @@
     - s3:List*
     - Resource는 Amazon S3 버킷 arn
 - **EC2(GitLab Runner)와 연결된 IAM Role에 AWSCodeDeployDeployerAccess 정책 추가**
-- **EC2(WEB)에서 사용할 web server port는 8080**
-  
-<br>
 
-## AWS CodeDeploy
 ### Lifecycle 이벤트 hooks 이해
 - **ApplicationStop**
   - application revision이 다운로드되기 전에도 발생
