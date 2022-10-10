@@ -28,7 +28,7 @@ cache-push-test-job:
     - echo "Test cache push"
     - echo "Test caching" >> test.txt
   cache:
-    key: "push test.txt"
+    key: "test.txt"
     policy: push
     paths:
       - test.txt
@@ -41,7 +41,7 @@ cache-pull-test-job:
     - echo "Test cache pull"
     - cat test.txt
   cache:
-    key: "push test.txt"
+    key: "test.txt"
     policy: pull
     paths:
       - test.txt
