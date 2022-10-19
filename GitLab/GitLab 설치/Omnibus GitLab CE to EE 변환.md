@@ -16,7 +16,7 @@ sudo gitlab-backup create
 mkdir -p /secret/gitlab/backups/
 
 # configuration 파일들 백업
-sudo gitlab-ctl backup-etc /secret/gitlab/backups/
+sudo gitlab-ctl backup-etc --backup-path /secret/gitlab/backups/
 ```
 ※ /secret/gitlab/backups/는 /etc/gitlab/과는 다른 안전한 경로로 지정
     
@@ -89,4 +89,4 @@ sudo rm /etc/yum.repos.d/gitlab_gitlab-ce.repo
 ## 참고
 - **Omnibus GitLab CE to EE** - https://docs.gitlab.com/ee/update/package/convert_to_ee.html
 - **Backup GitLab** - https://docs.gitlab.com/ee/raketasks/backup_gitlab.html
-- **Backup Omnibus GitLab configuration** - https://docs.gitlab.com/omnibus/settings/backups.html
+- **Backup and restore Omnibus GitLab configuration** - https://docs.gitlab.com/omnibus/settings/backups.html
