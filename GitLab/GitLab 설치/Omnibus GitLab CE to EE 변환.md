@@ -35,7 +35,7 @@ sudo rpm -q gitlab-ce
 ```ruby
 gitlab-rake gitlab:env:info
 ```
-※ 동일한 ee버전을 사용해야 하므로 출력 메모 필수
+※ 동일한 ee버전을 사용해야 하므로 버전 메모
 
 ### 3. gitlab-ee Apt 또는 Yum 저장소 추가
 #### Debian/Ubuntu
