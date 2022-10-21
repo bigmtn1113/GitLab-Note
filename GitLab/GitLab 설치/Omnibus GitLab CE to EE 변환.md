@@ -84,6 +84,26 @@ sudo rm /etc/apt/sources.list.d/gitlab_gitlab-ce.list
 sudo rm /etc/yum.repos.d/gitlab_gitlab-ce.repo
 ```
 
+<br>
+
+## ※ 업그레이드 후, 필수 구성 요소 복원(선택 사항)
+```bash
+# configuration 파일들 백업했을 경우 진행
+sudo mv /etc/gitlab /etc/gitlab.$(date +%s)
+cd /secret/gitlab/backups/
+
+## C 옵션을 통해 / 경로에 압축 해제(압축 파일들이 /etc/gitlab 경로로 압축되어 있음)
+sudo tar -xf gitlab_config_1666158098_2022_10_19.tar -C /
+
+# GitLab 설정 적용
+sudo gitlab-ctl reconfigure
+sudo gitlab-ctl restart
+sudo gitlab-rake gitlab:check SANITIZE=true
+
+## /etc/gitlab/gitlab-secrets.json 파일이 복원된 경우 데이터베이스 값을 해독할 수 있는지 확인
+sudo gitlab-rake gitlab:doctor:secrets
+```
+
 <hr>
 
 ## 참고
