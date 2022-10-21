@@ -39,8 +39,9 @@
     - s3:List*
     - Resource는 Amazon S3 버킷 arn
 - **EC2(GitLab Runner)와 연결된 IAM Role에 AWSCodeDeployDeployerAccess 정책 추가**
+  - GitLab Runner에서 CodeDeploy 배포를 생성하기 위한 접근 권한
 
-### Lifecycle 이벤트 hooks 이해
+### ※ Lifecycle 이벤트 hooks 이해
 - **ApplicationStop**
   - application revision이 다운로드되기 전에도 발생
   - application을 안전하게 종료하거나 배포 준비 중에 현재 설치된 패키지를 제거하도록 스크립트 지정
