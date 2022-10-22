@@ -18,6 +18,13 @@
 
 - **S3 Bucket 및 directory, CodeDeploy Application, CodeDeploy Deployment Group**
   - 각 이름은 .gitlab-ci.yml에서 변수로 사용
+    - ```yaml
+      variables:
+        S3_BUCKET: bigmtn1113-s3-cd-revisions
+        S3_BUCKET_DIR: java-test
+        CODEDEPLOY_APPLICATION: bigmtn1113-cd-application
+        CODEDEPLOY_GROUP: bigmtn1113-cd-group
+      ```
   - CodeDeploy Deployment Group에서 배포 유형은 Blue/Green
 - **Auto Scaling Group이 사용할 Launch Template**
   - EC2(WEB)에 CodeDeploy Agent와 Java 설치 후 AMI를 생성하고 이 AMI로 Launch Template 생성
