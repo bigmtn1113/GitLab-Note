@@ -17,6 +17,12 @@
 아래에 명시된 내용은 해당 작업을 진행하는데 사용한 구성이니 다른 옵션이나 자세한 사항은 Docs를 참고
 
 - **S3 Bucket 및 directory, CodeDeploy Application, CodeDeploy Deployment Group**
+  - **S3 Bucket 및 directory**  
+    ![image](https://user-images.githubusercontent.com/46125158/197332343-f13d2d57-d8c8-4943-91c8-4fd2c1538b75.png)
+  - **CodeDeploy Application**  
+    ![image](https://user-images.githubusercontent.com/46125158/197332361-0e62b93e-f947-48df-af35-d4abb56110e2.png)
+  - **CodeDeploy Deployment Group**  
+    ![image](https://user-images.githubusercontent.com/46125158/197332428-5fc43fd4-67ff-4c34-90aa-43d18c6c0c28.png)
   - 각 이름은 .gitlab-ci.yml에서 변수로 사용
     - ```yaml
       variables:
@@ -25,12 +31,13 @@
         CODEDEPLOY_APPLICATION: bigmtn1113-cd-application
         CODEDEPLOY_GROUP: bigmtn1113-cd-group
       ```
-  - CodeDeploy Deployment Group에서 배포 유형은 Blue/Green
 - **Auto Scaling Group이 사용할 Launch Template**
-  - EC2(WEB)에 CodeDeploy Agent와 Java 설치 후 AMI를 생성하고 이 AMI로 Launch Template 생성
+  - EC2(WEB)에 **CodeDeploy Agent**와 **Java** 설치 후 AMI를 생성하고 이 AMI로 Launch Template 생성  
+    ![image](https://user-images.githubusercontent.com/46125158/197333004-4014411b-c1b0-4be2-8db5-569713eb3f6c.png)  
+    ![image](https://user-images.githubusercontent.com/46125158/197333029-6561ea82-d16c-4cc4-bf0e-510ca3845a08.png)
 - **EC2(WEB)에서 사용할 web server port는 8080**
-  - Target Group에서 인스턴스의 Health status 확인
-  - Security Group이 정상적으로 8080번 포트를 Open하고 있는지 확인
+  - **Target Group**에서 인스턴스의 **Health status** 확인
+  - **Security Group**이 정상적으로 8080번 포트를 Open하고 있는지 확인
   - Application이 8080번 포트를 정상적으로 사용하고 있는지 확인
     ```bash
     netstat -nlp
@@ -48,15 +55,23 @@
     - ec2:RunInstances
     - ec2:CreateTags
     - iam:PassRole
+  
+  ![image](https://user-images.githubusercontent.com/46125158/197331865-70bf5abe-116a-4df4-a035-b19292825627.png)
 - **EC2(WEB)에 대한 IAM 인스턴스 프로파일**
   - 애플리케이션이 저장되는 Amazon S3 버킷에 액세스할 수 있는 권한이 필요
     - s3:Get*
     - s3:List*
     - Resource는 Amazon S3 버킷 arn
+  
+  ![image](https://user-images.githubusercontent.com/46125158/197331949-b79720aa-2249-4b03-9509-f826b8fe17ae.png)
 - **EC2(GitLab Runner)와 연결된 IAM Role에 AWSCodeDeployDeployerAccess 정책 추가**
   - GitLab Runner에서 CodeDeploy 배포를 생성하기 위한 접근 권한
+  
+  ![image](https://user-images.githubusercontent.com/46125158/197331999-76230f70-6eec-459c-b6e9-c0eb89e536d6.png)
 
 ### ※ Lifecycle 이벤트 hooks 이해
+![image](https://user-images.githubusercontent.com/46125158/197333183-1150c7f0-deee-4b6d-b9cb-9e046a5899a5.png)
+
 - **ApplicationStop**
   - application revision이 다운로드되기 전에도 발생
   - application을 안전하게 종료하거나 배포 준비 중에 현재 설치된 패키지를 제거하도록 스크립트 지정
