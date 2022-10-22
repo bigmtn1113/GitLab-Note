@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 
 files:
-  - source: ./
+  - source: /test_project_codedeploy-0.0.1-SNAPSHOT.jar
     destination: /spring-boot-helloworld/release
 
 permissions:

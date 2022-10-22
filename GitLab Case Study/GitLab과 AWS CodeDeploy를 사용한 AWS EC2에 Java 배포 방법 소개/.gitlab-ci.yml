@@ -5,6 +5,7 @@ stages:
   - deploy
 
 variables:
+  JAR_FILE: test_project_codedeploy-0.0.1-SNAPSHOT.jar
   AWS_DEFAULT_REGION: ap-northeast-2
   S3_BUCKET: bigmtn1113-s3-cd-revisions
   S3_BUCKET_DIR: java-test
@@ -21,13 +22,12 @@ gradle-build-job:
   script:
     - chmod +x ./gradlew
     - ./gradlew build
-    - ls ./build/libs/*.jar
-    - mv ./build/libs/*.jar ./
+    - mv ./build/libs/$JAR_FILE ./
   cache:
     key: "JAR file"
     policy: push
     paths:
-      - ./*.jar
+      - ./$JAR_FILE
 
 codedeploy-job:
   stage: deploy
@@ -44,7 +44,7 @@ codedeploy-job:
     - rm -rf /var/cache/apk/*
     - aws --version
   script:
-    - zip -r $S3_BUCKET_DIR-$CI_COMMIT_SHORT_SHA.zip ./*.jar ./script/ ./appspec.yml
+    - zip -r $S3_BUCKET_DIR-$CI_COMMIT_SHORT_SHA.zip ./$JAR_FILE ./script/ ./appspec.yml
 
     - aws s3 cp $S3_BUCKET_DIR-$CI_COMMIT_SHORT_SHA.zip s3://$S3_BUCKET/$S3_BUCKET_DIR/
     - aws deploy create-deployment --application-name $CODEDEPLOY_APPLICATION --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name $CODEDEPLOY_GROUP --s3-location bucket=$S3_BUCKET,bundleType=zip,key=$S3_BUCKET_DIR/$S3_BUCKET_DIR-$CI_COMMIT_SHORT_SHA.zip
@@ -52,4 +52,4 @@ codedeploy-job:
     key: "JAR file"
     policy: pull
     paths:
-      - ./*.jar
+      - ./$JAR_FILE
