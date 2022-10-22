@@ -64,7 +64,7 @@
     - Resource는 Amazon S3 버킷 arn
   
   ![image](https://user-images.githubusercontent.com/46125158/197331949-b79720aa-2249-4b03-9509-f826b8fe17ae.png)
-- **EC2(GitLab Runner)와 연결된 IAM Role에 AWSCodeDeployDeployerAccess 정책 추가**
+- **EC2(GitLab Runner)에 대한 IAM 인스턴스 프로파일에 AWSCodeDeployDeployerAccess 정책 추가**
   - GitLab Runner에서 CodeDeploy 배포를 생성하기 위한 접근 권한
   
   ![image](https://user-images.githubusercontent.com/46125158/197331999-76230f70-6eec-459c-b6e9-c0eb89e536d6.png)
