@@ -29,6 +29,14 @@
 - **Auto Scaling Group이 사용할 Launch Template**
   - EC2(WEB)에 CodeDeploy Agent와 Java 설치 후 AMI를 생성하고 이 AMI로 Launch Template 생성
 - **EC2(WEB)에서 사용할 web server port는 8080**
+  - Target Group에서 인스턴스의 Health status 확인
+  - Security Group이 정상적으로 8080번 포트를 Open하고 있는지 확인
+  - Application이 8080번 포트를 정상적으로 사용하고 있는지 확인
+    ```bash
+    netstat -nlp
+    ps -ef | grep java
+    curl localhost:8080
+    ```
   
 <hr>
 
