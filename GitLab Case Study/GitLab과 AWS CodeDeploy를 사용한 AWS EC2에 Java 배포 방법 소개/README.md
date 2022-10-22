@@ -30,7 +30,7 @@
   - EC2(WEB)에 CodeDeploy Agent와 Java 설치 후 AMI를 생성하고 이 AMI로 Launch Template 생성
 - **EC2(WEB)에서 사용할 web server port는 8080**
   
-<br>
+<hr>
 
 ## AWS CodeDeploy
 ### IAM Role
