@@ -16,7 +16,7 @@ GitLab Runner를 구성하는 방법과 CI 환경에서 애플리케이션을 �
 ## 전제 조건
 - **docker 설치**
 
-<hr>
+<br>
 
 ## 로컬 시스템 볼륨 마운트를 사용하여 Runner 컨테이너 시작
 Docker 컨테이너 내에서 gitlab-runner를 실행하려면 컨테이너를 다시 시작할 때 구성이 손실되지 않도록 해야 함
@@ -28,7 +28,30 @@ docker run -d --name gitlab-runner --restart always \
 gitlab/gitlab-runner:latest
 ```
 
+<br>
+
+## Upgrade version
+기존 마운트 경로 확인 후, 진행
+```bash
+docker inspect gitlab-runner
+```
+
+### 1. 실행중인 컨테이너 중지 및 제거
+```bash
+docker stop gitlab-runner && docker rm gitlab-runner
+```
+
+### 2. GitLab Runner 컨테이너 시작
+기존 마운트 경로와 동일한 경로 사용 필수
+```bash
+docker run -d --name gitlab-runner --restart always \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v /srv/gitlab-runner/config:/etc/gitlab-runner \
+  gitlab/gitlab-runner:latest
+```
+
 <hr>
 
 ## 참고
 - **컨테이너에서 GitLab Runner 실행** - https://docs.gitlab.com/runner/install/docker.html#install-the-docker-image-and-start-the-container
+- **GitLab Runner Upgrade** - https://docs.gitlab.com/runner/install/docker.html#upgrade-version
