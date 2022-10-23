@@ -47,7 +47,7 @@
   
 <hr>
 
-## AWS CodeDeploy
+## IAM
 ### IAM Role
 - **CodeDeploy에 대한 서비스 역할**
   - EC2/온프레미스 배포의 경우 AWSCodeDeployRole 정책 연결
@@ -69,6 +69,9 @@
   
   ![image](https://user-images.githubusercontent.com/46125158/197331999-76230f70-6eec-459c-b6e9-c0eb89e536d6.png)
 
+<br>
+
+## AWS CodeDeploy
 ### ※ Lifecycle 이벤트 hooks 이해
 ![image](https://user-images.githubusercontent.com/46125158/197333183-1150c7f0-deee-4b6d-b9cb-9e046a5899a5.png)
 
