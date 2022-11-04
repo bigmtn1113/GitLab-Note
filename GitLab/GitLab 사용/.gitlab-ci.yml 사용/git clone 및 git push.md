@@ -74,11 +74,21 @@ deploy:
 ```
 - **CI_JOB_TOKEN** - 특정 API 엔드포인트로 인증하기 위한 토큰이며, 작업이 실행되는 동안 유효. 파이프라인 작업이 실행될 때 GitLab은 고유한 토큰을 생성하고 이를 미리 정의된 변수 CI_JOB_TOKEN로 주입
 
-![image](https://user-images.githubusercontent.com/46125158/184539983-fc87121f-35a0-4b67-8163-6de086b656f4.png)
+### ※ git clone
+본 내용에서는 project 소유자가 같으므로 참고만 할 것
+
+git clone 시 clone 대상 project가 public이 아닐 경우, pipeline 실행자는 대상 project의 최소 Reporter 이상의 권한을 소유한 member여야 함  
+자체 관리형 GitLab 인스턴스에서 Guest 사용자는 public 및 internal project에서만 작업 수행 가능. private project는 최소 Reporter 권한 필요
+
+![image](https://user-images.githubusercontent.com/46125158/199920439-6ab5bf97-3c08-42f7-b8b8-6401bbb29488.png)  
+![image](https://user-images.githubusercontent.com/46125158/199923038-4dd9956a-3568-47c6-b300-b510c49d2283.png)
 
 <br>
 
 ## 결과 확인
+### test_projcet_src repository
+![image](https://user-images.githubusercontent.com/46125158/184539983-fc87121f-35a0-4b67-8163-6de086b656f4.png)
+
 ### Pipeline 확인
 ![image](https://user-images.githubusercontent.com/46125158/184540774-70557ea7-73ed-47e2-9eb4-6156309da620.png)
 
