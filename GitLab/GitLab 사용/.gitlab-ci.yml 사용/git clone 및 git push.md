@@ -15,30 +15,34 @@ test_group이란 group 아래에 다음과 같은 project가 2개 구성된 상�
 
 <br>
 
-## 요구 사항
+## 전제 조건
 - (선택)test_group 생성
 - test_group 밑에 Project 2개(test_project_src, test_project_dest) 생성
-- test_project_dest의 **Project Access Token** 생성
-  1. **Settings > Access Tokens** 선택
-  2. **Select a role** - Maintainer, **Scopes** - write_repository 선택  
-    ※ role은 protected branches(main)에 push 하기 위해 지정. non-protected branches에 push 하려면 Developer 권한으로도 가능
-  
-  ![image](https://user-images.githubusercontent.com/46125158/199913220-05a456b8-e371-408a-86e4-8ab1f56e25d5.png)
-- test_project_src에 **CI/CD 변수** 등록 - **Settings > CI/CD > Variables 섹션 확장**  
-  **Key:** PROJECT_ACCESS_TOKEN  
-  **Value:** 생성한 Project Access Token 값 입력  
-  ![image](https://user-images.githubusercontent.com/46125158/199914947-6e56bdb0-f56f-428f-9eb0-7ae6a2b7c875.png)  
-  ※ Key 이름은 자유롭게 지정 가능
-
-<br>
-
-## 전제 조건
 - test_project_src에 gitlab runner 등록
 
 <hr>
 
-## test_projcet_src에 `.gitlab-ci.yml` 파일 작성
+## Access Token 생성 및 사용
+### test_project_dest의 **Project Access Token** 생성
+1. **Settings > Access Tokens** 선택
+2. 내용 작성
+    - **Select a role** - Maintainer
+    - **Scopes** - write_repository
+    
+    ※ role은 protected branches(main)에 push 하기 위해 지정. non-protected branches에 push 하려면 Developer 권한으로도 가능
 
+![image](https://user-images.githubusercontent.com/46125158/199913220-05a456b8-e371-408a-86e4-8ab1f56e25d5.png)
+
+### test_project_src에 **CI/CD 변수** 등록 - **Settings > CI/CD > Variables 섹션 확장**  
+- **Key:** PROJECT_ACCESS_TOKEN  
+  ※ Key 이름은 자유롭게 지정 가능
+- **Value:** 생성한 Project Access Token 값 입력
+
+![image](https://user-images.githubusercontent.com/46125158/199914947-6e56bdb0-f56f-428f-9eb0-7ae6a2b7c875.png)  
+
+<br>
+
+## test_projcet_src에 `.gitlab-ci.yml` 파일 작성
 ### `.gitlab-ci.yml`
 ```yaml
 image: alpine:latest
@@ -75,7 +79,6 @@ deploy:
 <br>
 
 ## 결과 확인
-
 ### Pipeline 확인
 ![image](https://user-images.githubusercontent.com/46125158/184540774-70557ea7-73ed-47e2-9eb4-6156309da620.png)
 
