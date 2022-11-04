@@ -2,16 +2,32 @@
 
 <br>
 
+## 시나리오
+test_group이란 group 아래에 다음과 같은 project가 2개 구성된 상태
+- test_project_src
+- test_project_dest
+
+1. test_project_src project에서 test_project_dest project를 git clone
+2. test_project_dest project로 push할 내용 작성
+3. test_project_src project에서 test_project_dest project로 git push
+
+※ group 생성은 선택사항. project 2개만 존재하면 구현 가능
+
+<br>
+
 ## 요구 사항
 - (선택)test_group 생성
 - test_group 밑에 Project 2개(test_project_src, test_project_dest) 생성
-- **Personal Access Token** 생성 - **User Settings > Access Tokens**  
-  **Scopes** - write_repository  
-  ![image](https://user-images.githubusercontent.com/46125158/184540080-993fddb7-c012-4c8d-9a8d-def2e9da54e3.png)
+- test_project_dest의 **Project Access Token** 생성
+  1. **Settings > Access Tokens** 선택
+  2. **Select a role** - Maintainer, **Scopes** - write_repository 선택  
+    ※ role은 protected branches(main)에 push 하기 위해 지정. non-protected branches에 push 하려면 Developer 권한으로도 가능
+  
+  ![image](https://user-images.githubusercontent.com/46125158/199913220-05a456b8-e371-408a-86e4-8ab1f56e25d5.png)
 - test_project_src에 **CI/CD 변수** 등록 - **Settings > CI/CD > Variables 섹션 확장**  
-  **Key:** ACCESS_TOKEN  
-  **Value:** 생성한 Personal Access Token 값 입력  
-  ![image](https://user-images.githubusercontent.com/46125158/184540248-cb2b1838-37c3-4358-ab17-c22a1d0f7d8a.png)  
+  **Key:** PROJECT_ACCESS_TOKEN  
+  **Value:** 생성한 Project Access Token 값 입력  
+  ![image](https://user-images.githubusercontent.com/46125158/199914947-6e56bdb0-f56f-428f-9eb0-7ae6a2b7c875.png)  
   ※ Key 이름은 자유롭게 지정 가능
 
 <br>
@@ -50,7 +66,7 @@ deploy:
     - git clone https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.example.com/test_group/$dest.git && cd $dest
     - touch test.txt
     - git add test.txt && git commit -m "Gitlab-CI runner $CI_COMMIT_SHORT_SHA"
-    - git push "https://gitlab-ci-token:${ACCESS_TOKEN}@gitlab.example.com/test_group/$dest.git" main
+    - git push "https://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@gitlab.example.com/test_group/$dest.git" main
 ```
 - **CI_JOB_TOKEN** - 특정 API 엔드포인트로 인증하기 위한 토큰이며, 작업이 실행되는 동안 유효. 파이프라인 작업이 실행될 때 GitLab은 고유한 토큰을 생성하고 이를 미리 정의된 변수 CI_JOB_TOKEN로 주입
 
@@ -69,6 +85,7 @@ deploy:
 <hr>
 
 ## 참고
+- **Permissions and roles** - https://docs.gitlab.com/ee/user/permissions.html
 - **CI_JOB_TOKEN** - https://docs.gitlab.com/ee/ci/jobs/ci_job_token.html
 - **Predefined variables reference** - https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
-- **Personal access token scopes** - https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html#personal-access-token-scopes
+- **Project access tokens** - https://docs.gitlab.com/ee/user/project/settings/project_access_tokens.html
