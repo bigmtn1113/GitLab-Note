@@ -22,14 +22,17 @@ test_group이란 group 아래에 다음과 같은 project가 2개 구성된 상�
 
 <hr>
 
-## Access Token 생성 및 사용
+## 1. Access Token 생성 및 사용
+test_project_src project에서 test_project_dest project로 push하기 위해서는 test_project_dest project에 대한 적절한 권한 필요  
+test_project_dest project에서 토큰을 생성하고 이 토큰을 test_project_src project에서 사용
+
 ### test_project_dest의 **Project Access Token** 생성
 1. **Settings > Access Tokens** 선택
 2. 내용 작성
     - **Select a role** - Maintainer
     - **Scopes** - write_repository
     
-    ※ role은 protected branches(main)에 push 하기 위해 지정. non-protected branches에 push 하려면 Developer 권한으로도 가능
+    ※ role은 protected branches(main)에 push 하기 위해 Maintainer로 지정. non-protected branches에 push 하려면 Developer 권한으로도 가능
 
 ![image](https://user-images.githubusercontent.com/46125158/199913220-05a456b8-e371-408a-86e4-8ab1f56e25d5.png)
 
@@ -42,7 +45,7 @@ test_group이란 group 아래에 다음과 같은 project가 2개 구성된 상�
 
 <br>
 
-## test_projcet_src에 `.gitlab-ci.yml` 파일 작성
+## 2. test_projcet_src에 `.gitlab-ci.yml` 파일 작성
 ### `.gitlab-ci.yml`
 ```yaml
 image: alpine:latest
@@ -85,7 +88,7 @@ git clone 시 clone 대상 project가 public이 아닐 경우, pipeline 실행�
 
 <br>
 
-## 결과 확인
+## 3. 결과 확인
 ### test_projcet_src repository
 ![image](https://user-images.githubusercontent.com/46125158/184539983-fc87121f-35a0-4b67-8163-6de086b656f4.png)
 
