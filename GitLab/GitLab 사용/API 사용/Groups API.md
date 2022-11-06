@@ -40,22 +40,11 @@ curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/
 ```
 
 ### 사용 예시(script 이용)
-목록의 페이지를 받아온 후 반복문을 통해 페이지별로 값을 조회하고, 그 결과를 .csv 파일에 저장
+현재 사용자가 명시적으로 소유한 groups를 id를 기준으로 내림차순 정렬해서 조회
 
 ```bash
-#!/usr/bin/env bash
-
-# Update Personal access token, GitLab domain
-number_of_pages=$(curl -s --head --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/groups" | grep -i x-total-pages | awk '{print $2}' | tr -d '\r\n')
-
-for page in $(seq 1 $number_of_pages); do
-    curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/groups?per_page=100&page=$page" >> groups-list.csv
-done
+curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/groups?owned=true&order_by=id&sort=desc"
 ```
-
-#### script에서 수정해야 할 부분
-- Personal access token
-- GitLab domain
 
 <hr>
 
