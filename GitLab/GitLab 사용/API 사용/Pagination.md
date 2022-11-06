@@ -18,6 +18,11 @@ GitLab은 다음과 같은 pagination 방법들을 지원
   - 페이지당 나열할 항목 수(default: `20`, max: `100`)
   - ex) per_page=100
 
+### 사용 예시
+```bash
+curl --header "PRIVATE-TOKEN: <Personal Access Token>" "https://<GitLab domain>/api/v4/projects?page=2&per_page=100"
+```
+
 ### head 옵션 사용
 #### 사용 예시
 ```bash
