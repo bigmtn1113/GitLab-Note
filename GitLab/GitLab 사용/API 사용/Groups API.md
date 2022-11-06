@@ -1,1 +1,63 @@
 # Groups API
+
+<br>
+
+## 전제 조건
+**Personal access token**의 scope: `api` 혹은 `read_api`
+
+<br>
+
+## Group visibility level
+- `private`: 그룹 및 해당 프로젝트는 members만 조회 가능
+- `internal`: 그룹 및 모든 internal 프로젝트는 External users를 제외한 로그인한 모든 사용자가 조회 가능
+- `public`: 그룹 및 모든 public 프로젝트는 인증 없이 조회 가능
+
+<br>
+
+## Groups list 출력
+인증된 사용자에 대해 표시되는 그룹 목록 조회. 인증 없이 액세스하면 public groups만 반환
+
+### Attribute
+속성을 사용해 원하는 목록 조회 가능
+
+- **order_by**
+  - Groups 정렬 기준 지정
+  - 값: `name`, `path`, `id`, `similarity`(default: `name`)
+  - ex) order_by=name
+- **sort**
+  - `asc` 또는 `desc` 순으로 groups 정렬(default: `asc`)
+  - ex) sort=desc
+- **owned**
+  - 현재 사용자가 명시적으로 소유한 groups 반환
+  - ex) owned=true
+
+### 기본 형식
+```bash
+curl --request GET "https://<GitLab domain>/api/v4/groups"
+
+# 인증된 사용자 사용
+curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/groups"
+```
+
+### 사용 예시(script 이용)
+목록의 페이지를 받아온 후 반복문을 통해 페이지별로 값을 조회하고, 그 결과를 .csv 파일에 저장
+
+```bash
+#!/usr/bin/env bash
+
+# Update Personal access token, GitLab domain
+number_of_pages=$(curl -s --header "PRIVATE-TOKEN: <Personal access token>" --head "https://<GitLab domain>/api/v4/groups" | grep -i x-total-pages | awk '{print $2}' | tr -d '\r\n')
+
+for page in $(seq 1 $number_of_pages); do
+    curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/groups?per_page=100&page=$page" >> groups-list.csv
+done
+```
+
+#### script에서 수정해야 할 부분
+- Personal access token
+- GitLab domain
+
+<hr>
+
+## 참고
+- **Groups API** - https://docs.gitlab.com/ee/api/groups.html
