@@ -40,7 +40,7 @@ curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/
 ```
 
 ### 사용 예시(script 이용)
-현재 사용자가 명시적으로 소유한 groups를 id를 기준으로 내림차순 정렬해서 조회
+현재 사용자가 명시적으로 소유한 groups를 id 기준으로 내림차순 정렬해서 조회
 
 ```bash
 curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/groups?owned=true&order_by=id&sort=desc"
