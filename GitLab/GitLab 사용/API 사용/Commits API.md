@@ -31,6 +31,7 @@ curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/
 ```
 
 ### 사용 예시
+2022-10-10부터 2022-10-29사이에 발생한 main 브랜치의 text.txt 파일 commits 이력 조회
 ```bash
 curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects/<Project ID>/repository/commits?ref_name=main&path=text.txt&since=2022-10-10&until=2022-10-29
 ```
