@@ -61,7 +61,7 @@ curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/
 ```
 
 ### 사용 예시
-2022-10-10부터 2022-10-29사이에 마지막 활동이 일어난 Private projects를 제한된 필드만 조회
+2022-10-10부터 2022-10-29사이에 마지막 활동이 일어난 private projects를 제한된 필드만 조회
 
 ```bash
 curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects?last_activity_after=2022-10-10&last_activity_before=2022-10-29&visibility=private&simple=true"
