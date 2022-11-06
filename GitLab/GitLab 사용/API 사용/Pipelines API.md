@@ -38,34 +38,14 @@
 curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects/<Project ID>/pipelines"
 ```
 
-### 사용 예시(script 이용)
+### 사용 예시
 반복문을 통해 빈 내용이 조회 될 때까지 결과를 조회하고, 그 결과를 .csv 파일에 저장
 
 ```bash
-#!/usr/bin/env bash
+2022-10-10부터 2022-10-29사이에 성공적으로 업데이트된 main 브랜치 pipeline을 id 기준으로 내림차순 정렬해서 조회
 
-page_num=1
-
-while true
-do
-  # Update Personal access token, GitLab domain, Project ID
-  pipelines=$(curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects/<Project ID>/pipelines?per_page=100&page=${page_num}")
-
-  if [ "${pipelines}" != "[]" ]
-  then
-    echo $pipelines >> pipelines.csv
-  else
-    break
-  fi
-
-  ((page_num++))
-done
+curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects/<Project ID>/pipelines?status=success&ref=main&updated_after=2022-10-10&updated_before=2022-10-29&order_by=id&sort=desc"
 ```
-
-#### script에서 수정해야 할 부분
-- Personal access token
-- GitLab domain
-- Project ID
 
 <hr>
 
