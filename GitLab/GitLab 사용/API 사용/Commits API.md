@@ -34,7 +34,7 @@ curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/
 ```
 
 ### 사용 예시(script 이용)
-반복문을 통해 빈 내용이 조회 될 때까지 결과를 조회하고 그 내용을 .csv 파일에 저장
+반복문을 통해 빈 내용이 조회 될 때까지 결과를 조회하고, 그 결과를 .csv 파일에 저장
 
 ```bash
 #!/usr/bin/env bash
