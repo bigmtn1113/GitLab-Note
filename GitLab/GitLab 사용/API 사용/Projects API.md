@@ -67,7 +67,7 @@ curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/
 #!/usr/bin/env bash
 
 # Update Personal access token, GitLab domain
-number_of_pages=$(curl -s --header "PRIVATE-TOKEN: <Personal access token>" --head "https://<GitLab domain>/api/v4/projects" | grep -i x-total-pages | awk '{print $2}' | tr -d '\r\n')
+number_of_pages=$(curl -s --head --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects" | grep -i x-total-pages | awk '{print $2}' | tr -d '\r\n')
 
 for page in $(seq 1 $number_of_pages); do
     curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects?per_page=100&page=$page" >> projects-list.csv
