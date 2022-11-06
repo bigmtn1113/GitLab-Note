@@ -39,11 +39,9 @@ curl --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/
 ```
 
 ### 사용 예시
-반복문을 통해 빈 내용이 조회 될 때까지 결과를 조회하고, 그 결과를 .csv 파일에 저장
-
-```bash
 2022-10-10부터 2022-10-29사이에 성공적으로 업데이트된 main 브랜치 pipeline을 id 기준으로 내림차순 정렬해서 조회
 
+```bash
 curl -s --header "PRIVATE-TOKEN: <Personal access token>" "https://<GitLab domain>/api/v4/projects/<Project ID>/pipelines?status=success&ref=main&updated_after=2022-10-10&updated_before=2022-10-29&order_by=id&sort=desc"
 ```
 
