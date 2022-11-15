@@ -13,6 +13,8 @@
 ## 전제 조건
 **Personal access token**의 scope는 `read_api`
 
+※ 참고: [GitLab API 사용](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9)
+
 <br>
 
 ## GitLab에 있는 모든 groups list 추출
