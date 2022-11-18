@@ -21,7 +21,7 @@
 - GitLab에서 생성한 서비스 계정
   - Ghost User: contributions를 남긴 채 user만 삭제한 경우
   - 다음과 같은 Bots
-      - Support Bot
+      - Support Bot, Support Bot, Ghost User
       - 프로젝트용 Bot users: project access token을 생성하면 생성되는 Bot
       - 그룹용 Bot users: group access token을 생성하면 생성되는 Bot
 
