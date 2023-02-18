@@ -12,7 +12,7 @@
       - ex) `pre-receive`
     - 많은 server hooks를 생성하려면 디렉터리로 생성
       - ex) `pre-receive.d`
-    - hook에 대한 파일들을 해당 디렉터리에 위치
+      - hook에 대한 파일들을 해당 디렉터리에 위치
 6. **Server hook 파일을 실행 가능**하게 만들고 Git 사용자가 파일을 소유하는지 확인
 7. Server hook가 예상대로 작동하도록 코드 작성
 
