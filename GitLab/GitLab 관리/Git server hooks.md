@@ -16,6 +16,30 @@
 6. **Server hook 파일을 실행 가능**하게 만들고 Git 사용자가 파일을 소유하는지 확인
 7. Server hook가 예상대로 작동하도록 코드 작성
 
+<br>
+
+## Test
+### pre-receive 코드 작성
+```bash
+#!/usr/bin/env bash
+
+#
+# Pre-receive hook that will reject all pushes
+# Useful for locking a repository
+#
+# More details on pre-receive hooks and how to apply them can be found on
+# https://help.github.com/enterprise/admin/guides/developer-workflow/managing-pre-receive-hooks-on-the-github-enterprise-appliance/
+#
+
+echo "You are attempting to push to the ${GITHUB_REPO_NAME} repository which has been made read-only"
+echo "Access denied, push blocked. Please contact the repository administrator."
+
+exit 1
+```
+
+### git push
+![image](https://user-images.githubusercontent.com/46125158/219855030-7e8a2ed6-c712-4166-afba-83a1b27d448a.png)
+
 <hr>
 
 ## 참고
