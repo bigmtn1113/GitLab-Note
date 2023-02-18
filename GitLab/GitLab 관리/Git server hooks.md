@@ -20,6 +20,9 @@
 
 ## Test
 ### pre-receive 코드 작성
+어떤 경우라도 `exit 1`로 return하면서 Read-only 권한만 가지도록 설정하는 코드 작성  
+return 값이 0일 경우에만 push 가능
+
 ```bash
 #!/usr/bin/env bash
 
