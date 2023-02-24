@@ -1,4 +1,4 @@
-# LF will be replaced by CRLF or CRLF will be replaced by LF.md
+# LF will be replaced by CRLF or CRLF will be replaced by LF 오류
 
 <br>
 
