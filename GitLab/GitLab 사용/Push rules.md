@@ -6,7 +6,7 @@ User-friendly interface에서 활성화할 수 있는 **pre-receive Git hooks**
 Repository에 push할 수 있는 항목과 push할 수 없는 항목을 더 잘 제어할 수 있도록 하는 기능  
 **Users, commit messages, branch names, files**로 제어 가능
 
-Custom push rules를 사용하려면 [server hooks](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Git%20server%20hooks.md) 이용
+Custom push rules를 사용하려면 [Git server hooks](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Git%20server%20hooks.md) 이용
 
 <br>
 
@@ -29,7 +29,7 @@ Administrator
 ## Files 유효성 검사
 
 ### Prevent pushing secret files
-**Credential files**와 **SSH private keys**와 같은 secrets를 version controle system에 commit하는 것을 방지  
+**Credential files**와 **SSH private keys**와 같은 secrets를 version controle system에 commit하는 것을 방지
 
 #### 차단된 파일 목록
 - AWS CLI credential blobs
@@ -44,11 +44,38 @@ Administrator
 ※ 전체 기준 목록은 다음을 참고  
 - [files_denylist.yml](https://gitlab.com/gitlab-org/gitlab/-/blob/master/ee/lib/gitlab/checks/files_denylist.yml?_gl=1%2a44221q%2a_ga%2aODY2NzMxODExLjE2NzczMTA1NzM.%2a_ga_ENFH3X7M5Y%2aMTY3NzMyMzg3NS4yLjEuMTY3NzMyNDk2Mi4wLjAuMA..)
 
-### Prohibited file names
+<br>
 
+## Example
 
-### Maximum file size
+### 특정 user만 push 허용
+**Commit author's email**에서 정규 표현식을 통해 제한 가능
 
+ex) test@example\.co\.kr$
+
+**test@example.co.kr**만 push 허용  
+(이메일의 식별 기준은 git config상의 user.email)
+
+### 특정 directory push 제한
+**Prohibited file names**에서 정규표현식을 통해 제한 가능
+
+ex) ^directory-name/
+
+directory-name 하위 경로에 대한 push 제한
+
+### 특정 files push 제한
+**Prohibited file names**에서 정규표현식을 통해 제한 가능  
+**or 연산** 활용
+
+ex) (^directory-name\/A\.txt|^directory-name\/B\.exe)$
+
+directory-name/A.txt, directory-name/B.exe push 제한
+
+#### ※ 주의 사항
+`git log`를 통해 관리 필요
+
+예를 들어 A.txt를 push할 때 정책에 의해 reject되면 C.txt를 새로 push시,  
+이전 A.txt commit이 처리되지 않아 C.txt push가 정상 작동하지 않을 가능성 존재
 
 <hr>
 
