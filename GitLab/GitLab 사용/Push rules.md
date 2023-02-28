@@ -51,15 +51,24 @@ Administrator
 ### 특정 user만 push 허용
 **Commit author's email**에서 정규 표현식을 통해 제한 가능
 
-ex) test@example\.co\.kr$
+`ex) test@example\.co\.kr$`
 
-**test@example.co.kr**만 push 허용  
+test@example.co.kr만 push 허용  
 (이메일의 식별 기준은 git config상의 user.email)
+
+### 특정 branch로만 push 허용
+**Branch name**에서 정규 표현식을 통해 제한 가능
+
+`ex) dev`
+
+dev branch만 push 허용  
+(default branch는 무조건 push 허용)
+
 
 ### 특정 directory push 제한
 **Prohibited file names**에서 정규표현식을 통해 제한 가능
 
-ex) ^directory-name/
+`ex) ^directory-name/`
 
 directory-name 하위 경로에 대한 push 제한
 
@@ -67,7 +76,7 @@ directory-name 하위 경로에 대한 push 제한
 **Prohibited file names**에서 정규표현식을 통해 제한 가능  
 **or 연산** 활용
 
-ex) (^directory-name\/A\.txt|^directory-name\/B\.exe)$
+`ex) (^directory-name\/A\.txt|^directory-name\/B\.exe)$`
 
 directory-name/A.txt, directory-name/B.exe push 제한
 
