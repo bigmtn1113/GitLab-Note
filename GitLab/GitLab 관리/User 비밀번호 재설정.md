@@ -22,6 +22,40 @@ Confirm password:
 
 username, password, password 확인까지 모두 입력
 
+<br>
+
+## Rake console 사용
+1. Rails console 시작
+    ```bash
+    sudo gitlab-rails console
+    ```
+2. User 찾기
+    - Username으로 찾기
+      ```bash
+      user = User.find_by_username 'exampleuser'
+      ```
+    - User ID로 찾기
+      ```bash
+      user = User.find(123)
+      ```
+    - Email address로 찾기
+      ```bash
+      user = User.find_by(email: 'user@example.com')
+      ```
+3. 암호 재설정
+    ```bash
+    user.password = '<new_password>'
+    user.password_confirmation = '<new_password>'
+    ```
+4. 변경 사항 저장
+    ```bash
+    user.save!
+    ```
+5. console 종료
+    ```bash
+    exit
+    ```
+
 <hr>
 
 ## 참고
