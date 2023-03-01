@@ -51,7 +51,6 @@ services:
         external_url 'https://gitlab.example.com'
     ports:
       - '80:80'
-      = '443:443'
       - '2222:22'
     volumes:
       - '/srv/gitlab/config:/etc/gitlab'
