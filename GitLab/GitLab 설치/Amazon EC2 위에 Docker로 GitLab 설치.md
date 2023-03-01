@@ -63,6 +63,11 @@ services:
 hostname, external_url에서 [gitlab.example.com](http://gitlab.example.com)은 사용할 도메인으로 변경  
 gitlab을 설치한 ec2 인스턴스의 ssh 포트를 22번으로 사용하고 있다면 포트 변경 필수. ex) 2222
 
+### GitLab 시작
+```bash
+docker compose up -d
+```
+
 <br>
 
 ## GitLab 설정 파일 수정
