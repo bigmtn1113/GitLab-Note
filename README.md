@@ -33,6 +33,7 @@
 - [GitLab 가입한 user에게 email(gmail) 전송](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/GitLab%20%EA%B0%80%EC%9E%85%ED%95%9C%20user%EC%97%90%EA%B2%8C%20email(gmail)%20%EC%A0%84%EC%86%A1.md)
 - [GitLab 관리 시작하기](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/GitLab%20%EA%B4%80%EB%A6%AC%20%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.md)
 - [Omnibus Logrotate(로그 순환)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20Logrotate(%EB%A1%9C%EA%B7%B8%20%EC%88%9C%ED%99%98).md)
+- [User 비밀번호 재설정](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/User%20%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8%20%EC%9E%AC%EC%84%A4%EC%A0%95.md)
 - [gitlabrb_sanitizer - gitlab.rb 파일 소독](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/gitlabrb_sanitizer%20-%20gitlab.rb%20%ED%8C%8C%EC%9D%BC%20%EC%86%8C%EB%8F%85.md)
 - [로컬 파일의 backup lifetime 제한(이전 backups 정리)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/%EB%A1%9C%EC%BB%AC%20%ED%8C%8C%EC%9D%BC%EC%9D%98%20backup%20lifetime%20%EC%A0%9C%ED%95%9C(%EC%9D%B4%EC%A0%84%20backups%20%EC%A0%95%EB%A6%AC).md)
 
