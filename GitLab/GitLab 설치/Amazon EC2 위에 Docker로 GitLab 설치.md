@@ -40,6 +40,7 @@ sudo mkdir /srv/gitlab
 
 ### `docker-compose.yml` 파일 작성
 ```yaml
+version: '3.6'
 services:
   web:
     image: 'gitlab/gitlab-ee:latest'
@@ -50,11 +51,13 @@ services:
         external_url 'https://gitlab.example.com'
     ports:
       - '80:80'
+      = '443:443'
       - '2222:22'
     volumes:
       - '/srv/gitlab/config:/etc/gitlab'
       - '/srv/gitlab/logs:/var/log/gitlab'
       - '/srv/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
 ```
 
 hostname, external_url에서 [gitlab.example.com](http://gitlab.example.com)은 사용할 도메인으로 변경  
