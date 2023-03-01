@@ -27,7 +27,7 @@ username, password, password 확인까지 모두 입력
 ## Rake console 사용
 1. Rails console 시작
     ```bash
-    sudo gitlab-rails console
+    $ sudo gitlab-rails console
     ```
 2. User 찾기
     - Username으로 찾기
