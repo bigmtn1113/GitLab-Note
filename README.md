@@ -28,7 +28,7 @@
   - [Daily backup을 위한 cron 구성](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Daily%20backup%EC%9D%84%20%EC%9C%84%ED%95%9C%20cron%20%EA%B5%AC%EC%84%B1.md)
   - [Docker](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Docker.md)
   - [Helm chart (Kubernetes)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Helm%20chart%20(Kubernetes).md)
-  - [https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/%EB%A1%9C%EC%BB%AC%20%ED%8C%8C%EC%9D%BC%EC%9D%98%20backup%20lifetime%20%EC%A0%9C%ED%95%9C(%EC%9D%B4%EC%A0%84%20backups%20%EC%A0%95%EB%A6%AC).md)
+  - [로컬 파일의 backup lifetime 제한(이전 backups 정리)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/%EB%A1%9C%EC%BB%AC%20%ED%8C%8C%EC%9D%BC%EC%9D%98%20backup%20lifetime%20%EC%A0%9C%ED%95%9C(%EC%9D%B4%EC%A0%84%20backups%20%EC%A0%95%EB%A6%AC).md)
 - [Amazon S3 사용](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Amazon%20S3%20%EC%82%AC%EC%9A%A9.md)
 - [Create Project 시 Namespace is not valid 에러, Import Project 시 404 에러](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Create%20Project%20%EC%8B%9C%20Namespace%20is%20not%20valid%20%EC%97%90%EB%9F%AC%2C%20Import%20Project%20%EC%8B%9C%20404%20%EC%97%90%EB%9F%AC.md)
 - [Git server hooks](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Git%20server%20hooks.md)
