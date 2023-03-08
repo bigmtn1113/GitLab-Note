@@ -15,7 +15,7 @@
 ## 사전 작업
 GitLab SAST analyzer images 중 semgrep:3 사용
 
-### 1. semgrep-sast 이미지를 local에 pull
+### 1. semgrep 이미지를 local에 pull
 ```bash
 docker pull registry.gitlab.com/security-products/semgrep:3
 ```
@@ -25,17 +25,17 @@ docker pull registry.gitlab.com/security-products/semgrep:3
 docker login registry.example.com
 ```
 
-### 3. GitLab Container Registry로 push하기 위해 semgrep-sast 이미지 tag 작성
+### 3. GitLab Container Registry로 push하기 위해 semgrep 이미지 tag 작성
 ```bash
 docker tag registry.gitlab.com/security-products/semgrep:3 registry.example.com/project/semgrep:3
 ```
 
-### 4. semgrep-sast 이미지를 GitLab Container Registry에 push
+### 4. semgrep 이미지를 GitLab Container Registry에 push
 ```bash
 docker push registry.example.com/project/semgrep:3
 ```
 
-### 5. GitLab Container Registry에 semgrep-sast 이미지가 업로드 되었는지 확인
+### 5. GitLab Container Registry에 semgrep 이미지가 업로드 되었는지 확인
 1\) 상단 표시줄에서 **Main Menu**  
 2\) **Projects** 선택 후 project 선택  
 3\) 왼쪽 사이드바에서 **Packages and registries > Container Registry** 선택
