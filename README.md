@@ -52,6 +52,7 @@
 - GitLab subscription
   - [GitLab self-managed 구독 사용자 합계 보기](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20subscription/GitLab%20self-managed%20%EA%B5%AC%EB%8F%85%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%ED%95%A9%EA%B3%84%20%EB%B3%B4%EA%B8%B0.md)
 - [GitLab CICD variables](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20CICD%20variables.md)
+- [GitLab Container Registry 사용](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20Container%20Registry%20%EC%82%AC%EC%9A%A9.md)
 - [Offline SAST](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Offline%20SAST.md)
 - [Push rules](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Push%20rules.md)
 - [Repository 복제(git clone)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Repository%20%EB%B3%B5%EC%A0%9C(git%20clone).md)
