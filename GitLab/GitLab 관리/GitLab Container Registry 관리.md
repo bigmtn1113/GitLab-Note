@@ -1,1 +1,24 @@
 # GitLab Container Registry 관리
+
+GitLab Container Registry를 사용하면 모든 프로젝트가 Docker 이미지를 저장할 자체 공간 사용 가능
+
+<br>
+
+## Container Registry 활성화
+Container Registry는 기본적으로 HTTPS에서 작동
+
+### Backend SSL 없이 LB SSL 종료
+`TCP`대신 `HTTP(S)` protocol을 사용하도록 load balancer를 구성  
+Load balancer는 SSL 인증서 관리 및 SSL 종료를 담당  
+Load balancer와 GitLab 간의 통신은 안전하지 않기 때문에 몇 가지 추가 구성이 필요
+
+### Reverse proxy 또는 load balancer SSL 종료 구성
+기본적으로 Omnibus GitLab은 `external_url`에 `https://`가 포함된 경우 SSL을 사용할지 여부를 자동 감지하고 SSL 종료를 위해 NGINX를 구성  
+그러나 reverse proxy 또는 외부 load balancer 뒤에서 실행되도록 GitLab을 구성하는 경우 일부 환경에서는 GitLab 애플리케이션 외부에서 SSL을 종료해야 할 필요성 존재
+
+<hr>
+
+## 참고
+- GitLab Container Registry 관리 - https://docs.gitlab.com/ee/administration/packages/container_registry.html
+- Backend SSL 없이 LB SSL 종료 - https://docs.gitlab.com/ee/administration/load_balancer.html#load-balancers-terminate-ssl-without-backend-ssl
+- Reverse proxy 또는 load balancer SSL 종료 구성 - https://docs.gitlab.com/omnibus/settings/ssl/index.html#configure-a-reverse-proxy-or-load-balancer-ssl-termination
