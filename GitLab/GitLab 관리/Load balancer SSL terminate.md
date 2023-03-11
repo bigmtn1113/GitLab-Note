@@ -31,6 +31,8 @@ registry_nginx['listen_port'] = 80
 registry_nginx['listen_https'] = false
 ```
 
+※ Registry NGINX가 80으로 받고 registry default port인 5000에서 작동
+
 ACM(AWS Certificate Manager)과 같은 일부 클라우드 제공자 서비스에서는 인증서 다운로드를 허용하지 않으므로 GitLab 인스턴스에서 SSL 종료 사용 불가.
 이러한 클라우드 서비스와 GitLab 간에 SSL이 필요한 경우 GitLab 인스턴스에서 다른 인증서를 사용
 
