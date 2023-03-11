@@ -13,6 +13,9 @@ Load balancer와 GitLab 간의 통신은 안전하지 않기 때문에 몇 가�
 기본적으로 Omnibus GitLab은 `external_url`에 `https://`가 포함된 경우 SSL을 사용할지 여부를 자동 감지하고 SSL 종료를 위해 NGINX를 구성  
 그러나 reverse proxy 또는 외부 load balancer 뒤에서 실행되도록 GitLab을 구성하는 경우 일부 환경에서는 GitLab 애플리케이션 외부에서 SSL을 종료해야 할 필요성 존재
 
+※ ACM(AWS Certificate Manager)과 같은 일부 클라우드 제공자 서비스에서는 인증서 다운로드를 허용하지 않으므로 GitLab 인스턴스에서 SSL 종료 사용 불가.
+이러한 클라우드 서비스와 GitLab 간에 SSL이 필요한 경우 GitLab 인스턴스에서 다른 인증서를 사용
+
 ### Bundled NGINX가 SSL 종료 처리하는 것을 방지
 `/etc/gitlab/gitlab.rb`
 ```ruby
@@ -23,6 +26,7 @@ nginx['listen_https'] = false
 Container Registry, GitLab Pages 또는 Mattermost와 같은 다른 bundled components도 proxied SSL에 유사한 전략을 사용  
 특정 components의 `*_external_url`을 `https://`로 설정하고 `nginx[...]` 구성에 component 이름을 접두사로 붙여서 사용
 
+#### GitLab Container Registry example
 `/etc/gitlab/gitlab.rb`
 ```ruby
 registry_external_url 'https://registry.example.com'
@@ -32,9 +36,6 @@ registry_nginx['listen_https'] = false
 ```
 
 ※ Registry NGINX가 80으로 받고 registry default port인 5000에서 작동
-
-ACM(AWS Certificate Manager)과 같은 일부 클라우드 제공자 서비스에서는 인증서 다운로드를 허용하지 않으므로 GitLab 인스턴스에서 SSL 종료 사용 불가.
-이러한 클라우드 서비스와 GitLab 간에 SSL이 필요한 경우 GitLab 인스턴스에서 다른 인증서를 사용
 
 <hr>
 
