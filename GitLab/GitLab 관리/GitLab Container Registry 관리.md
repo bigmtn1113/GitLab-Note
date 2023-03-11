@@ -30,7 +30,7 @@ Container Registry, GitLab Pages 또는 Mattermost와 같은 다른 bundled comp
 ```ruby
 registry_external_url 'https://registry.example.com'
 
-registry_nginx['listen_port'] = 80
+registry_nginx['listen_port'] = 5050
 registry_nginx['listen_https'] = false
 ```
 
