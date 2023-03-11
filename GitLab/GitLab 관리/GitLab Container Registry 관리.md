@@ -7,7 +7,7 @@ GitLab Container Registry를 사용하면 모든 프로젝트가 Docker 이미�
 ## Container Registry 활성화
 Container Registry는 기본적으로 HTTPS에서 작동
 
-### Backend SSL 없이 LB SSL 종료
+### Backend SSL 없이 load balancer SSL 종료
 `TCP`대신 `HTTP(S)` protocol을 사용하도록 load balancer를 구성  
 Load balancer는 SSL 인증서 관리 및 SSL 종료를 담당  
 Load balancer와 GitLab 간의 통신은 안전하지 않기 때문에 몇 가지 추가 구성이 필요
