@@ -35,7 +35,7 @@ registry_nginx['listen_port'] = 80
 registry_nginx['listen_https'] = false
 ```
 
-※ Registry NGINX가 80으로 받고 registry default port인 5000에서 작동
+※ Registry NGINX가 80으로 받고 Container Registry는 registry default port인 5000에서 작동
 
 <hr>
 
