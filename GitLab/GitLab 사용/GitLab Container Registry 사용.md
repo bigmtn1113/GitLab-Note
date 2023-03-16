@@ -87,7 +87,7 @@ docker login -u <username> -p <token> registry.example.com
 
 ### GitLab CI/CD에서 Container Registry 사용
 GitLab CI/CD를 사용하여 container images를 build하고 Container Registry에 push 가능  
-[Docker-in-Docker 설정]() 후 진행
+[Docker-in-Docker 설정](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20Container%20Registry%20%EC%82%AC%EC%9A%A9.md#-docker-executor%EC%97%90%EC%84%9C-tls%EA%B0%80-%ED%99%9C%EC%84%B1%ED%99%94%EB%90%9C-docker-in-docker-%EC%82%AC%EC%9A%A9) 후 진행
 
 `.gitlab-ci.yml`  
 ```yaml
