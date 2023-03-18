@@ -37,6 +37,51 @@ registry_nginx['listen_https'] = false
 
 ※ Registry NGINX가 80으로 받고 Container Registry는 registry default port인 5000에서 작동
 
+<br>
+
+## ※ `docker-compose.yml` 예시
+```yaml
+version: '3.6'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'gitlab.example.com'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://gitlab.example.com'
+
+        letsencrypt['enable'] = false
+
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['redirect_http_to_https'] = false
+
+        registry_external_url 'https://registry.example.com'
+
+        registry_nginx['listen_port'] = 80
+        registry_nginx['listen_https'] = false
+        registry_nginx['redirect_http_to_https'] = false
+    ports:
+      - '80:80'
+      - '2222:22'
+    volumes:
+      - '/srv/gitlab/config:/etc/gitlab'
+      - '/srv/gitlab/logs:/var/log/gitlab'
+      - '/srv/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
+
+```
+
+### Let's Encrypt 통합 비활성화
+GitLab은 재구성할 때마다 Let's Encrypt 인증서를 갱신하려고 시도  
+수동으로 생성한 인증서를 사용하려는 경우 Let's Encrypt 통합을 비활성화 필요  
+그렇지 않으면 자동 갱신으로 인해 인증서를 덮어쓸 가능성 존재
+
+### Redirect HTTP requests to HTTPS
+기본적으로 `external_url`시작을 `https`로 지정하면 NGINX는 더 이상 80번 포트에서 암호화되지 않은 HTTP 트래픽을 수신 대기하지 않으므로 모든 HTTP 트래픽을 HTTPS로 리디렉션하려면 `nginx['redirect_http_to_https'] = true`로 설정  
+그러나 load balancer가 SSL 종료를 처리하면 https redirect 비활성화
+
 <hr>
 
 ## 참고
