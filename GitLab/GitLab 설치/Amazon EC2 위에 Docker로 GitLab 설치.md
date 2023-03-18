@@ -49,7 +49,6 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.example.com'
-        gitlab_rails['gitlab_shell_ssh_port'] = 2222
     ports:
       - '80:80'
       - '2222:22'
