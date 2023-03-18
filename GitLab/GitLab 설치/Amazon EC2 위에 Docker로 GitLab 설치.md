@@ -99,12 +99,9 @@ EC2(GitLab)로 오는 트래픽은 ELB를 거치게 되는데 이 ELB의 443 포
 
 <br>
 
-## GitLab 시작 및 확인
+## GitLab 재시작
 ```bash
-docker-compose up -d
-
-# STATUS가 healthy인지 확인
-docker ps
+sudo gitlab-ctl reconfigure
 ```
 
 ### GitLab 접속
