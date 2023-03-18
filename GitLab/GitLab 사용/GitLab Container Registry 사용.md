@@ -111,7 +111,7 @@ build:
 ```
 
 - `$CI_REGISTRY_IMAGE`는 project에 연결된 Container Registry 주소
-- `CI_COMMIT_REF_NAME`은 project가 빌드되는 branch나 tag 이름인데 image tag엔 /를 포함할 수 없으므로 `CI_COMMIT_REF_SLUG` 사용
+- `$CI_COMMIT_REF_NAME`은 project가 빌드되는 branch나 tag 이름인데 image tag엔 /를 포함할 수 없으므로 `$CI_COMMIT_REF_SLUG` 사용
 
 <br>
 
