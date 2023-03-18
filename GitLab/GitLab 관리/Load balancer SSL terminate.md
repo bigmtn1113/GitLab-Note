@@ -85,5 +85,6 @@ GitLab은 재구성할 때마다 Let's Encrypt 인증서를 갱신하려고 시�
 <hr>
 
 ## 참고
-- Backend SSL 없이 LB SSL 종료 - https://docs.gitlab.com/ee/administration/load_balancer.html#load-balancers-terminate-ssl-without-backend-ssl
-- Reverse proxy 또는 load balancer SSL 종료 구성 - https://docs.gitlab.com/omnibus/settings/ssl/index.html#configure-a-reverse-proxy-or-load-balancer-ssl-termination
+- **Backend SSL 없이 LB SSL 종료** - https://docs.gitlab.com/ee/administration/load_balancer.html#load-balancers-terminate-ssl-without-backend-ssl
+- **수동으로 HTTPS 구성** - https://docs.gitlab.com/omnibus/settings/ssl/index.html#configure-https-manually
+- **Reverse proxy 또는 load balancer SSL 종료 구성** - https://docs.gitlab.com/omnibus/settings/ssl/index.html#configure-a-reverse-proxy-or-load-balancer-ssl-termination
