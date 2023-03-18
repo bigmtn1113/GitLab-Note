@@ -49,6 +49,13 @@ services:
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.example.com'
+        
+        letsencrypt['enable'] = false
+
+        nginx['listen_port'] = 80
+        nginx['listen_https'] = false
+        nginx['redirect_http_to_https'] = false
+        nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on" }
     ports:
       - '80:80'
       - '2222:22'
@@ -60,32 +67,7 @@ services:
 ```
 
 hostname, external_url에서 [gitlab.example.com](http://gitlab.example.com)은 사용할 도메인으로 변경  
-gitlab을 설치한 ec2 인스턴스의 ssh 포트를 22번으로 사용하고 있다면 '22:22'로 사용 불가
 
-### GitLab 시작
-```bash
-docker-compose up -d
-```
-
-<br>
-
-## GitLab 설정 파일 수정
-### `/srv/gitlab/config/gitlab.rb` 파일 수정
-※ container 내부에서의 경로는 `/etc/gitlab/gitlab.rb`
-
-```ruby
-...
-nginx['redirect_http_to_https'] = false
-...
-nginx['listen_port'] = 80
-...
-nginx['listen_https'] = false
-...
-nginx['proxy_set_headers'] = { "X-Forwarded-Proto" => "https", "X-Forwarded-Ssl" => "on" }
-...
-letsencrypt['enable'] = false
-...
-```
 EC2(GitLab)로 오는 트래픽은 ELB를 거치게 되는데 이 ELB의 443 포트 리스너는 ACM에서 발급 받은 인증서를 사용중  
 이 ELB가 443번 포트 접근 트래픽을 EC2의 80번 포트로 전달하므로 EC2 자체에서 SSL/TLS 관련 설정할 필요가 없음  
 - http를 https로 redirect X
@@ -97,11 +79,11 @@ EC2(GitLab)로 오는 트래픽은 ELB를 거치게 되는데 이 ELB의 443 포
 여기에는 클라이언트와 로드 밸런서 간에 사용되는 프로토콜에 대한 정보가 포함되어 있지 않음  
 클라이언트와 로드 밸런서 간에 사용된 프로토콜 확인을 위한 X-Forwarded-Proto 설정
 
-<br>
+gitlab을 설치한 ec2 인스턴스의 ssh 포트를 22번으로 사용하고 있다면 '22:22'로 사용 불가
 
-## GitLab 재시작
+### GitLab 시작
 ```bash
-sudo gitlab-ctl reconfigure
+docker-compose up -d
 ```
 
 ### GitLab 접속
