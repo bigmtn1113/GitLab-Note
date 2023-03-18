@@ -64,7 +64,7 @@ gitlab을 설치한 ec2 인스턴스의 ssh 포트를 22번으로 사용하고 �
 
 ### GitLab 시작
 ```bash
-docker compose up -d
+docker-compose up -d
 ```
 
 <br>
