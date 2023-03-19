@@ -142,5 +142,4 @@ Offline 환경이 아닌 경우, CI/CD pipelines에서 업데이트된 scanners�
 
 ## 참고
 - Offline 환경에서 SAST 작동 - https://docs.gitlab.com/ee/user/application_security/sast/#running-sast-in-an-offline-environment
-- Container Registry 보기 - https://docs.gitlab.com/ee/user/packages/container_registry/index.html#view-the-container-registry
 - Runner가 image를 pull하는 방법 구성 - https://docs.gitlab.com/runner/executors/docker.html#configure-how-runners-pull-images
