@@ -117,6 +117,8 @@ semgrep-sast:
   ...
 ```
 
+<br>
+
 ## ※ pull_policy
 GitLab Runner의 default `pull_policy`은 `always`
 
