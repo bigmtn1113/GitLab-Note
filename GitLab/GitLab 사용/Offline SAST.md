@@ -17,23 +17,27 @@ GitLab SAST analyzer images 중 semgrep:3 사용
 
 ### 1. semgrep 이미지를 local에 pull
 ```bash
-docker pull registry.gitlab.com/security-products/semgrep:3
+$ docker pull registry.gitlab.com/security-products/semgrep:3
 ```
+
 ※ 인터넷 access가 불가할 경우 외부에서 local로 이미지 이동
 
-### 2. Docker Registry에 login
+### 2. Docker Registry 실행 및 login
+GitLab runner가 실행 중인 서버에서 진행
+
 ```bash
-docker login
+$ docker run -d -p 5000:5000 --name registry registry:2
+$ docker login
 ```
 
 ### 3. Docker Registry로 push하기 위해 semgrep 이미지 tag 작성
 ```bash
-docker tag registry.gitlab.com/security-products/semgrep:3 localhost:5000/semgrep:3
+$ docker tag registry.gitlab.com/security-products/semgrep:3 localhost:5000/semgrep:3
 ```
 
 ### 4. semgrep 이미지를 Docker Registry에 push
 ```bash
-docker push localhost:5000/semgrep:3
+$ docker push localhost:5000/semgrep:3
 ```
 
 ### 5. [SAST.gitlab-ci.yml](https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST.gitlab-ci.yml) 파일 local에 다운로드 후 GitLab repository에 업로드
