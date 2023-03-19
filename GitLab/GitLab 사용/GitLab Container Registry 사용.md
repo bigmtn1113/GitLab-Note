@@ -122,6 +122,10 @@ Docker 19.03.12 이상부터 TLS가 default
 - Docker-in-Docker를 사용하기 위해 `privileged` mode 활성화
 - Docker client가 docker 인증서 파일를 사용할 수 있도록 `/certs/client` 마운트
 
+※ `config.toml` 파일 경로
+- 서버 경로: `/srv/gitlab-runner/config/config.toml`
+- 컨테이너 경로: `/etc/gitlab-runner/config.toml`
+
 `config.toml`
 ```toml
 [[runners]]
