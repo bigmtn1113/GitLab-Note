@@ -159,6 +159,18 @@ variables:
 ...
 ```
 
+#### ※ TLS 활성화 여부 차이
+실행된 Job을 확인해보면 `Pulling docker image docker:20.10.16-dind ...` 단계 후에 다음과 같은 차이 발생
+
+- **활성화**
+
+  ![image](https://user-images.githubusercontent.com/46125158/226163142-83f2656b-f9fe-4834-964a-4cbc338d6ec3.png)
+
+- **비활성화**
+
+  ![image](https://user-images.githubusercontent.com/46125158/226163160-26d41924-9eef-402f-a50f-326dd3bed843.png)
+
+
 <hr>
 
 ## 참고
