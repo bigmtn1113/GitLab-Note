@@ -37,7 +37,13 @@ kubectl get secrets <rails-secret-name> -o jsonpath="{.data['secrets\.yml']}" | 
 <br>
 
 ## Restore
-GitLab 백업 복원은 chart에 제공된 Toolbox pod에서 `backup-utility` 명령을 실행하여 수행
+Backup을 생성한 GitLab과 동일한 version의 GitLab으로 backup을 복원하는 것을 권장  
+GitLab backup 복원은 chart에 제공된 Toolbox pod에서 `backup-utility` 명령을 실행하여 수행  
+복원을 처음 실행하기 전에 Toolbox가 객체 storage 에 access할 수 있도록 올바르게 구성되었는지 확인 필요  
+GitLab Helm chart에서 제공하는 backup utility는 다음 위치에서 tarball 복원을 지원  
+- Instance와 연결된 객체 storage service의 `gitlab-backups` bucket. 이것이 기본 scenario  
+- Pod에서 access할 수 있는 public URL  
+- `kubectl cp`을 사용하여 Toolbox pod에 복사할 수 있는 local file
 
 ### Rails secrets 복원
 #### 1. Rails secrets 조회
