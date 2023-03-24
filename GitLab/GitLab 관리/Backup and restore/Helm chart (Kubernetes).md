@@ -56,7 +56,7 @@ kubectl create secret generic <rails-secret-name> --from-file=secrets.yml=gitlab
 ```
 
 ### Pod 재시작
-새로운 secret을 적용하기 위해 Webservice, Sidekiq, Toolbox pod 재시작 필요
+새로운 secrets를 적용하기 위해 Webservice, Sidekiq 및 Toolbox pods 재시작
 
 ```bash
 kubectl delete pods -lapp=sidekiq,release=<helm release name>
@@ -65,20 +65,21 @@ kubectl delete pods -lapp=toolbox,release=<helm release name>
 ```
 
 ### Backup file 복원
-#### 1. toolbox pod가 실행 중인지 확인
+#### 1. Toolbox pod가 실행 중인지 확인
 ```bash
 kubectl get pods -lrelease=RELEASE_NAME,app=toolbox
 ```
 
-#### 2. Backup file 확인
+#### 2. 다음 위치에 tarball 준비
+tarball이 `<timestamp>_gitlab_backup.tar` 형식의 이름으로 지정되어 있는지 확인
+
+#### 3. Backup utility를 이용해 traball 복원
 ```bash
-ls /srv/gitlab/tmp/backups
+kubectl exec <Toolbox pod name> -it -- backup-utility --restore -t <timestamp>
 ```
 
-#### 3. Backup utility를 이용해 Backup file 복원
-```bash
-kubectl exec <Toolbox pod name> -it -- backup-utility --restore -t <timestamp>_<version>
-```
+복원 process는 database의 기존 내용을 지우고 기존 repository를 임시 위치로 이동시킨 후 tarball의 내용을 추출  
+Repository는 disk의 해당 위치로 이동되고 artifaces, uploads, LFS 등과 같은 기타 data는 객체 storage의 해당 bucket에 업로드됨
 
 <hr>
 
