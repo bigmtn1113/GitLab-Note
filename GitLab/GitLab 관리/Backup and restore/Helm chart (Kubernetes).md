@@ -3,7 +3,8 @@
 <br>
 
 ## Backup
-GitLab 백업은 chart에 제공된 Toolbox pod에서 `backup-utility` 명령을 실행하여 수행
+GitLab backup은 chart에 제공된 Toolbox pod에서 `backup-utility` 명령을 실행하여 수행  
+Backup을 실행하기 전에 Toolbox가 객체 storage에 access할 수 있도록 올바르게 구성되었는지 확인
 
 ### Backup 생성
 #### 1. toolbox pod가 실행 중인지 확인
@@ -17,9 +18,7 @@ kubectl exec <Toolbox pod name> -it -- backup-utility
 ```
 
 #### 3. Backup file 확인
-```bash
-ls /srv/gitlab/tmp/backups
-```
+객체 storage service에서 `gitlab-backups` bucket을 방문하여 `<timestamp>_gitlab_backup.tar` 형식의 이름을 가진 tarball이 추가되었는지 확인  
 
 ### Secrets Backup
 보안 예방 조치로 백업에 포함되지 않은 rails secrets의 복사본 저장 필요  
