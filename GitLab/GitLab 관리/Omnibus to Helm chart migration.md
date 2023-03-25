@@ -60,3 +60,4 @@ $ kubectl delete pods -lrelease=<helm release name>
 
 ## 참고
 - **Linux package에서 Helm chart로 migration** - https://docs.gitlab.com/charts/installation/migration/package_to_helm.html
+- **GitLab 설치 복원** - https://docs.gitlab.com/charts/backup-restore/restore.html
