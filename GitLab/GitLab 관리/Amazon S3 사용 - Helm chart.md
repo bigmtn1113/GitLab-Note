@@ -75,7 +75,7 @@ use_iam_profile: true
 `connection` 내용이 포함된 YAML file이 생성되면 이 file을 사용하여 Kubernetes에서 secret을 생성  
 ```bash
 $ kubectl create secret generic gitlab-rails-storage \
-    --from-file=connection=rails.yaml
+    --from-file=connection=rails.s3.yaml
 ```
 
 <br>
@@ -129,6 +129,58 @@ multipart_chunk_size_mb의 기본값은 15 (MB)
 ### Secret 생성
 ```bash
 $ kubectl create secret generic storage-config --from-file=config=storage.config
+```
+
+<br>
+
+## `values.yaml` 예제
+`values.yaml`  
+```yaml
+global:
+  minio:
+    enabled: false
+
+  appConfig:
+    object_store:
+      enabled: true
+      proxy_download: true
+      storage_options: {}
+      connection: 
+        secret: gitlab-rails-storage
+        key: connection
+    lfs:
+      bucket: git-lfs
+    artifacts:
+      bucket: gitlab-artifacts
+    uploads:
+      bucket: gitlab-uploads
+    packages:
+      bucket: gitlab-packages
+    externalDiffs:
+      enabled: false
+      when:
+      bucket: gitlab-mr-diffs
+    terraformState:
+      enabled: false
+      bucket: gitlab-terraform-state
+    ciSecureFiles:
+      enabled: false
+      bucket: gitlab-ci-secure-files
+    dependencyProxy:
+      enabled: false
+      bucket: gitlab-dependency-proxy
+
+    backups:
+      bucket: gitlab-backup-storage
+      tmpBucket: gitlab-tmp-storage
+
+gitlab:
+  toolbox:
+    backups:
+      objectStorage:
+        config:
+          secret: storage-config
+          key: config
 ```
 
 <hr>
