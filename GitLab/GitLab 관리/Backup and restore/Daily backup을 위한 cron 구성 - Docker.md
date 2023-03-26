@@ -1,4 +1,4 @@
-# Daily backup을 위한 cron 구성
+# Daily backup을 위한 cron 구성 - Docker
 
 <br>
 
