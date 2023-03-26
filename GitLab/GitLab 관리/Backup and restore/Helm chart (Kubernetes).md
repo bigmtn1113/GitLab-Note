@@ -76,8 +76,8 @@ kubectl delete pods -lapp=toolbox,release=<helm release name>
 kubectl get pods -lrelease=RELEASE_NAME,app=toolbox
 ```
 
-#### 2. 다음 위치에 tarball 준비
-tarball이 `<timestamp>_gitlab_backup.tar` 형식의 이름으로 지정되어 있는지 확인
+#### 2. Bucket에 tarball 준비
+tarball이 `<timestamp>_gitlab_backup.tar` 형식의 이름으로 bucket에 지정되어 있는지 확인
 
 #### 3. Backup utility를 이용해 traball 복원
 ```bash
