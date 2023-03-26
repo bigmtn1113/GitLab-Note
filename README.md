@@ -25,7 +25,8 @@
 ### ⭐ GitLab 관리
 - Backup and restore
   - [Cloud storage에 backup 파일 업로드](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Cloud%20storage%EC%97%90%20backup%20%ED%8C%8C%EC%9D%BC%20%EC%97%85%EB%A1%9C%EB%93%9C.md)
-  - [Daily backup을 위한 cron 구성](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Daily%20backup%EC%9D%84%20%EC%9C%84%ED%95%9C%20cron%20%EA%B5%AC%EC%84%B1.md)
+  - [Daily backup을 위한 cron 구성 - Docker](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Daily%20backup%EC%9D%84%20%EC%9C%84%ED%95%9C%20cron%20%EA%B5%AC%EC%84%B1%20-%20Docker.md)
+  - [Daily backup을 위한 cron 구성 - Helm chart](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Daily%20backup%EC%9D%84%20%EC%9C%84%ED%95%9C%20cron%20%EA%B5%AC%EC%84%B1%20-%20Helm%20chart.md)
   - [Docker](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Docker.md)
   - [Helm chart (Kubernetes)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Helm%20chart%20(Kubernetes).md)
   - [로컬 파일의 backup lifetime 제한(이전 backups 정리)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/%EB%A1%9C%EC%BB%AC%20%ED%8C%8C%EC%9D%BC%EC%9D%98%20backup%20lifetime%20%EC%A0%9C%ED%95%9C(%EC%9D%B4%EC%A0%84%20backups%20%EC%A0%95%EB%A6%AC).md)
