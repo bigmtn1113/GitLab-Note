@@ -8,7 +8,8 @@
 ## 전제 조건
 ### docker 설치
 ```bash
-sudo amazon-linux-extras install -y docker
+# Amazon Linux 2023 기준
+sudo dnf install -y docker
 sudo systemctl enable docker
 sudo systemctl start docker
 
