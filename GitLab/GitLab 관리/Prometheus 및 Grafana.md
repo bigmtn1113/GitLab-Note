@@ -47,9 +47,8 @@ End-user와 Prometheus traffic을 두 개의 별도 applications로 분할하여
 
 ※ GitLab metrics와의 차이
 - 동일한 기능이나 성능 특성 차이
-- 기본 Rails application을 통한 방식이 기본값이며 소규모 GitLab 설치의 경우 권장  
-- 전용 metrics server를 통한 방식은 고성능 및 가용성을 추구하는 중대형 GitLab 설치의 경우 권장. 추가 memory 사용 수반  
-  localhost 통신이라 IP whitelist 설정 없이도 사용 가능
+- 기본 Rails application을 통한 방식이 기본값이며 소규모 GitLab 설치의 경우 권장. `/-/metrics` endpoint 사용
+- 전용 metrics server를 통한 방식은 고성능 및 가용성을 추구하는 중대형 GitLab 설치의 경우 권장. 추가 memory 사용 수반
 
 #### Redis exporter
 다양한 Redis metrics 측정
