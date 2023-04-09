@@ -130,9 +130,26 @@ grafana['enable'] = true
 Prometheus는 주기적으로 data sources에 연결하고 다양한 exporters를 통해 성능 metrics을 수집하여 작동  
 Grafana를 사용해 monitoring data를 보고 작업 가능
 
+### ※ `login.OAuthLogin(NewTransportWithCode)` error 발생
+#### 원인
+`/var/log/gitlab/grafana/current`
+```
+error="Post \"https://gitlab.example.com/oauth/token\": dial tcp 172.18.0.2:443: connect: connection refused"
+```
+
+Hostname으로 설정된 domain을 dns resolving할 때 외부 nameserver를 거치지 않고 `/etc/resolv.conf`에 명시된 nameserver(ex. 127.0.0.11)로 먼저 접근. 
+따라서 domain에 대해 반환되는 IP는 container IP이며 그 후에 443 port를 통해 service에 연결을 시도  
+Reverse-proxy에서 SSL 처리가 끝났기 때문에 container는 443 port에 대한 준비가 되어 있지 않으므로 error 발생
+
+#### 해결책
+GitLab 앞에 reverse-proxy를 사용하고 있을 경우 hostname 설정을 하면 해당 error 발생  
+`docker-compose.yml`에서 hostname 부분 제거
+
+
 <hr>
 
 ## 참고
 - **Prometheus** - https://docs.gitlab.com/ee/administration/monitoring/prometheus/
 - **IP whitelist** - https://docs.gitlab.com/ee/administration/monitoring/ip_allowlist.html
 - **Grafana** - https://docs.gitlab.com/omnibus/settings/grafana.html
+- **Grafana error** - https://gitlab.com/gitlab-org/omnibus-gitlab/-/issues/4917, https://github.com/grafana/grafana/issues/16968
