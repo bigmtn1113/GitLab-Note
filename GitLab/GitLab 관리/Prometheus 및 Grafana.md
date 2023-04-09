@@ -108,6 +108,26 @@ registry['debug_addr'] = "localhost:5001"  # localhost:5001/metrics
 gitlab_exporter['enable'] = true
 ```
 
+<br>
+
+## Grafana
+Embedded Prometheus monitoring system에서 성능 metrics를 시각화하는 데 사용할 수 있는 강력한 dashboard 구축 system
+
+### Grafana 활성화
+`/etc/gitlab/gitlab.rb`  
+```ruby
+grafana['enable'] = true
+```
+
+활성화되면 https://gitlab.example.com/-/grafana을 통해 Grafana를 사용할 수 있으며 GitLab의 SSO가 자동으로 구성
+
+### 화면
+![image](https://user-images.githubusercontent.com/46125158/230772047-0f31cecf-9c56-42d1-96ee-c38a2e2d8afb.png)  
+![image](https://user-images.githubusercontent.com/46125158/230772324-d27a7618-5ddc-41e8-829d-e41c85794e71.png)
+
+Prometheus는 주기적으로 data sources에 연결하고 다양한 exporters를 통해 성능 metrics을 수집하여 작동  
+Grafana를 사용해 monitoring data를 보고 작업 가능
+
 <hr>
 
 ## 참고
