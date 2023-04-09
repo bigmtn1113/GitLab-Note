@@ -69,7 +69,8 @@ End-user와 Prometheus traffic을 두 개의 별도 applications로 분할하여
 - `localhost:9188` 사용
 
 #### Registry exporter
-다양한 레지스트리 metrics 측정
+다양한 레지스트리 metrics 측정  
+GitLab container registry 활성화 후 사용 가능
 
 - 기본적으로 비활성화
 - `localhost:5001/metrics` 사용
