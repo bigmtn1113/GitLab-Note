@@ -23,7 +23,7 @@
 
 ## GitLab
 ### ⭐ GitLab 관리
-- Backup and restore
+- [Backup and restore](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore)
   - [Cloud storage에 backup 파일 업로드](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Cloud%20storage%EC%97%90%20backup%20%ED%8C%8C%EC%9D%BC%20%EC%97%85%EB%A1%9C%EB%93%9C.md)
   - [Daily backup을 위한 cron 구성 - Docker](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Daily%20backup%EC%9D%84%20%EC%9C%84%ED%95%9C%20cron%20%EA%B5%AC%EC%84%B1%20-%20Docker.md)
   - [Daily backup을 위한 cron 구성 - Helm chart](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Daily%20backup%EC%9D%84%20%EC%9C%84%ED%95%9C%20cron%20%EA%B5%AC%EC%84%B1%20-%20Helm%20chart.md)
@@ -43,18 +43,18 @@
 - [gitlabrb_sanitizer - gitlab.rb 파일 소독](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/gitlabrb_sanitizer%20-%20gitlab.rb%20%ED%8C%8C%EC%9D%BC%20%EC%86%8C%EB%8F%85.md)
 
 ### ⭐ GitLab 사용
-- .gitlab-ci.yml 사용
+- [.gitlab-ci.yml 사용](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9)
   - [Cache](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Cache.md)
   - [Job artifacts](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Job%20artifacts.md)
   - [extends](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/extends.md)
   - [git clone 및 git push](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/git%20clone%20%EB%B0%8F%20git%20push.md)
-- API 사용
+- [API 사용](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9)
   - [Commits API](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9/Commits%20API.md)
   - [Groups API](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9/Groups%20API.md)
   - [Pagination](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9/Pagination.md)
   - [Pipelines API](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9/Pipelines%20API.md)
   - [Projects API](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9/Projects%20API.md)
-- GitLab subscription
+- [GitLab subscription](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20subscription)
   - [GitLab self-managed 구독 사용자 합계 보기](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20subscription/GitLab%20self-managed%20%EA%B5%AC%EB%8F%85%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%ED%95%A9%EA%B3%84%20%EB%B3%B4%EA%B8%B0.md)
 - [GitLab CICD variables](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20CICD%20variables.md)
 - [GitLab Container Registry 사용](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20Container%20Registry%20%EC%82%AC%EC%9A%A9.md)
