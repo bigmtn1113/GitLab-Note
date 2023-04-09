@@ -123,6 +123,8 @@ grafana['enable'] = true
 
 ### 화면
 ![image](https://user-images.githubusercontent.com/46125158/230772047-0f31cecf-9c56-42d1-96ee-c38a2e2d8afb.png)  
+![image](https://user-images.githubusercontent.com/46125158/230772769-cdc4dc47-6d4e-460c-9c65-728907901af8.png)  
+![image](https://user-images.githubusercontent.com/46125158/230772698-b33f3766-2975-41bf-920a-8e1786a48580.png)  
 ![image](https://user-images.githubusercontent.com/46125158/230772324-d27a7618-5ddc-41e8-829d-e41c85794e71.png)
 
 Prometheus는 주기적으로 data sources에 연결하고 다양한 exporters를 통해 성능 metrics을 수집하여 작동  
