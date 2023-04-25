@@ -80,19 +80,17 @@ Jira issues import는 비동기 background job으로 수행되므로 import queu
 
 1. **Issues** page에서 **Import Issues > Import from Jira** 선택  
     **Import from Jira** option은 [올바른 권한](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Jira.md#%EA%B6%8C%ED%95%9C)이 있는 경우에만 표시  
-    이전에 Jira integration을 설정한 경우 dropdown 목록에서 access 권한이 있는 Jira projects를 볼 수 있음  
-    ![image](https://user-images.githubusercontent.com/46125158/234180472-a05f7d0e-c387-4773-a3da-7fb75f24e6b8.png)
+    이전에 Jira integration을 설정한 경우 dropdown 목록에서 access 권한이 있는 Jira projects를 볼 수 있음
 2. Dropdown 목록에서 **Import from**을 선택하고 issues를 import할 Jira project를 선택  
     **Jira-GitLab user mapping template** section의 table에는 Jira 사용자가 mapping된 GitLab 사용자가 표시  
     양식이 나타나면 dropdown 목록은 기본적으로 import를 수행하는 사용자로 지정  
-    ![image](https://user-images.githubusercontent.com/46125158/234180606-fd3d4a9b-f6ad-499c-b4d8-05295487dab4.png)
 3. Mapping을 변경하려면 **GitLab username** 열에서 dropdown 목록을 선택하고 각 Jira 사용자에 mapping할 사용자를 선택  
     Dropdown 목록에 모든 사용자가 표시되지 않을 수 있으므로 검색 표시줄을 사용하여 해당 GitLab project에서 특정 사용자를 검색
 4. **Continue** 선택. import가 시작되었다는 확인 message가 표시  
-    import가 background에서 실행되는 동안 import 상태 page에서 issues page로 이동할 수 있으며 issues 목록에 나타나는 새 issues를 볼 수 있음  
-    ![image](https://user-images.githubusercontent.com/46125158/234180988-748a2907-20e3-483f-b839-6c1574dd4c09.png)
+    import가 background에서 실행되는 동안 import 상태 page에서 issues page로 이동할 수 있으며 issues 목록에 나타나는 새 issues를 볼 수 있음
 5. Import 상태를 확인하려면 Jira import page로 다시 이동  
-    ![image](https://user-images.githubusercontent.com/46125158/234181339-66bc8cfd-0fcf-4403-8940-ef4745597570.png)
+
+![image](https://user-images.githubusercontent.com/46125158/234181448-3eb139e4-3f5d-4abe-8614-4ad6a4fa697e.png)
 
 <hr>
 
