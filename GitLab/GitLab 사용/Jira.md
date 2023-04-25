@@ -61,6 +61,10 @@ GitLab에서 project 설정을 구성하여 Jira integration 활성화 가능. �
 
 ![image](https://user-images.githubusercontent.com/46125158/234179932-a2ed5a44-45a8-44f3-9e01-8a3a77712b25.png)
 
+※ 9번부터 진행되는 Jira issues 관련된 부분은 Premium 기능  
+**Enable Jira issues**를 선택하지 않을 경우 GitLab에서 Jira issues를 볼 수 없고 Jira project를 여는 Jira link만 표시됨  
+![image](https://user-images.githubusercontent.com/46125158/234183217-dd2cdda7-d673-4067-bbdd-0440e3585579.png)
+
 <br>
 
 ## Jira migration
