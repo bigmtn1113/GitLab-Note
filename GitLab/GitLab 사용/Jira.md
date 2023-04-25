@@ -43,7 +43,7 @@ GitLab에서 project 설정을 구성하여 Jira integration 활성화 가능. �
 6. GitLab에서 **Trigger** 작업이 수행될 때 Jira issue에 댓글을 달려면 **Enable comments** 선택
 7. GitLab에서 종료 참조(자동으로 issue 종료)가 생성될 때 Jira issue를 전환하려면 **Enable Jira transitions** 선택
 8. Jira 구성 정보 제공:
-    - **Web URL** : 이 GitLab project에 연결하는 Jira instance web interface의 기본 URL(ex. `https://jira.example.com`)
+    - **Web URL** : GitLab project에 연결하는 Jira instance web interface의 기본 URL(ex. `https://jira.example.com`)
     - **Jira API URL** : Jira instance API에 대한 기본 URL(ex. `https://jira-api.example.com`). 설정하지 않은 경우 기본값은 **Web URL** 값. **Atlassian Cloud의 Jira**를 사용하는 경우 공백
     - **Username 또는 Email** : **Jira Server** 의 경우, `username` 사용. **Atlassian Cloud의 Jira**의 경우, `email` 사용
     - **Pssword/API token** : **Jira Server**의 경우, `password` 사용. **Atlassian Cloud의 Jira**의 경우, `API token` 사용
