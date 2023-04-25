@@ -20,6 +20,8 @@ Atlassian Cloud에서 Jira와 integration하려면 API token을 생성 필요
 
 API token을 복사하려면 **Copy**를 선택하고 token을 안전한 곳에 paste 진행
 
+![image](https://user-images.githubusercontent.com/46125158/234174481-455533fe-539e-48d2-b1a9-519fcecf9f94.png)
+
 이후 GitLab을 구성하려면 다음 정보 필요
 - 새로 생성된 token
 - Token을 만들 때 사용한 email 주소
