@@ -59,6 +59,8 @@ GitLab에서 project 설정을 구성하여 Jira integration 활성화 가능. �
 
 이제 GitLab project가 instance의 모든 Jira projects와 상호 작용할 수 있으며 이제 project에 Jira project를 여는 Jira link가 표시됨
 
+![image](https://user-images.githubusercontent.com/46125158/234179932-a2ed5a44-45a8-44f3-9e01-8a3a77712b25.png)
+
 <br>
 
 ## Jira migration
