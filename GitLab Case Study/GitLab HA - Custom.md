@@ -1,4 +1,4 @@
-# GitLab HA
+# GitLab HA - Custom
 
 <br>
 
@@ -8,7 +8,7 @@
 일반적으로 사용자가 3,000명 이상이거나 GitLab이 down되면 workflow에 심각한 영향을 미칠 수 있는 경우에 사용.  
 GitLab users 수 및 workflow에 따라 권장 참조 architecture를 적절하게 조정 필요.
 
-GitLab HA 구성을 위해서 **GitLab package (Omnibus)**를 이용하는 방식과 **Cloud native hybrid**를 이용하는 방식 중 선택 가능.
+GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방식과 **Cloud native hybrid**를 이용하는 방식 중 선택 가능.
 
 <br>
 
