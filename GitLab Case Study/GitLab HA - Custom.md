@@ -85,7 +85,7 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 - **PRAEFECT_3**
   - 10.6.0.133
 - **GITLAB_URL**
-  - https://example.com
+  - https://gitlab.example.com
 
 <br>
 
