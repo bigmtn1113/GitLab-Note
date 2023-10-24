@@ -40,7 +40,7 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   GitLab에서 Git data를 읽고 쓰는 용도로 사용.
 - **PostgreSQL** ★  
   GitLab용 Database.  
-  Praefect database 구성도 별도로 필요하나, 여기선 같은 database server에서 구성.
+  ※ Praefect database 구성도 별도로 필요하나, repositories가 위치한 곳 및 일부 대기중인 작업들에 대한 metadata만 포함되므로 요구 사항이 상대적으로 낮기 때문에 여기선 같은 database server에서 구성.
 - Object storage  
   다양한 유형의 data를 보관하기 위해 사용.
 - Prometheus  
@@ -51,6 +51,41 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   Service 검색 및 구성을 위한 도구.
 - PGBouncer  
   Database 연결 사용을 최적화할 목적으로 connection pooling에 PgBouncer를 사용.
+
+<br>
+
+## 구성 환경
+### GitLab 및 Database version
+- **GitLab**
+  - 15.11.11-ee
+- **Database(PostgreSQL)**
+  - 13.11
+
+<br>
+
+### 변수 설정
+- **EXTERNAL_LOAD_BALANCER**
+  - 10.6.0.10
+- **INTERNAL_LOAD_BALANCER**
+  - 10.6.0.20
+- **POSTGRESQL**
+  - 10.6.0.31
+- **GITLAB_APPLICATION**
+  - 10.6.0.41
+- **GITALY_1**
+  - 10.6.0.51
+- **GITALY_2**
+  - 10.6.0.52
+- **GITALY_3**
+  - 10.6.0.93
+- **PRAEFECT_1**
+  - 10.6.0.131
+- **PRAEFECT_2**
+  - 10.6.0.132
+- **PRAEFECT_3**
+  - 10.6.0.133
+- **GITLAB_URL**
+  - https://example.com
 
 <br>
 
