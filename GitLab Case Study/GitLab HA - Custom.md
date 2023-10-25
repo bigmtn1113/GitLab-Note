@@ -39,8 +39,11 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   GitLab의 Git access 속도가 느려지는 문제를 해결하기 위해 구축한 Git repositories에 대한 높은 수준의 RPC access를 제공하는 service.  
   GitLab에서 Git data를 읽고 쓰는 용도로 사용.
 - **PostgreSQL** ★  
-  GitLab용 Database.  
-  ※ Praefect database 구성도 별도로 필요하나, repositories가 위치한 곳 및 일부 대기중인 작업들에 대한 metadata만 포함되므로 요구 사항이 상대적으로 낮기 때문에 여기선 같은 database server에서 구성.
+  GitLab용 Database.
+- **Praefect PostgreSQL** ★  
+  Praefect가 Gitaly Cluster 상태에 data를 저장하기 위해 사용.  
+  Repositories가 위치한 곳 및 일부 대기중인 작업들에 대한 metadata 포함.  
+  ※ 요구 사항이 상대적으로 낮음.
 - Object storage  
   다양한 유형의 data를 보관하기 위해 사용.
 - Prometheus  
@@ -84,6 +87,8 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   - 10.6.0.132
 - **PRAEFECT_3**
   - 10.6.0.133
+- **PRAEFECT_POSTGRESQL**
+  - 10.6.0.141
 - **GITLAB_URL**
   - https://gitlab.example.com
 
