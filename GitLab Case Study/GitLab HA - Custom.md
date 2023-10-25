@@ -72,7 +72,7 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 - **INTERNAL_LOAD_BALANCER**
   - 10.6.0.20
 - **POSTGRESQL**
-  - 10.6.0.31
+  - 10.6.0.21
 - **GITLAB_APPLICATION**
   - 10.6.0.41
 - **GITALY_1**
