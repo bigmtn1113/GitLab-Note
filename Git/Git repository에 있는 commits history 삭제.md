@@ -4,7 +4,8 @@
 
 ## 1. Local에서 commits 삭제
 > [!NOTE]  
-> `git status` 명령을 사용하여 working directory에 변경 사항이 없는지 확인.
+> `git status` 명령을 사용하여 working directory에 변경 사항이 없는지 확인.  
+> 삭제 후 `git log`를 통해 commits history가 지워졌는지 확인.
 
 <br>
 
