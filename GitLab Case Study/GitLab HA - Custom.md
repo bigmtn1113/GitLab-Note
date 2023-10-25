@@ -168,3 +168,4 @@ server {
 
 ## 참고
 - **GitLab 참조 architecture: 최대 3,000명의 사용자** - https://docs.gitlab.com/ee/administration/reference_architectures/3k_users.html
+- **Database 설정** - https://docs.gitlab.com/ee/install/installation.html#7-database
