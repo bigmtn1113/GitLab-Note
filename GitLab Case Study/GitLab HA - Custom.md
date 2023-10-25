@@ -89,8 +89,78 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   - 10.6.0.133
 - **PRAEFECT_POSTGRESQL**
   - 10.6.0.141
-- **GITLAB_URL**
-  - https://gitlab.example.com
+- **GITLAB_DOMAIN**
+  - gitlab-example.com
+
+<br>
+
+## External Load Balancer 구성
+| LB Port | Backend port | Protocol |
+|---|---|---|
+| 80 | 80 | HTTP |
+| 443 | 443 | TCP 또는 HTTP |
+| 22 | 22 | TCP |
+
+### Nginx 설정
+Nginx 설정 file 작성.
+```
+cd /etc/nginx/conf.d/
+vi <GITLAB_DOMAIN>.conf
+```
+
+```nginx
+upstream gitlab {
+    server <GITLAB_APPLICATION>:80;
+}
+ 
+server {
+    listen 443 ssl;
+    server_name <GITLAB_DOMAIN>;
+	
+    ssl_certificate      <fullchain.pem file path>;
+    ssl_certificate_key  <privkey.pem file path>;
+	
+    location / {
+        proxy_pass http://gitlab;
+    }
+}
+ 
+server {
+    listen 80;
+    server_name <GITLAB_DOMAIN>;
+    return 301 https://$host$request_uri;
+}
+```
+
+<br>
+
+## Internal Load Balancer 구성s
+| LB Port | Backend port | Protocol |
+|---|---|---|
+| 2305 | 2305 | TCP |
+
+### Nginx 설정
+Nginx 설정 file 작성.
+```
+cd /etc/nginx/conf.d/
+vi GitLab-Internal-LB.conf
+```
+
+```nginx
+upstream GitLab-Internal-LB {
+    server 10.6.0.131:2305;
+    server 10.6.0.132:2305;
+    server 10.6.0.133:2305;
+}
+ 
+server {
+    listen 2305;
+
+    location / {
+        proxy_pass http://GitLab-Internal-LB;
+    }
+}
+```
 
 <br>
 
