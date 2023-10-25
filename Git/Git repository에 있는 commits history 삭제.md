@@ -31,7 +31,7 @@
   ```
   git rebase -i <삭제하려는 commit의 이전 commit hash>
   ```
-  대화형 rebase에서 삭제하고 싶은 commits를 찾아서 pick을 drop으로 수정.
+  대화형 rebase에서 삭제하고 싶은 commits(밑으로 갈수록 최신)를 찾아서 pick을 drop으로 수정.
   그 후, 저장하고 종료(:wq)  
   (ex. pick aaaaaaa a.md -> drop aaaaaaa a.md)
   
