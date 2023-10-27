@@ -95,6 +95,10 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   - P@ssw0rd01
 - **PRAEFECT_SQL_PASSWORD**
   - P@ssw0rd01
+- **PRAEFECT_EXTERNAL_TOKEN**
+  - 624A79DED9D1FAD49E574A722DE1FE421312321BEACB4DF18677D11DFE5C44A1
+- **PRAEFECT_INTERNAL_TOKEN**
+  - D7A21C324B08464ECF0D24A40375802686AF4D237E3714051AF2035B5214462D
 
 <br>
 
@@ -138,7 +142,7 @@ server {
 
 <br>
 
-## Internal Load Balancer 구성s
+## Internal Load Balancer 구성
 | LB Port | Backend port | Protocol |
 |---|---|---|
 | 2305 | 2305 | TCP |
@@ -268,6 +272,25 @@ Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 �
        }
     }
     ```
+
+<br>
+
+### Praefect 구성
+Praefect는 Gitaly Cluster의 router이자 transaction 관리자이며, Gitaly에 대한 모든 연결은 praefect를 통과.
+
+> [!IMPORTANT]  
+> Praefect는 3개 이상의 홀수 nodes에 배포되어야 하는데, 이는 nodes가 quorum의 일부로 투표를 할 수 있도록 하기 위한 것.
+
+Praefect는 cluster 전반의 통신을 보호하기 위해 몇 가지 secret tokens가 필요:
+- `PRAEFECT_EXTERNAL_TOKEN`: Gitaly cluster에서 hosting되는 repositories에 사용되며, 이 token을 가지고 있는 Gitaly clients에서만 access 가능.
+- `PRAEFECT_INTERNAL_TOKEN`: Gitaly cluster 내부의 복제 traffic에 사용되는데, 이는 Gitaly clients가 Praefect cluster의 내부 nodes에 직접 access할 수 없어야 한다는 점에서 `PRAEFECT_EXTERNAL_TOKEN`과 다름. 이는 data 손실로 이어질 가능성 존재.
+- `PRAEFECT_SQL_PASSWORD`: 이전 섹션에서 정의한 Praefect PostgreSQL 비밀번호도 이 설정의 일부로 필요.
+
+Praefect node가 여러 개인 경우 하나의 node를 deploy node로 지정.
+
+> [!WARNING]  
+> Praefect는 전용 node에서만 실행 필수.  
+> Application server 또는 Gitaly node에서 Praefect를 실행하지 말 것.
 
 <hr>
 
