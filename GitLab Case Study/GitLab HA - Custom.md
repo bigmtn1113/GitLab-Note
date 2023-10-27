@@ -93,6 +93,8 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   - gitlab-example.com
 - **GITLAB_SQL_PASSWORD**
   - P@ssw0rd01
+- **PRAEFECT_SQL_PASSWORD**
+  - P@ssw0rd01
 
 <br>
 
@@ -171,67 +173,101 @@ Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL�
 또는 Linux package와 별도로 자체 PostgreSQL instance 또는 cluster를 관리하도록 선택 가능.
 
 1. GitLab용 database user 생성
-```
-sudo psql -U postgres -d template1 -c "CREATE USER git WITH PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
-```
+    ```
+    sudo psql -U postgres -d template1 -c "CREATE USER git WITH PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
+    ```
 
 2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성. (d option은 db name)
-```
-sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
-sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS btree_gist;"
-sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS plpgsql;"
-```
+    ```
+    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
+    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS btree_gist;"
+    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS plpgsql;"
+    ```
 
 3. GitLab production database를 생성하고 database에 대한 모든 권한을 부여
-```
-sudo psql -U postgres -d template1 -c "CREATE DATABASE gitlabhq_production OWNER git;"
-```
+    ```
+    sudo psql -U postgres -d template1 -c "CREATE DATABASE gitlabhq_production OWNER git;"
+    ```
 
 4. 새 user로 새 database에 연결
-```
-sudo psql -U git -H -d gitlabhq_production
-```
+    ```
+    sudo psql -U git -H -d gitlabhq_production
+    ```
 
 5. 확장 module인 pg_trgm, btree_gist, plpgsql이 활성화되어 있는지 각각 확인. enabled가 t로 출력
-```sql
-SELECT true AS enabled
-FROM pg_available_extensions
-WHERE name = 'pg_trgm'
-AND installed_version IS NOT NULL;
- 
-SELECT true AS enabled
-FROM pg_available_extensions
-WHERE name = 'btree_gist'
-AND installed_version IS NOT NULL;
- 
-SELECT true AS enabled
-FROM pg_available_extensions
-WHERE name = 'plpgsql'
-AND installed_version IS NOT NULL;
-```
+    ```sql
+    SELECT true AS enabled
+    FROM pg_available_extensions
+    WHERE name = 'pg_trgm'
+    AND installed_version IS NOT NULL;
+    
+    SELECT true AS enabled
+    FROM pg_available_extensions
+    WHERE name = 'btree_gist'
+    AND installed_version IS NOT NULL;
+    
+    SELECT true AS enabled
+    FROM pg_available_extensions
+    WHERE name = 'plpgsql'
+    AND installed_version IS NOT NULL;
+    ```
 
 6. DB session 종료
-```sql
-gitlabhq_production> \q
-```
+    ```sql
+    gitlabhq_production> \q
+    ```
 
 7. `/etc/gitlab/gitlab.rb`에서 외부 PostgreSQL service에 대한 적절한 연결 세부 정보로 GitLab application server 구성.
-```ruby
-postgresql['enable'] = false
- 
-gitlab_rails['db_adapter'] = 'postgresql'
-gitlab_rails['db_encoding'] = 'unicode'
-gitlab_rails['db_database'] = 'gitlabhq_production'
-gitlab_rails['db_username'] = 'git'
-gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
-gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
-gitlab_rails['db_port'] = 5432
-```
+    ```ruby
+    postgresql['enable'] = false
+    
+    gitlab_rails['db_adapter'] = 'postgresql'
+    gitlab_rails['db_encoding'] = 'unicode'
+    gitlab_rails['db_database'] = 'gitlabhq_production'
+    gitlab_rails['db_username'] = 'git'
+    gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
+    gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
+    gitlab_rails['db_port'] = 5432
+    ```
 
 8. 변경 사항을 적용하기 위해 GitLab 재구성.
-```
-sudo gitlab-ctl reconfigure
-```
+    ```
+    sudo gitlab-ctl reconfigure
+    ```
+
+<br>
+
+## Gitaly Cluster 구성
+Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 권장하는 내결함성 solution.  
+이 구성에서 모든 Git repository는 cluster의 모든 Gitaly node에 저장되며, 한 node는 primary로 지정되는데 primary node가 다운되면 자동으로 장애 조치가 발생.
+
+### Praefect PostgreSQL 구성
+1. 관리 access 권한으로 PostgreSQL server에 연결
+    ```
+    sudo psql -U postgres -d template1 -h '<POSTGRESQL_HOST>'
+    ```
+
+2. Praefect에서 사용할 새 user인 `praefect` 생성.
+    ```sql
+    CREATE ROLE praefect WITH LOGIN PASSWORD '<PRAEFECT_SQL_PASSWORD>';
+    ```
+
+3. `praefect`를 소유자로 새 database인 praefect_production 생성.
+    ```sql
+    CREATE DATABASE praefect_production WITH OWNER praefect ENCODING UTF8;
+    ```
+
+4. DB 사용을 위해 Praefect server 구성
+    ```ruby
+    praefect['configuration'] = {
+      database: {
+          host: '<POSTGRESQL_HOST'>,
+          port: 5432,
+          password: '<PRAEFECT_SQL_PASSWORD>',
+          dbname: 'praefect_production',
+       }
+    }
+    ```
 
 <hr>
 
@@ -239,3 +275,4 @@ sudo gitlab-ctl reconfigure
 - **GitLab 참조 architecture: 최대 3,000명의 사용자** - https://docs.gitlab.com/ee/administration/reference_architectures/3k_users.html
 - **외부 PostgreSQL 설정** - https://docs.gitlab.com/ee/administration/postgresql/external.html
 - **Database 설정** - https://docs.gitlab.com/ee/install/installation.html#7-database
+- **Gitaly Cluster 구성** - https://docs.gitlab.com/ee/administration/gitaly/praefect.html
