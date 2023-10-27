@@ -216,7 +216,7 @@ gitlabhq_production> \q
 ```
 
 7. `/etc/gitlab/gitlab.rb`에서 외부 PostgreSQL service에 대한 적절한 연결 세부 정보로 GitLab application server 구성.
-```
+```ruby
 postgresql['enable'] = false
  
 gitlab_rails['db_adapter'] = 'postgresql'
