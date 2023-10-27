@@ -66,31 +66,33 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 
 <br>
 
-### 변수 설정
-- **EXTERNAL_LOAD_BALANCER**
+### 변수 확인
+- **EXTERNAL_LOAD_BALANCER_HOST**
   - 10.6.0.10
-- **INTERNAL_LOAD_BALANCER**
+- **INTERNAL_LOAD_BALANCER_HOST**
   - 10.6.0.20
-- **POSTGRESQL**
+- **POSTGRESQL_HOST**
   - 10.6.0.21
-- **GITLAB_APPLICATION**
+- **GITLAB_APPLICATION_HOST**
   - 10.6.0.41
-- **GITALY_1**
+- **GITALY_1_HOST**
   - 10.6.0.51
-- **GITALY_2**
+- **GITALY_2_HOST**
   - 10.6.0.52
-- **GITALY_3**
+- **GITALY_3_HOST**
   - 10.6.0.93
-- **PRAEFECT_1**
+- **PRAEFECT_1_HOST**
   - 10.6.0.131
-- **PRAEFECT_2**
+- **PRAEFECT_2_HOST**
   - 10.6.0.132
-- **PRAEFECT_3**
+- **PRAEFECT_3_HOST**
   - 10.6.0.133
-- **PRAEFECT_POSTGRESQL**
+- **PRAEFECT_POSTGRESQL_HOST**
   - 10.6.0.141
 - **GITLAB_DOMAIN**
   - gitlab-example.com
+- **GITLAB_SQL_PASSWORD**
+  - P@ssw0rd01
 
 <br>
 
@@ -110,7 +112,7 @@ vi <GITLAB_DOMAIN>.conf
 
 ```nginx
 upstream gitlab {
-    server <GITLAB_APPLICATION>:80;
+    server <GITLAB_APPLICATION_HOST>:80;
 }
  
 server {
@@ -148,9 +150,9 @@ vi GitLab-Internal-LB.conf
 
 ```nginx
 upstream GitLab-Internal-LB {
-    server 10.6.0.131:2305;
-    server 10.6.0.132:2305;
-    server 10.6.0.133:2305;
+    server <PRAEFECT_1_HOST>:2305;
+    server <PRAEFECT_2_HOST>:2305;
+    server <PRAEFECT_3_HOST>:2305;
 }
  
 server {
@@ -170,7 +172,7 @@ Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL�
 
 1. GitLab용 database user 생성
 ```
-sudo psql -U postgres -d template1 -c "CREATE USER git WITH PASSWORD 'GITLAB_SQL_PASSWORD' CREATEDB;"
+sudo psql -U postgres -d template1 -c "CREATE USER git WITH PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
 ```
 
 2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성. (d option은 db name)
@@ -211,6 +213,24 @@ AND installed_version IS NOT NULL;
 6. DB session 종료
 ```sql
 gitlabhq_production> \q
+```
+
+7. `/etc/gitlab/gitlab.rb`에서 외부 PostgreSQL service에 대한 적절한 연결 세부 정보로 GitLab application server 구성.
+```
+postgresql['enable'] = false
+ 
+gitlab_rails['db_adapter'] = 'postgresql'
+gitlab_rails['db_encoding'] = 'unicode'
+gitlab_rails['db_database'] = 'gitlabhq_production'
+gitlab_rails['db_username'] = 'git'
+gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
+gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
+gitlab_rails['db_port'] = 5432
+```
+
+8. 변경 사항을 적용하기 위해 GitLab 재구성.
+```
+sudo gitlab-ctl reconfigure
 ```
 
 <hr>
