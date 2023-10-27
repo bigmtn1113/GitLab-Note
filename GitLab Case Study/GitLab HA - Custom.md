@@ -261,18 +261,6 @@ Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 �
     CREATE DATABASE praefect_production WITH OWNER praefect ENCODING UTF8;
     ```
 
-4. DB 사용을 위해 Praefect server 구성
-    ```ruby
-    praefect['configuration'] = {
-      database: {
-          host: '<POSTGRESQL_HOST'>,
-          port: 5432,
-          password: '<PRAEFECT_SQL_PASSWORD>',
-          dbname: 'praefect_production',
-       }
-    }
-    ```
-
 <br>
 
 ### Praefect 구성
@@ -291,6 +279,102 @@ Praefect node가 여러 개인 경우 하나의 node를 deploy node로 지정.
 > [!WARNING]  
 > Praefect는 전용 node에서만 실행 필수.  
 > Application server 또는 Gitaly node에서 Praefect를 실행하지 말 것.
+
+<br>
+
+1. GitLab Linux package download 및 install.
+
+2. `/etc/gitlab/gitlab.rb` 수정.
+    ```ruby
+    # Avoid running unnecessary services on the Praefect server
+    gitaly['enable'] = false
+    postgresql['enable'] = false
+    redis['enable'] = false
+    nginx['enable'] = false
+    puma['enable'] = false
+    sidekiq['enable'] = false
+    gitlab_workhorse['enable'] = false
+    prometheus['enable'] = false
+    alertmanager['enable'] = false
+    grafana['enable'] = false
+    gitlab_exporter['enable'] = false
+    gitlab_kas['enable'] = false
+    
+    # Enable only the Praefect service
+    praefect['enable'] = true
+    
+    # Prevent database migrations from running on upgrade automatically
+    praefect['auto_migrate'] = false
+    gitlab_rails['auto_migrate'] = false
+
+    praefect['configuration'] = {
+       listen_addr: '0.0.0.0:2305',
+       auth: {
+          token: '<PRAEFECT_EXTERNAL_TOKEN>',
+       },
+       database: {
+          host: '<PRAEFECT_POSTGRESQL_HOST'>,
+          port: 5432,
+          dbname: 'praefect_production',
+          user: 'praefect'
+          password: '<PRAEFECT_SQL_PASSWORD>',
+       },
+       virtual_storage: [
+          {
+             name: 'default',
+             node: [
+                {
+                   storage: 'gitaly-1',
+                   address: 'tcp://<GITALY_1_HOST>:8075',
+                   token: '<PRAEFECT_INTERNAL_TOKEN>'
+                },
+                {
+                   storage: 'gitaly-2',
+                   address: 'tcp://<GITALY_2_HOST>:8075',
+                   token: '<PRAEFECT_INTERNAL_TOKEN>'
+                },
+                {
+                   storage: 'gitaly-3',
+                   address: 'tcp://<GITALY_3_HOST>:8075',
+                   token: '<PRAEFECT_INTERNAL_TOKEN>'
+                },
+             ],
+          },
+       ],
+    }
+    ```
+
+3. 변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 Praefect 재구성.
+    ```
+    gitlab-ctl reconfigure
+    ```
+
+4. `/etc/gitlab/gitlab.rb`를 수정해서 Praefect 데이터베이스 자동 마이그레이션을 다시 활성화.  
+    (Praefect node가 여러 개인 경우, deploy node에서만 진행)
+    ```ruby
+    praefect['auto_migrate'] = true
+    ```
+
+    변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 Praefect 재구성.
+    ```
+    gitlab-ctl reconfigure
+    ```
+
+5. Praefect 재시작.
+    ```
+    gitlab-ctl restart praefect
+    ```
+
+6. Praefect가 PostgreSQL에 연결할 수 있는지 확인.
+    ```
+    sudo -u git /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml sql-ping
+    ```
+    
+    ※ sudo 명령어 실행이 불가능할 경우 다음과 같이 실행.
+    ```
+    su git
+    /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml sql-ping
+    ```
 
 <hr>
 
