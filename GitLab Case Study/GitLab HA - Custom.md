@@ -19,7 +19,7 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 ### Components
 상황에 맞춰서 custom하게 components 분리 가능.  
 본 page에선 ★ 표시되어 있는 것만 분리 구성.  
-(★★는 단일 GitLab server에서 default로 운영)
+(★★는 단일 GitLab application server에서 default로 운영)
 
 - **GitLab Rails** ★★  
   GitLab의 핵심 요소.  
@@ -374,6 +374,78 @@ Praefect node가 여러 개인 경우 하나의 node를 deploy node로 지정.
     ```
     su git
     /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml sql-ping
+    ```
+
+<br>
+
+### Gitaly 구성
+GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.  
+이들은 전용 nodes여야 하며, 이 nodes에서 다른 services를 실행하지 말 것.
+
+1. GitLab Linux package download 및 install.
+
+2. `/etc/gitlab/gitlab.rb` 수정.
+    ```ruby
+    # Disable all other services on the Gitaly node
+    postgresql['enable'] = false
+    redis['enable'] = false
+    nginx['enable'] = false
+    grafana['enable'] = false
+    puma['enable'] = false
+    sidekiq['enable'] = false
+    gitlab_workhorse['enable'] = false
+    prometheus_monitoring['enable'] = false
+    gitlab_kas['enable'] = false
+    
+    # Enable only the Gitaly service
+    gitaly['enable'] = true
+    
+    # Disable database migrations to prevent database connections during 'gitlab-ctl reconfigure'
+    gitlab_rails['auto_migrate'] = false
+    
+    # Configure the gitlab-shell API callback URL. Without this, `git push` will fail.
+    # This can be your front door GitLab URL or an internal load balancer.
+    gitlab_rails['internal_api_url'] = 'https://<GITLAB_DOMAIN>'
+    
+    gitaly['configuration'] = {
+       listen_addr: '0.0.0.0:8075',
+       auth: {
+          token: '<PRAEFECT_INTERNAL_TOKEN>',
+       },
+       storage: [
+          {
+             name: 'gitaly-1',
+             path: '/var/opt/gitlab/git-data',
+          },
+          {
+             name: 'gitaly-2',
+             path: '/var/opt/gitlab/git-data',
+          },
+          {
+             name: 'gitaly-3',
+             path: '/var/opt/gitlab/git-data',
+          },
+       ],
+    }
+    ```
+
+3. GitLab application server의 `/etc/gitlab/gitlab-secrets.json` 복사 후 Gitaly servers의 같은 경로에 붙여넣기.
+
+4. 변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 Gitaly 재구성.
+    ```
+    gitlab-ctl reconfigure
+    ```
+
+5. Gitaly 재시작.
+    ```
+    gitlab-ctl restart gitaly
+    ```
+
+6. 각 Praefect node에 SSH로 연결하고 Praefect connection checker를 실행.  
+  Praefect가 Praefect 구성의 모든 Gitaly servers에 연결할 수 있는지 확인.
+  
+    ```
+    sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml dial-nodes
     ```
 
 <hr>
