@@ -147,27 +147,43 @@ server {
 |---|---|---|
 | 2305 | 2305 | TCP |
 
-### Nginx 설정
-Nginx 설정 file 작성.
+### HAProxy 설정
+> [!IMPORTANT]  
+> Nginx proxy_pass에 http://로 할 경우 TCP 통신이 불가능하므로, HAProxy로 진행.
+
+HAProxy 설정 file 작성.
 ```
-cd /etc/nginx/conf.d/
-vi GitLab-Internal-LB.conf
+cd /usr/local/etc/haproxy/
+vi GitLab-Internal-LB.cfg
 ```
 
-```nginx
-upstream GitLab-Internal-LB {
-    server <PRAEFECT_1_HOST>:2305;
-    server <PRAEFECT_2_HOST>:2305;
-    server <PRAEFECT_3_HOST>:2305;
-}
- 
-server {
-    listen 2305;
+```haproxy
+global
+    log /dev/log local0
+    log localhost local1 notice
+    log stdout format raw local0
 
-    location / {
-        proxy_pass http://GitLab-Internal-LB;
-    }
-}
+defaults
+    log global
+    default-server inter 10s fall 3 rise 2
+    balance leastconn
+
+frontend internal-praefect-tcp-in
+    bind *:2305
+    mode tcp
+    option tcplog
+    option clitcpka
+
+    default_backend praefect
+
+backend praefect
+    mode tcp
+    option tcp-check
+    option srvtcpka
+
+    server praefect1 10.6.0.131:2305 check
+    server praefect2 10.6.0.132:2305 check
+    server praefect3 10.6.0.133:2305 check
 ```
 
 <br>
