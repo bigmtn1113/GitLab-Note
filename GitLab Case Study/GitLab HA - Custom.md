@@ -154,7 +154,7 @@ server {
 HAProxy 설정 file 작성.
 ```
 cd /usr/local/etc/haproxy/
-vi GitLab-Internal-LB.cfg
+vi haproxy.cfg
 ```
 
 ```haproxy
