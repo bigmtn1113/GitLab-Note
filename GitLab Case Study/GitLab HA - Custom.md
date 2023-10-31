@@ -153,7 +153,8 @@ server {
 
 HAProxy 설정 file 작성.
 ```
-cd /etc/haproxy/
+# Docker로 haproxy 설치 시 경로. Source로 haproxy 설치 시 경로는 /etc/haproxy
+cd /usr/local/etc/haproxy/
 vi haproxy.cfg
 ```
 
