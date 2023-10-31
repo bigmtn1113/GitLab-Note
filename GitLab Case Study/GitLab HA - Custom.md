@@ -153,7 +153,7 @@ server {
 
 HAProxy 설정 file 작성.
 ```
-cd /usr/local/etc/haproxy/
+cd /etc/haproxy/
 vi haproxy.cfg
 ```
 
