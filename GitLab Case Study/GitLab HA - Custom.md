@@ -482,8 +482,6 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
         "gitaly_token" => '<PRAEFECT_EXTERNAL_TOKEN>'
       }
     })
-    
-    gitlab_shell['secret_token'] = '<GITLAB_SHELL_SECRET_TOKEN>'
     ```
 
 3. 변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 GitLab 재구성.
