@@ -501,9 +501,9 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 
 6. Praefect storage가 새 repositories를 저장하도록 구성되었는지 확인.
     1. 왼쪽 side bar에서 맨 위에 있는 갈매기 모양(v) 확장.
-    2. Admin Area 선택.
-    3. 왼쪽 side bar에서 Settings > Repository 선택.
-    4. Repository storage section 확장.
+    2. **Admin Area** 선택.
+    3. 왼쪽 side bar에서 **Settings > Repository** 선택.
+    4. **Repository storage** section 확장.
     5. `default` storage가 모든 새 repositories를 저장하기 위해 가중치가 100인 것을 확인.
 
 7. 새 project를 생성하여 모든 것이 작동하는지 확인.
