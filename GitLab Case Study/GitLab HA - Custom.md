@@ -343,10 +343,9 @@ Praefect node가 여러 개인 경우 하나의 node를 deploy node로 지정.
     }
     ```
 
-3. 변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 Praefect 재구성.
-    ```
-    gitlab-ctl reconfigure
-    ```
+3. 구성한 첫 번째 Linux package node에서 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
+    
+    첫 번째 Linux package node인 경우 이 단계 skip 가능.
 
 4. `/etc/gitlab/gitlab.rb`를 수정해서 Praefect 데이터베이스 자동 마이그레이션을 다시 활성화.  
     (Praefect node가 여러 개인 경우, deploy node에서만 진행)
@@ -428,9 +427,11 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
     }
     ```
 
-3. GitLab application server의 `/etc/gitlab/gitlab-secrets.json` 복사 후 Gitaly servers의 같은 경로에 붙여넣기.
+3. 구성한 첫 번째 Linux package node에서 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
+    
+    첫 번째 Linux package node인 경우 이 단계 skip 가능.
 
-4. 변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 Gitaly 재구성.
+4. Gitaly 재구성.
     ```
     gitlab-ctl reconfigure
     ```
@@ -484,34 +485,38 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
     })
     ```
 
-3. 변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 GitLab 재구성.
+3. 구성한 첫 번째 Linux package node에서 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
+    
+    첫 번째 Linux package node인 경우 이 단계 skip 가능.
+
+4. GitLab 재구성.
     ```
     gitlab-ctl reconfigure
     ```
 
-4. 각 Gitaly node에서 Git Hooks가 GitLab에 도달할 수 있는지 확인. 각 Gitaly node에서 실행.
+5. 각 Gitaly node에서 Git Hooks가 GitLab에 도달할 수 있는지 확인. 각 Gitaly node에서 실행.
     ```
     sudo /opt/gitlab/embedded/bin/gitaly check /var/opt/gitlab/gitaly/config.toml
     ```
 
-5. GitLab이 Praefect에 연결할 수 있는지 확인.
+6. GitLab이 Praefect에 연결할 수 있는지 확인.
     ```
     gitlab-rake gitlab:gitaly:check
     ```
 
-6. Praefect storage가 새 repositories를 저장하도록 구성되었는지 확인.
+7. Praefect storage가 새 repositories를 저장하도록 구성되었는지 확인.
     1. 왼쪽 side bar에서 맨 위에 있는 갈매기 모양(v) 확장.
     2. **Admin Area** 선택.
     3. 왼쪽 side bar에서 **Settings > Repository** 선택.
     4. **Repository storage** section 확장.
     5. `default` storage가 모든 새 repositories를 저장하기 위해 가중치가 100인 것을 확인.
 
-7. 새 project를 생성하여 모든 것이 작동하는지 확인.
+8. 새 project를 생성하여 모든 것이 작동하는지 확인.
     
     조회한 repository에 content가 있도록 "Initialize repository with a README" 상자 선택.  
     project가 생성되고 README file이 보이면 제대로 된 것.
 
-8. Repository가 정상적으로 servers에 저장되었는지 확인.
+9. Repository가 정상적으로 servers에 저장되었는지 확인.
     
     Praefects에서 repository metadata 확인.
     ```
