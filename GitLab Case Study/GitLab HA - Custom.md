@@ -238,24 +238,6 @@ Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL�
     gitlabhq_production> \q
     ```
 
-7. `/etc/gitlab/gitlab.rb`에서 외부 PostgreSQL service에 대한 적절한 연결 세부 정보로 GitLab application server 구성.
-    ```ruby
-    postgresql['enable'] = false
-    
-    gitlab_rails['db_adapter'] = 'postgresql'
-    gitlab_rails['db_encoding'] = 'unicode'
-    gitlab_rails['db_database'] = 'gitlabhq_production'
-    gitlab_rails['db_username'] = 'git'
-    gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
-    gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
-    gitlab_rails['db_port'] = 5432
-    ```
-
-8. 변경 사항을 적용하기 위해 GitLab 재구성.
-    ```
-    sudo gitlab-ctl reconfigure
-    ```
-
 <br>
 
 ## Gitaly Cluster 구성
@@ -465,6 +447,83 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
     sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml dial-nodes
     ```
 
+<br>
+
+## GitLab application 구성
+Praefect node 및 Gitaly nodes가 구성된 상태에서 진행.  
+`git_data_dirs`에 추가된 storage 이름은 Praffect nodes의 `Praffect['configuration'][:virtual_storage]`에 있는 storage 이름(ex: `default`)과 일치해야 함.
+
+1. GitLab Linux package download 및 install.
+
+2. `/etc/gitlab/gitlab.rb` 수정.
+    ```ruby
+    external_url 'https://<GITLAB_DOMAIN>'
+    
+    letsencrypt['enable'] = false
+    
+    nginx['listen_port'] = 80
+    nginx['listen_https'] = false
+    nginx['redirect_http_to_https'] = true
+    
+    postgresql['enable'] = false
+    
+    gitlab_rails['db_adapter'] = 'postgresql'
+    gitlab_rails['db_encoding'] = 'unicode'
+    gitlab_rails['db_database'] = 'gitlabhq_production'
+    gitlab_rails['db_username'] = 'git'
+    gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
+    gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
+    gitlab_rails['db_port'] = 5432
+    
+    gitaly['enable'] = false
+    
+    git_data_dirs({
+      "default" => {
+        "gitaly_address" => "tcp://<INTERNAL_LOAD_BALANCER_HOST>:2305",
+        "gitaly_token" => 'PRAEFECT_EXTERNAL_TOKEN'
+      }
+    })
+    
+    gitlab_shell['secret_token'] = 'GITLAB_SHELL_SECRET_TOKEN'
+    ```
+
+3. 변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 GitLab 재구성.
+    ```
+    gitlab-ctl reconfigure
+    ```
+
+4. 각 Gitaly node에서 Git Hooks가 GitLab에 도달할 수 있는지 확인. 각 Gitaly node에서 실행.
+    ```
+    sudo /opt/gitlab/embedded/bin/gitaly check /var/opt/gitlab/gitaly/config.toml
+    ```
+
+5. GitLab이 Praefect에 연결할 수 있는지 확인.
+    ```
+    gitlab-rake gitlab:gitaly:check
+    ```
+
+6. Praefect storage가 새 repositories를 저장하도록 구성되었는지 확인.
+    1. 왼쪽 side bar에서 맨 위에 있는 갈매기 모양(v) 확장.
+    2. Admin Area 선택.
+    3. 왼쪽 side bar에서 Settings > Repository 선택.
+    4. Repository storage section 확장.
+    5. `default` storage가 모든 새 repositories를 저장하기 위해 가중치가 100인 것을 확인.
+
+7. 새 project를 생성하여 모든 것이 작동하는지 확인.
+    
+    조회한 repository에 content가 있도록 "Initialize repository with a README" 상자 선택.  
+    project가 생성되고 README file이 보이면 제대로 된 것.
+
+8. Repository가 정상적으로 servers에 저장되었는지 확인.
+    
+    Praefects에서 repository metadata 확인.
+    ```
+    sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml metadata -repository-id <repository-id>
+    ```
+
+    `Replica Path`는 Gitaly node disk에 repository의 복제본이 저장되는 위치.  
+    Gitaly cluster 구성이므로 @cluster/~로 확인 가능(Gitaly servers에만 존재).
+
 <hr>
 
 ## 참고
@@ -472,3 +531,4 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 - **외부 PostgreSQL 설정** - https://docs.gitlab.com/ee/administration/postgresql/external.html
 - **Database 설정** - https://docs.gitlab.com/ee/install/installation.html#7-database
 - **Gitaly Cluster 구성** - https://docs.gitlab.com/ee/administration/gitaly/praefect.html
+- **Repository metadata 보기** - https://docs.gitlab.com/ee/administration/gitaly/troubleshooting.html#view-repository-metadata
