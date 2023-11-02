@@ -521,6 +521,21 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
     `Replica Path`는 Gitaly node disk에 repository의 복제본이 저장되는 위치.  
     Gitaly cluster 구성이므로 @cluster/~로 확인 가능(Gitaly servers에만 존재).
 
+<br>
+
+## ※ 통신 확인
+```
+# telnet
+telnet <DOMAIN or IP> <PORT>
+ 
+# telnet을 사용하지 못할 경우 진행.
+curl -v telnet://<DOMAIN or IP>:<PORT>
+ 
+# telnet을 사용하지 못할 경우 진행. 두 번째 명령까지 성공 시 0 출력.
+echo > /dev/tcp/<DOMAIN or IP>/<PORT>
+echo $?
+```
+
 <hr>
 
 ## 참고
