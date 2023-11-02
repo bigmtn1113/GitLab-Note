@@ -450,7 +450,6 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 <br>
 
 ## GitLab application 구성
-Praefect node 및 Gitaly nodes가 구성된 상태에서 진행.  
 `git_data_dirs`에 추가된 storage 이름은 Praffect nodes의 `Praffect['configuration'][:virtual_storage]`에 있는 storage 이름(ex: `default`)과 일치해야 함.
 
 1. GitLab Linux package download 및 install.
