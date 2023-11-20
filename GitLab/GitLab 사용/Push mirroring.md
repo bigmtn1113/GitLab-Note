@@ -73,7 +73,7 @@ Mirrors는 자동으로 update되도록 예약되어 있지만, 다음 경우를
 3. **Mirroring repositories** 확장.
 4. **Mirrored repositories**로 scroll하여 update할 mirror 식별.
 5. **Update now** 선택:  
-  https://docs.gitlab.com/ee/user/project/repository/mirror/img/repository_mirroring_force_update.png
+  ![image](https://docs.gitlab.com/ee/user/project/repository/mirror/img/repository_mirroring_force_update.png)
 
 <hr>
 
