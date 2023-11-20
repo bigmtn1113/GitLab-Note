@@ -30,7 +30,7 @@ Branch가 갈라지면, **Mirroring repositories** section에 오류가 표시�
 4. Repository URL 입력.
 5. **Mirror direction** dropdown 목록에서 **Push** 선택.
 6. **Authentication method** 선택.
-7. 필요한 경우, **Only mirro protected branches** 선택.
+7. 필요한 경우, **Only mirror protected branches** 선택.
 8. 원하는 경우, **Keep divergent refs** 선택.
 9. 구성을 저장하려면, **Mirror repository** 선택.
 
