@@ -65,6 +65,7 @@
 - [GitLab Container Registry 사용](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20Container%20Registry%20%EC%82%AC%EC%9A%A9.md)
 - [Jira](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Jira.md)
 - [Offline SAST](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Offline%20SAST.md)
+- [Push mirroring](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Push%20mirroring.md)
 - [Push rules](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Push%20rules.md)
 - [Repository 복제(git clone)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Repository%20%EB%B3%B5%EC%A0%9C(git%20clone).md)
 - [SSH 키를 사용하여 GitLab과 통신](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/SSH%20%ED%82%A4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20GitLab%EA%B3%BC%20%ED%86%B5%EC%8B%A0.md)
