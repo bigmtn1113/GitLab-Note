@@ -50,6 +50,7 @@
 ### ⭐ GitLab 사용
 - [.gitlab-ci.yml 사용](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9)
   - [Cache](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Cache.md)
+  - [Include](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Include.md)
   - [Job artifacts](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Job%20artifacts.md)
   - [extends](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/extends.md)
   - [git clone 및 git push](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/git%20clone%20%EB%B0%8F%20git%20push.md)
