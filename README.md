@@ -40,6 +40,7 @@
 - [GitLab 가입한 user에게 email(gmail) 전송](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/GitLab%20%EA%B0%80%EC%9E%85%ED%95%9C%20user%EC%97%90%EA%B2%8C%20email(gmail)%20%EC%A0%84%EC%86%A1.md)
 - [GitLab 관리 시작하기](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/GitLab%20%EA%B4%80%EB%A6%AC%20%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.md)
 - [Health Check](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Health%20Check.md)
+- [Instance template repository](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Instance%20template%20repository.md)
 - [Load balancer SSL terminate](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Load%20balancer%20SSL%20terminate.md)
 - [Omnibus Logrotate(로그 순환)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20Logrotate(%EB%A1%9C%EA%B7%B8%20%EC%88%9C%ED%99%98).md)
 - [Omnibus to Helm chart migration](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20to%20Helm%20chart%20migration.md)
