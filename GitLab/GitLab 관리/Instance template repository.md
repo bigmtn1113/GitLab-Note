@@ -4,15 +4,56 @@
 
 Hosted systems에서 기업들은 teams 간에 자체 templates을 공유해야 하는 경우가 많음.  
 이 기능을 사용하면 관리자는 file templates의 instance-wide collection이 될 project 선택 가능.  
-이러한 templates는 proejct가 안전하게 유지되는 동안 web editor를 통해 모든 사용자에게 노출됨.
+이러한 templates는 proejct가 안전하게 유지되는 동안 Web Editor를 통해 모든 사용자에게 노출됨.
 
 <br>
 
 ## 구성
+1. 왼쪽 sidebar에서 **Search or go to** 선택.
+2. **Admin Area** 선택.
+3. **Settings > Templates** 선택.
+4. **Templates** 확장.
+5. Dropdown 목록에서 template repository로 사용할 project 선택.
+6. **Save changes** 선택.
+7. 선택한 repository에 사용자 정의 templates 추가.
+
+Templates를 추가한 후에는 전체 instance에서 사용 가능.  
+Web Editor와 API settings를 통해 사용 가능.
+
+이러한 templates는 `.gitlab-ci.yml`의 `include:template` key 값으로 사용 불가.
 
 <br>
 
 ## 지원되는 file 형식 및 위치
+Template 종류에 따라 repository의 특정 하위 directory에 templates 추가 필요.  
+다음 유형의 사용자 정의 templates 지원:  
+Type | Directory | Extension
+:---: | :---: | :---:
+Dockerfile | Dockerfile | .dockerfile
+.gitignore | gitignore | .gitignore
+.gitlab-ci.yml | gitlab-ci | .yml
+LICENSE | LICENSE | .txt
+
+각 template은 해당 하위 directory에 있어야 하며, 올바른 확장자를 갖고 비어 있으면 안 됨.  
+따라서 계층 구조는 다음과 같이 구성:  
+```
+|-- README.md
+|-- Dockerfile
+    |-- custom_dockerfile.dockerfile
+    |-- another_dockerfile.dockerfile
+|-- gitignore
+    |-- custom_gitignore.gitignore
+    |-- another_gitignore.gitignore
+|-- gitlab-ci
+    |-- custom_gitlab-ci.yml
+    |-- another_gitlab-ci.yml
+|-- LICENSE
+    |-- custom_license.txt
+    |-- another_license.txt
+```
+
+GitLab UI를 통해 새 file이 추가되면 사용자 정의 templates가 dropdown 목록에 표시됨:  
+![file_template_user_dropdown](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/6ddaad3f-5398-423e-951f-38b29be4a614)
 
 <hr>
 
