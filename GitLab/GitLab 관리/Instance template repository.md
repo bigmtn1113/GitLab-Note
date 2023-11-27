@@ -17,6 +17,8 @@ Hosted systems에서 기업들은 teams 간에 자체 templates을 공유해야 
 6. **Save changes** 선택.
 7. 선택한 repository에 사용자 정의 templates 추가.
 
+![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/963a4248-bf86-46e3-8219-2569e6f4e098)
+
 Templates를 추가한 후에는 전체 instance에서 사용 가능.  
 Web Editor와 API settings를 통해 사용 가능.
 
@@ -52,8 +54,10 @@ LICENSE | LICENSE | .txt
     |-- another_license.txt
 ```
 
+![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/d47e1a5c-d221-4a37-83d8-b376cd0d7369)
+
 GitLab UI를 통해 새 file이 추가되면 사용자 정의 templates가 dropdown 목록에 표시됨:  
-![file_template_user_dropdown](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/6ddaad3f-5398-423e-951f-38b29be4a614)
+![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/a6fa672b-6e8b-46b6-87d7-5f5224d84b77)
 
 <hr>
 
