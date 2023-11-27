@@ -19,7 +19,10 @@ Templates가 예기치 않게 변경되는 것을 방지하려면 기존 group�
 5. 사용할 group 선택.
 6. **Save changes** 선택.
 
-Group이 project templates의 source로 구성되면 이후에 이 group에 추가된 모든 새 projects를 templates로 사용 가능.
+![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/b713c8c3-c8e9-49e5-9c3d-9305f8e4fbdf)
+
+Group이 project templates의 source로 구성되면 이후에 이 group에 추가된 모든 새 projects를 templates로 사용 가능.  
+![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/10903b74-608f-459f-b108-36f21f407d9a)
 
 <br>
 
