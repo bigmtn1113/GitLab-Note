@@ -36,6 +36,7 @@
 - [Amazon S3 사용 - Docker](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Amazon%20S3%20%EC%82%AC%EC%9A%A9%20-%20Docker.md)
 - [Amazon S3 사용 - Helm chart](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Amazon%20S3%20%EC%82%AC%EC%9A%A9%20-%20Helm%20chart.md)
 - [Create Project 시 Namespace is not valid 에러, Import Project 시 404 에러](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Create%20Project%20%EC%8B%9C%20Namespace%20is%20not%20valid%20%EC%97%90%EB%9F%AC%2C%20Import%20Project%20%EC%8B%9C%20404%20%EC%97%90%EB%9F%AC.md)
+- [Custom instance-level project templates](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Custom%20instance-level%20project%20templates.md)
 - [Git server hooks](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Git%20server%20hooks.md)
 - [GitLab 가입한 user에게 email(gmail) 전송](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/GitLab%20%EA%B0%80%EC%9E%85%ED%95%9C%20user%EC%97%90%EA%B2%8C%20email(gmail)%20%EC%A0%84%EC%86%A1.md)
 - [GitLab 관리 시작하기](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/GitLab%20%EA%B4%80%EB%A6%AC%20%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.md)
