@@ -73,6 +73,9 @@
 - [Repository 복제(git clone)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Repository%20%EB%B3%B5%EC%A0%9C(git%20clone).md)
 - [SSH 키를 사용하여 GitLab과 통신](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/SSH%20%ED%82%A4%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%98%EC%97%AC%20GitLab%EA%B3%BC%20%ED%86%B5%EC%8B%A0.md)
 
+### ⭐ GitLab 삭제
+- [Linux package (Omnibus) 삭제](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AD%EC%A0%9C/Linux%20package%20(Omnibus)%20%EC%82%AD%EC%A0%9C.md)
+
 ### ⭐ GitLab 설치
 - [Amazon EC2 위에 Docker로 GitLab 설치](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Amazon%20EC2%20%EC%9C%84%EC%97%90%20Docker%EB%A1%9C%20GitLab%20%EC%84%A4%EC%B9%98.md)
 - [Omnibus GitLab CE to EE 변환](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Omnibus%20GitLab%20CE%20to%20EE%20%EB%B3%80%ED%99%98.md)
