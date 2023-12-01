@@ -461,70 +461,50 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 1. GitLab Linux package download 및 install.
 
 2. `/etc/gitlab/gitlab.rb` 수정.
-    ```ruby
-    # Disable all other services on the Gitaly node
-    postgresql['enable'] = false
-    redis['enable'] = false
-    nginx['enable'] = false
-    grafana['enable'] = false
-    puma['enable'] = false
-    sidekiq['enable'] = false
-    gitlab_workhorse['enable'] = false
-    prometheus_monitoring['enable'] = false
-    gitlab_kas['enable'] = false
-    
-    # Enable only the Gitaly service
-    gitaly['enable'] = true
-    
-    # Disable database migrations to prevent database connections during 'gitlab-ctl reconfigure'
-    gitlab_rails['auto_migrate'] = false
-    
-    # Configure the gitlab-shell API callback URL. Without this, `git push` will fail.
-    # This can be your front door GitLab URL or an internal load balancer.
-    gitlab_rails['internal_api_url'] = 'https://<GITLAB_DOMAIN>'
-    
-    gitaly['configuration'] = {
-       listen_addr: '0.0.0.0:8075',
-       auth: {
-          token: '<PRAEFECT_INTERNAL_TOKEN>',
-       },
-       storage: [
-          {
-             name: 'gitaly-1',
-             path: '/var/opt/gitlab/git-data',
-          },
-          {
-             name: 'gitaly-2',
-             path: '/var/opt/gitlab/git-data',
-          },
-          {
-             name: 'gitaly-3',
-             path: '/var/opt/gitlab/git-data',
-          },
-       ],
-    }
-    ```
+   ```ruby
+   postgresql['enable'] = false
+   redis['enable'] = false
+   nginx['enable'] = false
+   puma['enable'] = false
+   sidekiq['enable'] = false
+   gitlab_workhorse['enable'] = false
+   prometheus['enable'] = false
+   alertmanager['enable'] = false
+   grafana['enable'] = false
+   gitlab_exporter['enable'] = false
+   gitlab_kas['enable'] = false
 
-3. 구성한 첫 번째 Linux package node에서 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
-    
-    첫 번째 Linux package node인 경우 이 단계 skip 가능.
+   gitlab_rails['auto_migrate'] = false
+   gitlab_rails['internal_api_url'] = 'https://<GITLAB_DOMAIN>'
+
+   gitaly['enable'] = true
+   gitaly['configuration'] = {
+      listen_addr: '0.0.0.0:8075',
+      auth: {
+         token: '<PRAEFECT_INTERNAL_TOKEN>',
+      },
+      storage: [
+         {
+            name: 'gitaly-1',                          # Gitaly server 2에는 값에 'gitaly-2'를, Gitaly server 3에는 값에 'gitaly-3'을 입력.
+            path: '/var/opt/gitlab/git-data',
+         },
+      ],
+   }
+   ```
+
+3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
 
 4. Gitaly 재구성.
-    ```
-    gitlab-ctl reconfigure
-    ```
+   ```
+   gitlab-ctl reconfigure
+   ```
 
-5. Gitaly 재시작.
-    ```
-    gitlab-ctl restart gitaly
-    ```
-
-6. 각 Praefect node에 SSH로 연결하고 Praefect connection checker를 실행.  
-  Praefect가 Praefect 구성의 모든 Gitaly servers에 연결할 수 있는지 확인.
+5. 각 Praefect node에 SSH로 연결하고 Praefect connection checker를 실행.  
+   Praefect가 Praefect 구성의 모든 Gitaly servers에 연결할 수 있는지 확인.
   
-    ```
-    sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml dial-nodes
-    ```
+   ```
+   sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml dial-nodes
+   ```
 
 <br>
 
