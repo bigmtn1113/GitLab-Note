@@ -19,14 +19,14 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 ### Components
 상황에 맞춰서 custom하게 components 분리 가능.  
 본 page에선 ★ 표시되어 있는 것만 분리 구성.  
-(★★는 단일 GitLab application server에서 default로 운영)
+(★★는 하나로 합쳐서 구성)
 
 - **GitLab Rails** ★★  
   GitLab의 핵심 요소.  
   여러 Components와 상호작용하는 역할 수행.
 - **Sidekiq** ★★  
   Background job processor이며 Redis를 job 대기열의 data 저장소로 사용.
-- **Redis** ★★  
+- **Redis/Sentinel** ★  
   Sidekiq을 사용하여 작업 처리 대기열로 사용되며, 모든 사용자 session과 background job 대기열을 저장.
 - **External Load Balancer** ★  
   GitLab URL 접근 시 GitLab application servers로 traffic을 routing.
@@ -73,8 +73,10 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   - 10.6.0.20
 - **POSTGRESQL_HOST**
   - 10.6.0.21
-- **GITLAB_APPLICATION_HOST**
+- **GITLAB_APPLICATION_1_HOST**
   - 10.6.0.41
+- **GITLAB_APPLICATION_2_HOST**
+  - 10.6.0.42
 - **GITALY_1_HOST**
   - 10.6.0.51
 - **GITALY_2_HOST**
@@ -92,9 +94,9 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 - **GITLAB_DOMAIN**
   - gitlab-example.com
 - **GITLAB_SQL_PASSWORD**
-  - P@ssw0rd01
+  - P@ssw0rd1!
 - **PRAEFECT_SQL_PASSWORD**
-  - P@ssw0rd01
+  - P@ssw0rd1!
 - **PRAEFECT_EXTERNAL_TOKEN**
   - 624A79DED9D1FAD49E574A722DE1FE421312321BEACB4DF18677D11DFE5C44A1
 - **PRAEFECT_INTERNAL_TOKEN**
