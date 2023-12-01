@@ -333,7 +333,7 @@ Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 �
 Gitaly Cluster의 routing 및 transaction 관리자인 Praefect는 Gitaly Cluster 상태에 data를 저장하기 위해 자체 database server가 필요.
 
 > [!IMPORTANT]  
-> [PostgreSQL 구성](#posggresql-구성) 후 진행
+> [PostgreSQL 구성](#postgresql-구성) 후 진행
 
 1. 관리 access 권한으로 Praefect PostgreSQL server에 연결
     ```
