@@ -72,7 +72,7 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 - **INTERNAL_LOAD_BALANCER_HOST**
   - 10.6.0.20
 - **POSTGRESQL_HOST**
-  - 10.6.0.21
+  - 10.6.0.31
 - **GITLAB_APPLICATION_1_HOST**
   - 10.6.0.41
 - **GITLAB_APPLICATION_2_HOST**
@@ -83,6 +83,12 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   - 10.6.0.52
 - **GITALY_3_HOST**
   - 10.6.0.93
+- **REDIS_SENTINEL_1_HOST**
+  - 10.6.0.61
+- **REDIS_SENTINEL_2_HOST**
+  - 10.6.0.62
+- **REDIS_SENTINEL_3_HOST**
+  - 10.6.0.63
 - **PRAEFECT_1_HOST**
   - 10.6.0.131
 - **PRAEFECT_2_HOST**
@@ -93,6 +99,8 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
   - 10.6.0.141
 - **GITLAB_DOMAIN**
   - gitlab-example.com
+- **REDIS_PASSWORD**
+  - P@ssw0rd1!
 - **GITLAB_SQL_PASSWORD**
   - P@ssw0rd1!
 - **PRAEFECT_SQL_PASSWORD**
@@ -188,6 +196,81 @@ backend praefect
     server praefect2 10.6.0.132:2305 check
     server praefect3 10.6.0.133:2305 check
 ```
+
+<br>
+
+## Redis/Sentinel 구성
+확장 가능한 환경에서 Redis를 사용하면, Redis Sentinel service와 함께 **Primary x Replica** topology를 사용하여 장애 조치 절차를 감시하고 자동으로 시작하는 것이 가능.
+
+> [!IMPORTANT]  
+> Redis clusters 및 Redis Sentinel은 각각 3개 이상의 홀수 nodes에 배포되어야 하는데, 이는 Redis Sentinel이 quorum의 일부로 투표를 할 수 있도록 하기 위한 것.
+
+### Linux package를 사용하는 독립형 Redis 구성
+요구 사항:  
+1. 모든 Redis nodes는 서로 통신할 수 있어야 하며 Redis(`6379`) 및 Sentinel(`26379`) ports(기본 ports를 변경하지 않는 한)를 통해 들어오는 연결을 수락할 수 있어야 함.
+2. GitLab application을 hosting하는 server는 Redis nodes에 access할 수 있어야 함.
+3. 방화벽을 사용하여 외부 networks(internet)의 access로부터 nodes 보호 필요.
+
+Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일한 비밀번호 필요.  
+장애 조치 중 언제든지 Sentinels는 node를 재구성하고 해당 상태를 primary에서 replica로(또는 그 반대로) 변경 가능.
+
+#### Primary Redis/Sentinel instance 구성
+1. GitLab Linux package download 및 install.
+
+2. `/etc/gitlab/gitlab.rb` 수정.
+   ```ruby
+   roles(['redis_master_role', 'redis_sentinel_role'])
+
+   redis['bind'] = '<REDIS_SENTINEL_1_HOST>'
+   redis['port'] = 6379
+   redis['password'] = '<REDIS_PASSWORD>'
+
+   redis['master_name'] = 'gitlab-redis'
+   redis['master_password'] = '<REDIS_PASSWORD>'
+   redis['master_ip'] = '<REDIS_SENTINEL_1_HOST>'
+   redis['master_port'] = 6379
+
+   sentinel['bind'] = '<REDIS_SENTINEL_1_HOST>'
+   sentinel['port'] = 26379
+   sentinel['quorum'] = 2
+
+   gitlab_rails['auto_migrate'] = false
+   ```
+
+3. Gitaly 재구성.
+   ```
+   gitlab-ctl reconfigure
+   ```
+
+#### Replica Redis/Sentinel instances 구성
+1. GitLab Linux package download 및 install.
+
+2. `/etc/gitlab/gitlab.rb` 수정.
+   ```ruby
+   roles(['redis_replica_role', 'redis_sentinel_role'])
+
+   redis['bind'] = '<REDIS_SENTINEL_2_HOST>'              # 3번 node에선 <REDIS_SENTINEL_3_HOST>
+   redis['port'] = 6379
+   redis['password'] = '<REDIS_PASSWORD>'
+
+   redis['master_name'] = 'gitlab-redis'
+   redis['master_password'] = '<REDIS_PASSWORD>'
+   redis['master_ip'] = '<REDIS_SENTINEL_1_HOST>'
+   redis['master_port'] = 6379
+
+   sentinel['bind'] = '<REDIS_SENTINEL_2_HOST>'           # 3번 node에선 <REDIS_SENTINEL_3_HOST>
+   sentinel['port'] = 26379
+   sentinel['quorum'] = 2
+
+   gitlab_rails['auto_migrate'] = false
+   ```
+
+3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
+
+4. Gitaly 재구성.
+    ```
+    gitlab-ctl reconfigure
+    ```
 
 <br>
 
