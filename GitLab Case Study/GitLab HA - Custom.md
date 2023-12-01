@@ -268,9 +268,9 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
 
 4. Gitaly 재구성.
-    ```
-    gitlab-ctl reconfigure
-    ```
+   ```
+   gitlab-ctl reconfigure
+   ```
 
 <br>
 
@@ -278,50 +278,50 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL용 관리형 service 사용 가능.  
 또는 Linux package와 별도로 자체 PostgreSQL instance 또는 cluster를 관리하도록 선택 가능.
 
-1. GitLab용 database user 생성
-    ```
-    sudo psql -U postgres -d template1 -c "CREATE USER git WITH PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
-    ```
+1. GitLab용 database user 생성(d option은 db name).
+   ```
+   sudo psql -U postgres -d template1 -c "CREATE USER gitlab WITH LOGIN PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
+   ```
 
-2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성. (d option은 db name)
-    ```
-    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
-    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS btree_gist;"
-    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS plpgsql;"
-    ```
+2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성. 
+   ```
+   sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
+   sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS btree_gist;"
+   sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS plpgsql;"
+   ```
 
-3. GitLab production database를 생성하고 database에 대한 모든 권한을 부여
-    ```
-    sudo psql -U postgres -d template1 -c "CREATE DATABASE gitlabhq_production OWNER git;"
-    ```
+3. GitLab production database를 생성하고 새 user에게 database에 대한 모든 권한을 부여
+   ```
+   sudo psql -U postgres -d template1 -c "CREATE DATABASE gitlabhq_production OWNER gitlab;"
+   ```
 
 4. 새 user로 새 database에 연결
-    ```
-    sudo psql -U git -H -d gitlabhq_production
-    ```
+   ```
+   sudo psql -U gitlab -H -d gitlabhq_production
+   ```
 
 5. 확장 module인 pg_trgm, btree_gist, plpgsql이 활성화되어 있는지 각각 확인. enabled가 t로 출력
-    ```sql
-    SELECT true AS enabled
-    FROM pg_available_extensions
-    WHERE name = 'pg_trgm'
-    AND installed_version IS NOT NULL;
-    
-    SELECT true AS enabled
-    FROM pg_available_extensions
-    WHERE name = 'btree_gist'
-    AND installed_version IS NOT NULL;
-    
-    SELECT true AS enabled
-    FROM pg_available_extensions
-    WHERE name = 'plpgsql'
-    AND installed_version IS NOT NULL;
-    ```
+   ```sql
+   SELECT true AS enabled
+   FROM pg_available_extensions
+   WHERE name = 'pg_trgm'
+   AND installed_version IS NOT NULL;
+
+   SELECT true AS enabled
+   FROM pg_available_extensions
+   WHERE name = 'btree_gist'
+   AND installed_version IS NOT NULL;
+
+   SELECT true AS enabled
+   FROM pg_available_extensions
+   WHERE name = 'plpgsql'
+   AND installed_version IS NOT NULL;
+   ```
 
 6. DB session 종료
-    ```sql
-    gitlabhq_production> \q
-    ```
+   ```sql
+   gitlabhq_production> \q
+   ```
 
 <br>
 
