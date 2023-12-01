@@ -330,9 +330,14 @@ Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 �
 이 구성에서 모든 Git repository는 cluster의 모든 Gitaly node에 저장되며, 한 node는 primary로 지정되는데 primary node가 다운되면 자동으로 장애 조치가 발생.
 
 ### Praefect PostgreSQL 구성
-1. 관리 access 권한으로 PostgreSQL server에 연결
+Gitaly Cluster의 routing 및 transaction 관리자인 Praefect는 Gitaly Cluster 상태에 data를 저장하기 위해 자체 database server가 필요.
+
+> [!IMPORTANT]  
+> [PostgreSQL 구성](#posggresql-구성) 후 진행
+
+1. 관리 access 권한으로 Praefect PostgreSQL server에 연결
     ```
-    sudo psql -U postgres -d template1 -h '<POSTGRESQL_HOST>'
+    sudo psql -U postgres -d template1
     ```
 
 2. Praefect에서 사용할 새 user인 `praefect` 생성.
@@ -340,7 +345,7 @@ Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 �
     CREATE ROLE praefect WITH LOGIN PASSWORD '<PRAEFECT_SQL_PASSWORD>';
     ```
 
-3. `praefect`를 소유자로 새 database인 praefect_production 생성.
+3. `praefect`를 소유자로 새 database인 `praefect_production` 생성.
     ```sql
     CREATE DATABASE praefect_production WITH OWNER praefect ENCODING UTF8;
     ```
