@@ -335,9 +335,9 @@ Gitaly Cluster의 routing 및 transaction 관리자인 Praefect는 Gitaly Cluste
 > [!IMPORTANT]  
 > [PostgreSQL 구성](#postgresql-구성) 후 진행
 
-1. 관리 access 권한으로 Praefect PostgreSQL server에 연결
+1. 관리 access 권한으로 Praefect PostgreSQL에 연결
     ```
-    sudo psql -U postgres -d template1
+    sudo psql -U postgres -d template1 -h <PRAEFECT_POSTGRESQL_HOST>
     ```
 
 2. Praefect에서 사용할 새 user인 `praefect` 생성.
