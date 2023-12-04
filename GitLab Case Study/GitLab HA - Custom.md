@@ -217,7 +217,8 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 #### Primary Redis/Sentinel instance 구성
 1. GitLab Linux package download 및 install.
 
-2. `/etc/gitlab/gitlab.rb` 수정.
+2. `/etc/gitlab/gitlab.rb` 수정:
+
    ```ruby
    roles(['redis_master_role', 'redis_sentinel_role'])
 
@@ -237,7 +238,8 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
    gitlab_rails['auto_migrate'] = false
    ```
 
-3. Gitaly 재구성.
+3. Gitaly 재구성:
+
    ```
    gitlab-ctl reconfigure
    ```
@@ -245,7 +247,8 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 #### Replica Redis/Sentinel instances 구성
 1. GitLab Linux package download 및 install.
 
-2. `/etc/gitlab/gitlab.rb` 수정.
+2. `/etc/gitlab/gitlab.rb` 수정:
+
    ```ruby
    roles(['redis_replica_role', 'redis_sentinel_role'])
 
@@ -267,7 +270,8 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 
 3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
 
-4. Gitaly 재구성.
+4. Gitaly 재구성:
+
    ```
    gitlab-ctl reconfigure
    ```
@@ -278,29 +282,34 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL용 관리형 service 사용 가능.  
 또는 Linux package와 별도로 자체 PostgreSQL instance 또는 cluster를 관리하도록 선택 가능.
 
-1. GitLab용 database user 생성(d option은 db name).
+1. GitLab용 database user 생성(d option은 db name):
+
    ```
    sudo psql -U postgres -d template1 -c "CREATE USER gitlab WITH LOGIN PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
    ```
 
-2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성. 
+2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성:
+
    ```
    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS btree_gist;"
    sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS plpgsql;"
    ```
 
-3. GitLab production database를 생성하고 새 user에게 database에 대한 모든 권한을 부여
+3. GitLab production database를 생성하고 새 user에게 database에 대한 모든 권한을 부여:
+
    ```
    sudo psql -U postgres -d template1 -c "CREATE DATABASE gitlabhq_production OWNER gitlab;"
    ```
 
-4. 새 user로 새 database에 연결
+4. 새 user로 새 database에 연결:
+
    ```
    sudo psql -U gitlab -H -d gitlabhq_production
    ```
 
-5. 확장 module인 pg_trgm, btree_gist, plpgsql이 활성화되어 있는지 각각 확인. enabled가 t로 출력
+5. 확장 module인 pg_trgm, btree_gist, plpgsql이 활성화되어 있는지 각각 확인. enabled가 t로 출력:
+
    ```sql
    SELECT true AS enabled
    FROM pg_available_extensions
@@ -318,7 +327,8 @@ Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL�
    AND installed_version IS NOT NULL;
    ```
 
-6. DB session 종료
+6. DB session 종료:
+
    ```sql
    gitlabhq_production> \q
    ```
@@ -335,20 +345,23 @@ Gitaly Cluster의 routing 및 transaction 관리자인 Praefect는 Gitaly Cluste
 > [!IMPORTANT]  
 > [PostgreSQL 구성](#postgresql-구성) 후 진행
 
-1. 관리 access 권한으로 Praefect PostgreSQL에 연결
-    ```
-    sudo psql -U postgres -d template1 -h <PRAEFECT_POSTGRESQL_HOST>
-    ```
+1. 관리 access 권한으로 Praefect PostgreSQL에 연결:
 
-2. Praefect에서 사용할 새 user인 `praefect` 생성.
-    ```sql
-    CREATE ROLE praefect WITH LOGIN PASSWORD '<PRAEFECT_SQL_PASSWORD>';
-    ```
+   ```
+   sudo psql -U postgres -d template1 -h <PRAEFECT_POSTGRESQL_HOST>
+   ```
 
-3. `praefect`를 소유자로 새 database인 `praefect_production` 생성.
-    ```sql
-    CREATE DATABASE praefect_production WITH OWNER praefect ENCODING UTF8;
-    ```
+2. Praefect에서 사용할 새 user인 `praefect` 생성:
+
+   ```sql
+   CREATE ROLE praefect WITH LOGIN PASSWORD '<PRAEFECT_SQL_PASSWORD>';
+   ```
+
+3. `praefect`를 소유자로 새 database인 `praefect_production` 생성:
+
+   ```sql
+   CREATE DATABASE praefect_production WITH OWNER praefect ENCODING UTF8;
+   ```
 
 <br>
 
@@ -373,7 +386,8 @@ Praefect node가 여러 개인 경우 하나의 node를 deploy node로 지정.
 
 1. GitLab Linux package download 및 install.
 
-2. `/etc/gitlab/gitlab.rb` 수정.
+2. `/etc/gitlab/gitlab.rb` 수정:
+
    ```ruby
    gitaly['enable'] = false
    postgresql['enable'] = false
@@ -436,18 +450,22 @@ Praefect node가 여러 개인 경우 하나의 node를 deploy node로 지정.
 
 3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
 
-4. `/etc/gitlab/gitlab.rb`를 수정해서 Praefect 데이터베이스 자동 마이그레이션을 다시 활성화.  
-   (Praefect node가 여러 개인 경우, deploy node에서만 진행)
+4. `/etc/gitlab/gitlab.rb`를 수정해서 Praefect 데이터베이스 자동 마이그레이션을 다시 활성화:
+
+   ※ Praefect node가 여러 개인 경우, deploy node에서만 진행:
+
    ```ruby
    praefect['auto_migrate'] = true
    ```
 
-   변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 Praefect 재구성.
+   변경 사항을 `/etc/gitlab/gitlab.rb`에 저장하고 Praefect 재구성:
+
    ```
    gitlab-ctl reconfigure
    ```
 
-5. Praefect가 PostgreSQL에 연결할 수 있는지 확인.
+5. Praefect가 PostgreSQL에 연결할 수 있는지 확인:
+
    ```
    sudo -u git /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml sql-ping
    ```
@@ -460,7 +478,8 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 
 1. GitLab Linux package download 및 install.
 
-2. `/etc/gitlab/gitlab.rb` 수정.
+2. `/etc/gitlab/gitlab.rb` 수정:
+
    ```ruby
    postgresql['enable'] = false
    redis['enable'] = false
@@ -494,14 +513,14 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 
 3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
 
-4. Gitaly 재구성.
+4. Gitaly 재구성:
+
    ```
    gitlab-ctl reconfigure
    ```
 
-5. 각 Praefect node에 SSH로 연결하고 Praefect connection checker를 실행.  
-   Praefect가 Praefect 구성의 모든 Gitaly servers에 연결할 수 있는지 확인.
-  
+5. 각 Praefect node에 SSH로 연결하고 Praefect connection checker를 실행. Praefect가 Praefect 구성의 모든 Gitaly servers에 연결할 수 있는지 확인:
+
    ```
    sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml dial-nodes
    ```
@@ -513,7 +532,8 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 
 1. GitLab Linux package download 및 install.
 
-2. `/etc/gitlab/gitlab.rb` 수정.
+2. `/etc/gitlab/gitlab.rb` 수정:
+
    ```ruby
    prometheus['enable'] = false
    alertmanager['enable'] = false
@@ -571,6 +591,7 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
    이렇게 하면 사용자가 load balancing된 Rails nodes에 도달할 때 host 불일치 오류가 발생하지 않음.
 
 5. 모든 migrations가 활성화 되었는지 확인:
+
    ```
    gitlab-rake gitlab:db:configure
    ```
@@ -585,6 +606,7 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
    GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access할 수 있는 권한이 있는지 확인.
 
    1. `sshd_config` file에 다음을 추가. 이 file은 일반적으로 `/etc/ssh/sshd_config`에 있지만 Omnibus Docker를 사용하는 경우에는 `/assets/sshd_config`에 존재:
+
       ```
       Match User git    # Apply the AuthorizedKeysCommands to the git user only
       AuthorizedKeysCommand /opt/gitlab/embedded/service/gitlab-shell/bin/gitlab-shell-authorized-keys-check git %u %k
@@ -592,6 +614,7 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
       Match all    # End match, settings apply to all users again
       ```
    2. OpenSSH reload:
+
       ```
       # Debian or Ubuntu installations
       sudo service ssh reload
@@ -600,13 +623,15 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
       sudo service sshd reload
       ```
    3. `authorized_keys` file에서 user's key를 주석 처리하여 SSH가 작동하는지 확인하고 local machine에서 repository를 pull하거나 다음을 실행:
+
       ```
       ssh -T git@<GITLAB_DOMAIN>
       ```
 
       성공적인 pull 또는 환영 message는 file에 존재하지 않는 key를 GitLab이 database에서 찾을 수 있다는 의미.
 
-7. GitLab 재구성.
+7. GitLab 재구성:
+
    ```
    gitlab-ctl reconfigure
    ```
@@ -629,7 +654,7 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
       ```
       gitlab-rails console
       ```
-   2. 기능 플래그를 활성화:
+   2. 기능 flag 활성화:
 
       ```ruby
       Feature.enable(:ci_enable_live_trace)
@@ -639,11 +664,9 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 
    3. `authorized_keys` file 쓰기 권한 비활성화:
 
-      ※ GitLab 구성이 완료되어 UI 접속이 된 후에 진행.
-
-      > [!WARNING]  
-      > SSH가 완벽하게 작동하는 것으로 확인될 때까지 쓰기 비활성화 금지.
-      > 그렇지 않으면 file이 빨리 out-of-date됨.
+      ※ GitLab 구성이 완료되어 UI 접속이 된 후에 진행.  
+      SSH가 완벽하게 작동하는 것으로 확인될 때까지 쓰기 비활성화 금지.  
+      그렇지 않으면 file이 빨리 out-of-date됨.
       
       1. 상당 표시줄에서 **Main menu > Admin** 선택.
       2. 왼쪽 sidebar에서 **Settings > Network** 선택.
@@ -651,15 +674,15 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
       4. **Use authorized_keys file to authenticate SSH keys** checkbox 선택 취소.
       5. **Save changes** 선택.
 
-      다시 한 번 UI에서 user의 SSH key를 제거하고 새 key를 추가한 후 repository pull을 시도하여 SSH가 작동하는지 확인.
-      그런 다음 최상의 성능을 위해 `authorized_keys` file을 백업하고 삭제 가능.
+      다시 한 번 UI에서 user의 SSH key를 제거하고 새 key를 추가한 후 repository pull을 시도하여 SSH가 작동하는지 확인.  
+      그런 다음 최상의 성능을 위해 `authorized_keys` file을 백업하고 삭제 가능.  
       현재 users의 kyes는 이미 database에 있으므로 migration하거나 users의 keys 재추가 불필요.
 
 10. Node가 Gitaly에 연결할 수 있는지 확인:
 
-   ```
-   gitlab-rake gitlab:gitaly:check
-   ```
+    ```
+    gitlab-rake gitlab:gitaly:check
+    ```
 
 11. GitLab services가 실행 중인지 확인:
 
@@ -706,4 +729,5 @@ echo $?
 - **Database 설정** - https://docs.gitlab.com/ee/install/installation.html#7-database
 - **Gitaly Cluster 구성** - https://docs.gitlab.com/ee/administration/gitaly/praefect.html
 - **Database에서 authorized SSH keys를 빠르게 조회** - https://docs.gitlab.com/ee/administration/operations/fast_ssh_key_lookup.html
+- **증분 logging 활성화** - https://docs.gitlab.com/ee/administration/reference_architectures/3k_users.html#enable-incremental-logging
 - **Repository metadata 보기** - https://docs.gitlab.com/ee/administration/gitaly/troubleshooting.html#view-repository-metadata
