@@ -528,7 +528,8 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 <br>
 
 ## GitLab application(Sidekiq + GitLab Rails) 구성
-`git_data_dirs`에 추가된 storage 이름은 Praffect nodes의 `Praffect['configuration'][:virtual_storage]`에 있는 storage 이름(ex: `default`)과 일치해야 함.
+Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 필요.  
+또한 권장되는 대로 Object Storage에 대한 연결 필요.
 
 1. GitLab Linux package download 및 install.
 
