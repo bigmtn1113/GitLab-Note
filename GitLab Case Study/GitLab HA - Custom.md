@@ -581,35 +581,100 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
    여기에는 상당한 시간과 disk I/O가 소요될 수 있으며 이로 인해 users가 repository에 push하거나 pull하려는 시도가 지연됨.
    게다가, users가 keys를 자주 추가하거나 제거하면 운영 체제가 `authorized_keys` file을 cache하지 못해 disk에 반복적으로 access하게 될 가능성 존재.
 
-   GitLab Shell은 GitLab database에서 빠른 색인 조회를 통해 SSH users에게 권한을 부여하는 방법을 제공하여 이 문제를 해결.
+   GitLab Shell은 GitLab database에서 빠른 색인 조회를 통해 SSH users에게 권한을 부여하는 방법을 제공하여 이 문제를 해결.  
    GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access할 수 있는 권한이 있는지 확인.
 
-   
+   1. `sshd_config` file에 다음을 추가. 이 file은 일반적으로 `/etc/ssh/sshd_config`에 있지만 Omnibus Docker를 사용하는 경우에는 `/assets/sshd_config`에 존재:
+      ```
+      Match User git    # Apply the AuthorizedKeysCommands to the git user only
+      AuthorizedKeysCommand /opt/gitlab/embedded/service/gitlab-shell/bin/gitlab-shell-authorized-keys-check git %u %k
+      AuthorizedKeysCommandUser git
+      Match all    # End match, settings apply to all users again
+      ```
+   2. OpenSSH reload:
+      ```
+      # Debian or Ubuntu installations
+      sudo service ssh reload
+
+      # CentOS installations
+      sudo service sshd reload
+      ```
+   3. `authorized_keys` file에서 user's key를 주석 처리하여 SSH가 작동하는지 확인하고 local machine에서 repository를 pull하거나 다음을 실행:
+      ```
+      ssh -T git@<GITLAB_DOMAIN>
+      ```
+
+      성공적인 pull 또는 환영 message는 file에 존재하지 않는 key를 GitLab이 database에서 찾을 수 있다는 의미.
 
 7. GitLab 재구성.
-    ```
-    gitlab-ctl reconfigure
-    ```
+   ```
+   gitlab-ctl reconfigure
+   ```
 
 8. 증분 logging 활성화.
 
-9. Node가 Gitaly에 연결할 수 있는지 확인.
+   GitLab Runner는 통합 객체 storage를 사용하는 경우에도, Omnibus GitLab이 기본적으로 disk의 `/var/opt/gitlab/gitlab-ci/builds`에 임시로 cache하는 chunks로 job logs를 반환.  
+   기본 구성을 사용하면 이 directory는 모든 GitLab Rails 및 Sidekiq nodes에서 NFS를 통해 공유되어야 함.  
+   NFS를 통한 job logs 공유는 지원되지만 증분 logging(NFS node가 배포되지 않은 경우 필요)을 활성화하여 NFS 사용을 피하는 것을 권장.  
+   증분 logging은 job logs의 임시 caching을 위해 disk 공간 대신 ​​Redis를 사용.
+
+   job이 완료된 후 background job이 job log를 보관.  
+   Log는 기본적으로 artifacts directory로 이동되거나 구성된 경우 객체 storage로 이동됨.  
+   두 개 이상의 servers에서 실행되는 Rails 및 Sidekiq이 포함된 확장 architecture에서는 file system의 두 위치를 NFS를 사용하여 공유해야 하는데 이는 권장되지 않음.
+
+   ※ 객체 storage 활성화 후 진행.
+
+   1. Rails console open:
+
+      ```
+      gitlab-rails console
+      ```
+   2. 기능 플래그를 활성화:
+
+      ```ruby
+      Feature.enable(:ci_enable_live_trace)
+      ```
+
+      실행 중인 job의 logs는 계속해서 disk에 기록되지만 새 jobs는 증분 logging을 사용.
+
+   3. `authorized_keys` file 쓰기 권한 비활성화:
+
+      ※ GitLab 구성이 완료되어 UI 접속이 된 후에 진행.
+
+      > [!WARNING]  
+      > SSH가 완벽하게 작동하는 것으로 확인될 때까지 쓰기 비활성화 금지.
+      > 그렇지 않으면 file이 빨리 out-of-date됨.
+      
+      1. 상당 표시줄에서 **Main menu > Admin** 선택.
+      2. 왼쪽 sidebar에서 **Settings > Network** 선택.
+      3. **Performance optimization** 확장.
+      4. **Use authorized_keys file to authenticate SSH keys** checkbox 선택 취소.
+      5. **Save changes** 선택.
+
+      다시 한 번 UI에서 user의 SSH key를 제거하고 새 key를 추가한 후 repository pull을 시도하여 SSH가 작동하는지 확인.
+      그런 다음 최상의 성능을 위해 `authorized_keys` file을 백업하고 삭제 가능.
+      현재 users의 kyes는 이미 database에 있으므로 migration하거나 users의 keys 재추가 불필요.
+
+10. Node가 Gitaly에 연결할 수 있는지 확인:
+
    ```
    gitlab-rake gitlab:gitaly:check
    ```
 
-10. GitLab services가 실행 중인지 확인:  
+11. GitLab services가 실행 중인지 확인:
+
     ```
     gitlab-ctl status
     ```
 
-11. 새 project를 생성하여 모든 것이 작동하는지 확인.
-    
+
+13. 새 project를 생성하여 모든 것이 작동하는지 확인.
+
     조회한 repository에 content가 있도록 "Initialize repository with a README" 상자 선택.  
     project가 생성되고 README file이 보이면 제대로 된 것.
 
-12. Repository가 정상적으로 servers에 저장되었는지 확인.
-    
+14. Repository가 정상적으로 servers에 저장되었는지 확인.
+
     Praefects에서 repository metadata 확인.
     ```
     sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml metadata -repository-id <repository-id>
