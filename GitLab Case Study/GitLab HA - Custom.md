@@ -508,73 +508,107 @@ GitLab이 설치된 3개 이상의 server가 Gitaly nodes로 구성됨.
 
 <br>
 
-## GitLab application 구성
+## GitLab application(Sidekiq + GitLab Rails) 구성
 `git_data_dirs`에 추가된 storage 이름은 Praffect nodes의 `Praffect['configuration'][:virtual_storage]`에 있는 storage 이름(ex: `default`)과 일치해야 함.
 
 1. GitLab Linux package download 및 install.
 
 2. `/etc/gitlab/gitlab.rb` 수정.
-    ```ruby
-    external_url 'https://<GITLAB_DOMAIN>'
-    
-    letsencrypt['enable'] = false
-    
-    nginx['listen_port'] = 80
-    nginx['listen_https'] = false
-    nginx['redirect_http_to_https'] = true
-    
-    postgresql['enable'] = false
-    
-    gitlab_rails['db_adapter'] = 'postgresql'
-    gitlab_rails['db_encoding'] = 'unicode'
-    gitlab_rails['db_database'] = 'gitlabhq_production'
-    gitlab_rails['db_username'] = 'git'
-    gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
-    gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
-    gitlab_rails['db_port'] = 5432
-    
-    gitaly['enable'] = false
-    
-    git_data_dirs({
+   ```ruby
+   prometheus['enable'] = false
+   alertmanager['enable'] = false
+   grafana['enable'] = false
+   gitlab_exporter['enable'] = false
+   gitlab_kas['enable'] = false
+
+   external_url 'https://<GITLAB_DOMAIN>'
+
+   letsencrypt['enable'] = false
+
+   nginx['enable'] = true
+   nginx['listen_port'] = 80
+   nginx['listen_https'] = false
+   nginx['redirect_http_to_https'] = false
+
+   gitaly['enable'] = false
+   git_data_dirs({
       "default" => {
-        "gitaly_address" => "tcp://<INTERNAL_LOAD_BALANCER_HOST>:2305",
-        "gitaly_token" => '<PRAEFECT_EXTERNAL_TOKEN>'
+         "gitaly_address" => "tcp://<INTERNAL_LOAD_BALANCER_HOST>:2305", # internal load balancer IP
+         "gitaly_token" => '<PRAEFECT_EXTERNAL_TOKEN>'
       }
-    })
-    ```
+   })
 
-3. 구성한 첫 번째 Linux package node에서 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
-    
-    첫 번째 Linux package node인 경우 이 단계 skip 가능.
+   postgresql['enable'] = false
+   gitlab_rails['db_adapter'] = 'postgresql'
+   gitlab_rails['db_encoding'] = 'utf8'
+   gitlab_rails['db_database'] = 'gitlabhq_production'
+   gitlab_rails['db_username'] = 'gitlab'
+   gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
+   gitlab_rails['db_port'] = 5432
+   gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
 
-4. GitLab 재구성.
+   gitlab_rails['auto_migrate'] = false
+
+   redis['enable'] = false
+   redis['master_name'] = 'gitlab-redis'
+   redis['master_password'] = '<REDIS_PASSWORD>'
+
+   gitlab_rails['redis_sentinels'] = [
+      {'host' => '<REDIS_SENTINEL_1_HOST>', 'port' => 26379},
+      {'host' => '<REDIS_SENTINEL_2_HOST>', 'port' => 26379},
+      {'host' => '<REDIS_SENTINEL_3_HOST>', 'port' => 26379},
+   ]
+
+   sidekiq['enable'] = true
+   sidekiq['listen_address'] = "0.0.0.0"
+   sidekiq['queue_groups'] = ['*'] * 2
+   sidekiq['max_concurrency'] = 20
+   ```
+
+3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
+
+4. 구성한 첫 번째 Omnibus node(ex. Primary Redis/Sentinel instance)에서 SSH host keys(`/etc/ssh/ssh_host_*_key*` 형식의 이름)를 복사하고 이 server에 교체.  
+   이렇게 하면 사용자가 load balancing된 Rails nodes에 도달할 때 host 불일치 오류가 발생하지 않음.
+
+5. 모든 migrations가 활성화 되었는지 확인:
+   ```
+   gitlab-rake gitlab:db:configure
+   ```
+
+6. Database에서 authorized SSH keys를 빠르게 조회하도록 구성.  
+   OpenSSH는 선형 검색을 통해 user에게 권한을 부여하는 key를 검색하므로 users 수가 증가함에 따라 일반 SSH 작업이 느려짐.
+   User에게 GitLab access 권한이 없는 경우와 같은 최악의 경우 OpenSSH는 전체 file을 scan하여 key를 검색.
+   여기에는 상당한 시간과 disk I/O가 소요될 수 있으며 이로 인해 users가 repository에 push하거나 pull하려는 시도가 지연됨.
+   게다가, users가 keys를 자주 추가하거나 제거하면 운영 체제가 `authorized_keys` file을 cache하지 못해 disk에 반복적으로 access하게 될 가능성 존재.
+
+   GitLab Shell은 GitLab database에서 빠른 색인 조회를 통해 SSH users에게 권한을 부여하는 방법을 제공하여 이 문제를 해결.
+   GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access할 수 있는 권한이 있는지 확인.
+
+   
+
+7. GitLab 재구성.
     ```
     gitlab-ctl reconfigure
     ```
 
-5. 각 Gitaly node에서 Git Hooks가 GitLab에 도달할 수 있는지 확인. 각 Gitaly node에서 실행.
+8. 증분 logging 활성화.
+
+9. Node가 Gitaly에 연결할 수 있는지 확인.
+   ```
+   gitlab-rake gitlab:gitaly:check
+   ```
+
+10. GitLab services가 실행 중인지 확인:  
     ```
-    sudo /opt/gitlab/embedded/bin/gitaly check /var/opt/gitlab/gitaly/config.toml
+    gitlab-ctl status
     ```
 
-6. GitLab이 Praefect에 연결할 수 있는지 확인.
-    ```
-    gitlab-rake gitlab:gitaly:check
-    ```
-
-7. Praefect storage가 새 repositories를 저장하도록 구성되었는지 확인.
-    1. 왼쪽 side bar에서 맨 위에 있는 갈매기 모양(v) 확장.
-    2. **Admin Area** 선택.
-    3. 왼쪽 side bar에서 **Settings > Repository** 선택.
-    4. **Repository storage** section 확장.
-    5. `default` storage가 모든 새 repositories를 저장하기 위해 가중치가 100인 것을 확인.
-
-8. 새 project를 생성하여 모든 것이 작동하는지 확인.
+11. 새 project를 생성하여 모든 것이 작동하는지 확인.
     
     조회한 repository에 content가 있도록 "Initialize repository with a README" 상자 선택.  
     project가 생성되고 README file이 보이면 제대로 된 것.
 
-9. Repository가 정상적으로 servers에 저장되었는지 확인.
+12. Repository가 정상적으로 servers에 저장되었는지 확인.
     
     Praefects에서 repository metadata 확인.
     ```
@@ -606,4 +640,5 @@ echo $?
 - **외부 PostgreSQL 설정** - https://docs.gitlab.com/ee/administration/postgresql/external.html
 - **Database 설정** - https://docs.gitlab.com/ee/install/installation.html#7-database
 - **Gitaly Cluster 구성** - https://docs.gitlab.com/ee/administration/gitaly/praefect.html
+- **Database에서 authorized SSH keys를 빠르게 조회** - https://docs.gitlab.com/ee/administration/operations/fast_ssh_key_lookup.html
 - **Repository metadata 보기** - https://docs.gitlab.com/ee/administration/gitaly/troubleshooting.html#view-repository-metadata
