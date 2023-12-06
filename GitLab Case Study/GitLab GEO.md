@@ -161,13 +161,13 @@ Secondary | Any	| Primary	| 5432 | TCP
    gitlab-ctl stop puma
    gitlab-ctl stop sidekiq
    ```
+
+   ※ 이 단계는 중요하므로 site가 완전히 구성되기 전에 아무것도 실행하지 말 것.
 3. **Primary** site의 PostgreSQL server에 대한 TCP 연결 확인:
 
    ```
    gitlab-rake gitlab:tcp_check[<primary_site_ip>,5432]
    ```
-
-   ※ 이 단계는 중요하므로 site가 완전히 구성되기 전에 아무것도 실행하지 말 것.
 4. **Primary** site 설정의 마지막 단계에서 얻은 내용를 사용하여 **secondary** site에 `server.crt` file을 생성:
 
    ```
