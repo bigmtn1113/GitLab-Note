@@ -34,6 +34,84 @@ Secondary | Any	| Primary	| 5432 | TCP
 
 ## PostgreSQL 복제
 ### Step 1. Primary site 구성
+1. GitLab **primary** site에 SSH로 접속하고 root로 login:
+
+   ```
+   sudo -i
+   ```
+2. `/etc/gitlab/gitlab.rb`를 편집해서 site의 고유한 이름을 추가:
+
+   ```
+   gitlab_rails['geo_node_name'] = '<site_name_here>'
+   ```
+3. 변경 사항이 적용되도록 **primary** site를 재구성:
+
+   ```
+   gitlab-ctl reconfigure
+   ```
+4. Site를 **primary** site로 정의:
+
+   ```
+   gitlab-ctl set-geo-primary-node
+   ```
+   이 명령은 `/etc/gitlab/gitlab.rb`의 `external_url`에 정의된 것을 사용.
+5. `gitlab` database user의 비밀번호를 정의.
+
+   원하는 비밀번호의 MD5 hash 생성:
+   ```
+   gitlab-ctl pg-password-md5 gitlab
+   ```
+
+   `/etc/gitlab/gitlab.rb` 편집:
+   ```
+   postgresql['sql_user_password'] = '<md5_hash_of_your_password>'
+
+   gitlab_rails['db_password'] = '<your_password_here>'
+   ```
+6. Database 복제 user의 비밀번호 정의.
+
+   `postgresql['sql_replication_user']` 설정 아래 `/etc/gitlab/gitlab.rb`에 정의된 username(기본값은 `gitlab_replicator`)을 사용.  
+   username을 다른 것으로 변경한 경우 아래 지침대로 진행.
+
+   원하는 비밀번호의 MD5 hash 생성:
+   ```
+   gitlab-ctl pg-password-md5 gitlab_replicator
+   ```
+
+   `/etc/gitlab/gitlab.rb` 편집:
+   ```
+   postgresql['sql_replication_password'] = '<md5_hash_of_your_password>'
+   ```
+
+   Omnibus GitLab에서 관리하지 않는 외부 database를 사용하는 경우 `gitlab_replicator` user를 생성하고 해당 user의 비밀번호를 수동으로 정의 해야 함:
+   ```sql
+   CREATE USER gitlab_replicator;
+   ALTER USER gitlab_replicator WITH REPLICATION ENCRYPTED PASSWORD '<replication_password>';
+   ```
+7. `/etc/gitlab/gitlab.rb`를 편집해서 역할을 `geo_primary_role`로 설정:
+
+   ```
+   roles(['geo_primary_role'])
+   ```
+8. Network interfaces를 수신하도록 PostgreSQL 구성:
+
+   보안상의 이유로 PostgreSQL은 기본적으로 어떤 network interfaces에서도 수신 대기하지 않음.
+   그러나 Geo를 사용하려면 **primary** site의 database에 연결할 수 있는 **secondary** site가 필요.
+   이러한 이유로 각 site의 IP 주소가 필요.
+   
+   > [!IMPORTANT]  
+   > 외부 PostgreSQL 인스턴스의 경우 추가 지침을 참조
+   
+   `/etc/gitlab/gitlab.rb`를 편집해서 다음을 추가하여 IP 주소를 network 구성에 적합한 주소로 변경:
+   ```
+   postgresql['listen_address'] = '<primary_site_ip>'
+   postgresql['md5_auth_cidr_addresses'] = ['<primary_site_ip>/32', '<secondary_site_ip>/32']
+   ```
+9. PostgreSQL이 다시 시작되고 private 주소를 수신할 때까지 자동 database migrations을 일시적으로 비활성화. `/etc/gitlab/gitlab.rb`를 편집해서 구성을 false로 변경:
+
+   ```
+   gitlab_rails['auto_migrate'] = false
+   ```
 
 <br>
 
