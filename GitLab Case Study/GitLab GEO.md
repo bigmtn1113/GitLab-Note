@@ -138,7 +138,7 @@ Secondary | Any	| Primary	| 5432 | TCP
     ```
     gitlab-ctl reconfigure
     ```
-13. 이제 PostgreSQL server가 원격 연결을 허용하도록 설정되었으므로 `netstat -plnt | grep 5432`를 실행하여 PostgreSQL이 port 5432에서 **primary** site의 private 주소를 수신하고 있는지 확인.
+13. 이제 PostgreSQL server가 원격 연결을 허용하도록 설정되었으므로 `netstat -plnt | grep 5432`를 실행하여 PostgreSQL이 port `5432`에서 **primary** site의 private 주소를 수신하고 있는지 확인.
 14. GitLab이 재구성되면 인증서가 자동으로 생성됨. 이는 도청자로부터 PostgreSQL traffic을 보호하기 위해 자동으로 사용됨. "Man-In-The-Middle" 공격으로부터 보호하려면 **secondary** site에 인증서 복사본이 필요. 이 명령을 실행하여 **primary** site에 PostgreSQL `server.crt` file의 복사본 생성:
 
     ```
