@@ -99,19 +99,53 @@ Secondary | Any	| Primary	| 5432 | TCP
    그러나 Geo를 사용하려면 **primary** site의 database에 연결할 수 있는 **secondary** site가 필요.
    이러한 이유로 각 site의 IP 주소가 필요.
    
-   > [!IMPORTANT]  
-   > 외부 PostgreSQL 인스턴스의 경우 추가 지침을 참조
+   ※ 외부 PostgreSQL 인스턴스의 경우 추가 지침을 참조.
    
    `/etc/gitlab/gitlab.rb`를 편집해서 다음을 추가하여 IP 주소를 network 구성에 적합한 주소로 변경:
    ```
-   postgresql['listen_address'] = '<primary_site_ip>'
-   postgresql['md5_auth_cidr_addresses'] = ['<primary_site_ip>/32', '<secondary_site_ip>/32']
+   postgresql['listen_address'] = '<primary_site_ip>'       # ex) '0.0.0.0'
+   postgresql['md5_auth_cidr_addresses'] = ['<primary_site_ip>/32', '<secondary_site_ip>/32']       # ex) ['0.0.0.0/0']
    ```
 9. PostgreSQL이 다시 시작되고 private 주소를 수신할 때까지 자동 database migrations을 일시적으로 비활성화. `/etc/gitlab/gitlab.rb`를 편집해서 구성을 false로 변경:
 
    ```
    gitlab_rails['auto_migrate'] = false
    ```
+10. 선택사항: 다른 **secondary** site를 추가하려면 다음과 같이 설정:
+
+    ```
+    postgresql['md5_auth_cidr_addresses'] = ['<primary_site_ip>/32', '<secondary_site_ip>/32', '<another_secondary_site_ip>/32']
+    ```
+11. File을 저장하고 database 수신 변경 사항 및 복제 slot 변경 사항이 적용되도록 GitLab을 재구성:
+
+    ```
+    gitlab-ctl reconfigure
+    ```
+
+    변경 사항을 적용하려면 PostgreSQL 재시작:
+    ```
+    gitlab-ctl restart postgresql
+    ```
+12. PostgreSQL이 재시작되고 private 주소에서 수신 대기하므로 migrations 재활성화:
+
+    `/etc/gitlab/gitlab.rb`를 편집해서 구성을 `true`로 변경:
+    ```
+    gitlab_rails['auto_migrate'] = true
+    ```
+
+    File을 저장하고 GitLab 재구성:
+
+    ```
+    gitlab-ctl reconfigure
+    ```
+13. 이제 PostgreSQL server가 원격 연결을 허용하도록 설정되었으므로 `netstat -plnt | grep 5432`를 실행하여 PostgreSQL이 port 5432에서 **primary** site의 private 주소를 수신하고 있는지 확인.
+14. GitLab이 재구성되면 인증서가 자동으로 생성됨. 이는 도청자로부터 PostgreSQL traffic을 보호하기 위해 자동으로 사용됨. "Man-In-The-Middle" 공격으로부터 보호하려면 **secondary** site에 인증서 복사본이 필요. 이 명령을 실행하여 **primary** site에 PostgreSQL `server.crt` file의 복사본 생성:
+
+    ```
+    cat ~gitlab-psql/data/server.crt
+    ```
+
+    **secondary** site 설정할 때 필요하므로 출력을 clipboard나 local file에 복사.
 
 <br>
 
