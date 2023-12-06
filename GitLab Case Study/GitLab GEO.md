@@ -55,7 +55,7 @@ Secondary | Any	| Primary	| 5432 | TCP
    gitlab-ctl set-geo-primary-node
    ```
    이 명령은 `/etc/gitlab/gitlab.rb`의 `external_url`에 정의된 것을 사용.
-5. `gitlab` database user의 비밀번호를 정의.
+5. `gitlab` database user의 비밀번호를 정의:
 
    원하는 비밀번호의 MD5 hash 생성:
    ```
