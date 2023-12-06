@@ -145,11 +145,94 @@ Secondary | Any	| Primary	| 5432 | TCP
     cat ~gitlab-psql/data/server.crt
     ```
 
-    **secondary** site 설정할 때 필요하므로 출력을 clipboard나 local file에 복사.
+    **Secondary** site 설정할 때 필요하므로 출력을 clipboard나 local file에 복사.
 
 <br>
 
 ### Step 2. Secondary server 구성
+1. GitLab **secondary** site에 SSH로 접속하고 root로 login:
+
+   ```
+   sudo -i
+   ```
+2. Application server 및 Sidekiq 중지:
+
+   ```
+   gitlab-ctl stop puma
+   gitlab-ctl stop sidekiq
+   ```
+3. **Primary** site의 PostgreSQL server에 대한 TCP 연결 확인:
+
+   ```
+   gitlab-rake gitlab:tcp_check[<primary_site_ip>,5432]
+   ```
+
+   ※ 이 단계는 중요하므로 site가 완전히 구성되기 전에 아무것도 실행하지 말 것.
+4. **Primary** site 설정의 마지막 단계에서 얻은 내용를 사용하여 **secondary** site에 `server.crt` file을 생성:
+
+   ```
+   editor server.crt
+   ```
+5. **Secondary** site에서 PostgreSQL TLS 확인 설정:
+
+   `server.crt` file 설치:
+   ```
+   install \
+      -D \
+      -o gitlab-psql \
+      -g gitlab-psql \
+      -m 0400 \
+      -T server.crt ~gitlab-psql/.postgresql/root.crt
+   ```
+
+   이제 PostgreSQL은 TLS 연결을 확인할 때 정확한 인증서만 인식.
+   인증서는 **primary** site에만 있는 private key에 access할 수 있는 사람에 의해서만 복제될 수 있음.
+   ```
+6. `gitlab-psql` user가 **primary** site의 database(기본 Omnibus database 이름은 `gitlabhq_production`)에 연결할 수 있는지 test:
+
+   ```
+   sudo \
+      -u gitlab-psql /opt/gitlab/embedded/bin/psql \
+      --list \
+      -U gitlab_replicator \
+      -d "dbname=gitlabhq_production sslmode=verify-ca" \
+      -W \
+      -h <primary_site_ip>
+   ```
+
+   Message가 표시되면 첫 번째 단계에서 `gitlab_replicator` user에 대해 설정한 일반 text 비밀번호를 입력.
+   모두 올바르게 작동했다면 **primary** site의 databases 목록이 표시되어야 함.
+
+   여기서 연결에 실패하면 TLS 구성이 올바르지 않음을 나타냄.
+   **Primary** site의 `~gitlab-psql/data/server.crt` 내용이 **secondary** site의 `~gitlab-psql/.postgresql/root.crt` 내용과 일치하는지 확인.
+7. `/etc/gitlab/gitlab.rb`를 편집해서 역할을 `geo_secondary_role`로 설정:
+
+   ```
+   roles(['geo_secondary_role'])
+   ```
+8. PostgreSQL 구성:
+
+   이 단계는 **primary** instance를 구성한 방법과 유사.
+   
+   `/etc/gitlab/gitlab.rb`를 편집해서 다음을 추가하여 IP 주소를 network 구성에 적합한 주소로 변경:
+   ```
+   postgresql['listen_address'] = '<secondary_site_ip>'       # ex) '0.0.0.0'
+   postgresql['md5_auth_cidr_addresses'] = ['<secondary_site_ip>/32']       # ex) ['0.0.0.0/0']
+   postgresql['sql_replication_password'] = '<md5_hash_of_your_password>'
+   postgresql['sql_user_password'] = '<md5_hash_of_your_password>'
+
+   gitlab_rails['db_password'] = '<your_password_here>'
+   ```
+9. 변경 사항이 적용되도록 GitLab을 재구성:
+
+   ```
+   gitlab-ctl reconfigure
+   ```
+10. IP 변경 사항을 적용하려면 PostgreSQL을 재시작:
+
+    ```
+    gitlab-ctl restart postgresql
+    ```
 
 <br>
 
