@@ -30,7 +30,21 @@ Secondary	| Any	| Primary	| 80 | TCP (HTTP)
 Secondary	| Any	| Primary	| 443	| TCP (HTTPS)
 Secondary | Any	| Primary	| 5432 | TCP
 
+<br>
+
+## PostgreSQL 복제
+### Step 1. Primary site 구성
+
+<br>
+
+### Step 2. Secondary server 구성
+
+<br>
+
+### Step 3. 복제 process 시작
+
 <hr>
 
 ## 참고
 - **GitLab GEO** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/
+- **Database 복제** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/setup/database.html
