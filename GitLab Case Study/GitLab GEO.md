@@ -331,6 +331,43 @@ GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access�
 > **Secondary** site는 읽기 전용 복제본이므로 **Admin Area**에 access해야 하는 모든 변경은 **primary** site에서 수행되어야 함.
 
 ### Step 1. GitLab secret 값을 수동으로 복제
+GitLab은 site의 모든 nodes에서 동일해야 하는 여러 secret 값을 `/etc/gitlab/gitlab-secrets.json` file에 저장.  
+Sites 간에 자동으로 복제할 수 있는 수단이 있을 때까지 **secondary** site의 모든 nodes에 수동으로 복제 필요.
+
+1. **Primary** site의 **Rails node**에 SSH로 접속하고 아래 명령을 실행:
+
+   ```
+   sudo cat /etc/gitlab/gitlab-secrets.json
+   ```
+
+   복제해야 하는 secrets가 JSON 형식으로 표시됨.
+2. **Secondary** site의 **각 node**에 SSH로 접속하고 root로 login:
+
+   ```
+   sudo -i
+   ```
+3. 기존 secrets backup:
+
+   ```
+   mv /etc/gitlab/gitlab-secrets.json /etc/gitlab/gitlab-secrets.json.`date +%F`
+   ```
+4. **primary** site의 **Rails node**에서 **secondary** site의 **각 node**로 `/etc/gitlab/gitlab-secrets.json`를 복사하거나, nodes 간에 file 내용을 복사하여 붙여넣을 것:
+
+   ```
+   sudo editor /etc/gitlab/gitlab-secrets.json
+   ```
+5. File 권한이 올바른지 확인:
+
+   ```
+   chown root:root /etc/gitlab/gitlab-secrets.json
+   chmod 0600 /etc/gitlab/gitlab-secrets.json
+   ```
+6. 변경 사항을 적용하려면 **secondary** site에서 **각 Rails, Sidekiq 및 Gitaly nodes**를 재구성:
+
+   ```
+   gitlab-ctl reconfigure
+   gitlab-ctl restart
+   ```
 
 <br>
 
