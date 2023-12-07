@@ -499,6 +499,17 @@ GitLab은 system에 설치된 SSH daemon과 통합되어 모든 access 요청이
 <br>
 
 ### Step 4. HTTP/HTTPS 및 SSH를 통한 Git access 활성화
+Geo는 HTTP/HTTPS를 통해 저장소를 동기화하므로 해당 clone 방법 활성화 필요.  
+이는 기본적으로 활성화되어 있지만 기존 site를 Geo로 변환하는 경우 다음과 같이 확인 필요:
+
+**Primary** site에서 진행:
+1. 상단 표시줄에서 **Main menu > Admin** 선택.
+2. 왼쪽 sidebar에서 **Settings > General** 선택.
+3. **Visibility and access controls** 확장.
+4. SSH를 통해 Git을 사용하는 경우:
+   1. "Enabled Git access protocols"가 "Both SSH and HTTP(S)"로 설정되어 있는지 확인.
+   2. Primary site와 secondary site 모두의 database에서 authorized SSH keys를 빠르게 조회하도록 설정.
+5. SSH를 통해 Git을 사용하지 않는 경우, "Enabled Git access protocols"를 "Only HTTP(S)"로 설정.
 
 <br>
 
