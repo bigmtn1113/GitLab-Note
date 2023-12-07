@@ -99,7 +99,7 @@ Secondary | Any	| Primary	| 5432 | TCP
    그러나 Geo를 사용하려면 **primary** site의 database에 연결할 수 있는 **secondary** site가 필요.
    이러한 이유로 각 site의 IP 주소가 필요.
    
-   > 외부 PostgreSQL 인스턴스의 경우 추가 지침을 참조.
+   > 외부 PostgreSQL instance의 경우 추가 지침을 참조.
    
    `/etc/gitlab/gitlab.rb`를 편집해서 다음을 추가하여 IP 주소를 network 구성에 적합한 주소로 변경:
    ```ruby
@@ -448,7 +448,52 @@ GitLab은 system에 설치된 SSH daemon과 통합되어 모든 access 요청이
 <br>
 
 ### Step 3. Secondary site 추가
+1. **Secondary** site의 **각 Rails 및 Sidekiq node**에 SSH로 접속하고 root로 login:
 
+   ```
+   sudo -i
+   ```
+2. `/etc/gitlab/gitlab.rb`을 편집해서 site의 **고유한** 이름을 추가. 다음 단계에서 이 정보가 필요:
+
+   ```
+   gitlab_rails['geo_node_name'] = '<site_name_here>'
+   ```
+3. 변경 사항을 적용하려면 **secondary** site에서 **각 Rails 및 Sidekiq node**를 재구성:
+
+   ```
+   gitlab-ctl reconfigure
+   ```
+4. **Primary** node GitLab instance로 이동:
+
+   1. 상단 표시줄에서 **Main menu > Admin** 선택.
+   2. 왼쪽 sidebar에서 **Geo > Sites** 선택.
+   3. **Add site** 선택.
+      ![adding_a_secondary_v15_8](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/3021581b-e3a1-4f7e-929e-eeb499c5852a)
+   4. **Name**에 `/etc/gitlab/gitlab.rb`의 `gitlab_rails['geo_node_name']` 값을 입력. 이러한 값은 항상 정확하게 일치 필요.
+   5. **External URL**에 `/etc/gitlab/gitlab.rb`의 `external_url` 값을 입력. 이러한 값은 항상 일치해야 하지만, `/`로 끝나든 그렇지 않든 상관없음.
+   6. 선택 사항. **Internal URL (optional)** 에 primary site의 internal URL을 입력.
+   7. 선택 사항. **Secondary** site에서 복제해야 하는 groups 또는 storage shards 선택. 모두 복제하려면 비워 둘 것.
+   8. **Save changes**를 선택하여 **secondary** site 추가.
+5. **Secondary site의 각 Rails 및 Sidekiq node**에 SSH를 통해 연결하고 services 재시작:
+
+   ```
+   gitlab-ctl restart
+   ```
+
+   다음을 실행하여 Geo 설정에 일반적인 문제가 있는지 확인:
+   ```
+   gitlab-rake gitlab:geo:check
+   ```
+6. **Primary** site의 **Rails 또는 Sidekiq server**에 SSH로 접속하고 root로 로그인하여 **secondary** site에 연결할 수 있는지 또는 Geo 설정에 일반적인 문제가 있는지 확인:
+
+   ```
+   gitlab-rake gitlab:geo:check
+   ```
+
+**Secondary** site가 Geo 관리 page에 추가되고 재시작되면 site는 **backfill**이라는 process를 통해 **primary** site에서 누락된 data를 자동으로 복제하기 시작.  
+그 사이에 **primary** site는 각 **secondary** site에 변경 사항을 알리기 시작하므로 **secondary** site는 해당 알림에 대해 즉시 조치 가능.
+
+**Secondary** site가 실행 중이고 access 가능한지 확인. **Primary** site에 사용된 것과 동일한 자격 증명을 사용하여 **secondary** site에 login 가능.
 <br>
 
 ### Step 4. HTTP/HTTPS 및 SSH를 통한 Git access 활성화
