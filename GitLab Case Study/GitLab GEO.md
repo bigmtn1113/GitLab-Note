@@ -99,7 +99,7 @@ Secondary | Any	| Primary	| 5432 | TCP
    그러나 Geo를 사용하려면 **primary** site의 database에 연결할 수 있는 **secondary** site가 필요.
    이러한 이유로 각 site의 IP 주소가 필요.
    
-   ※ 외부 PostgreSQL 인스턴스의 경우 추가 지침을 참조.
+   > 외부 PostgreSQL 인스턴스의 경우 추가 지침을 참조.
    
    `/etc/gitlab/gitlab.rb`를 편집해서 다음을 추가하여 IP 주소를 network 구성에 적합한 주소로 변경:
    ```ruby
@@ -162,7 +162,7 @@ Secondary | Any	| Primary	| 5432 | TCP
    gitlab-ctl stop sidekiq
    ```
 
-   ※ 이 단계는 중요하므로 site가 완전히 구성되기 전에 아무것도 실행하지 말 것.
+   > 이 단계는 중요하므로 site가 완전히 구성되기 전에 아무것도 실행하지 말 것.
 3. **Primary** site의 PostgreSQL server에 대한 TCP 연결 확인:
 
    ```
@@ -236,6 +236,35 @@ Secondary | Any	| Primary	| 5432 | TCP
 <br>
 
 ### Step 3. 복제 process 시작
+다음은 **secondary** site의 database를 **primary** site의 database에 연결하는 script.  
+이 script는 database를 복제하고 streaming 복제에 필요한 files를 생성.
+
+사용되는 directories는 Omnibus에 설정된 기본값.  
+기본값을 변경한 경우, 그에 따라 script를 구성하여 모든 directories와 경로 변경 필요.
+
+> [!WARNING]
+> `pg_basebackup`을 실행하기 전에 PostgreSQL의 모든 data를 제거하므로 **secondary** site에서 이를 실행할 것.
+
+1. GitLab **secondary** site에 SSH로 접속하고 root로 login:
+
+   ```
+   sudo -i
+   ```
+2. **Secondary** site에서 복제 slot 이름으로 사용할 database 친화적인 이름 선택. 예를 들어 domain이 `secondary.geo.example.com`인 경우 `secondary_example`을 slot 이름으로 사용.
+3. Backup/restore을 시작하고 복제 시작:
+
+   > 각 Geo **secondary**에는 고유한 복제 slot 이름 필요.  
+   > 두 **secondary** databases 간에 동일한 slot 이름을 사용하면 PostgreSQL 복제가 중단됨.  
+   > 복제 slot 이름에는 소문자, 숫자, 밑줄 문자(_)만 포함되어야 함.
+   
+   ```
+   gitlab-ctl replicate-geo-database \
+      --slot-name=<secondary_site_name> \
+      --host=<primary_site_ip> \
+      --sslmode=verify-ca
+   ```
+
+   Message가 표시되면 첫 번째 단계에서 `gitlab_replicator` user에 대해 설정한 일반 text 비밀번호를 입력.
 
 <hr>
 
