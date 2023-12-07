@@ -266,8 +266,63 @@ Secondary | Any	| Primary	| 5432 | TCP
 
    Message가 표시되면 첫 번째 단계에서 `gitlab_replicator` user에 대해 설정한 일반 text 비밀번호를 입력.
 
+<br>
+
+## Database에서 authorized SSH keys를 빠르게 조회하도록 구성.
+OpenSSH는 선형 검색을 통해 user에게 권한을 부여하는 key를 검색하므로 users 수가 증가함에 따라 일반 SSH 작업이 느려짐.  
+User에게 GitLab access 권한이 없는 경우와 같은 최악의 경우 OpenSSH는 전체 file을 scan하여 key를 검색.  
+여기에는 상당한 시간과 disk I/O가 소요될 수 있으며 이로 인해 users가 repository에 push하거나 pull하려는 시도가 지연됨.  
+게다가, users가 keys를 자주 추가하거나 제거하면 운영 체제가 `authorized_keys` file을 cache하지 못해 disk에 반복적으로 access하게 될 가능성 존재.
+
+GitLab Shell은 GitLab database에서 빠른 색인 조회를 통해 SSH users에게 권한을 부여하는 방법을 제공하여 이 문제를 해결.  
+GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access할 수 있는 권한이 있는지 확인.
+
+> [!IMPORTANT]  
+> **Primary** site와 **secondary** site 모두 진행.
+
+1. `sshd_config` file에 다음을 추가. 이 file은 일반적으로 `/etc/ssh/sshd_config`에 있지만 Omnibus Docker를 사용하는 경우에는 `/assets/sshd_config`에 존재:
+
+   ```
+   Match User git    # Apply the AuthorizedKeysCommands to the git user only
+   AuthorizedKeysCommand /opt/gitlab/embedded/service/gitlab-shell/bin/gitlab-shell-authorized-keys-check git %u %k
+   AuthorizedKeysCommandUser git
+   Match all    # End match, settings apply to all users again
+   ```
+2. OpenSSH reload:
+
+   ```
+   # Debian or Ubuntu installations
+   sudo service ssh reload
+
+   # CentOS installations
+   sudo service sshd reload
+   ```
+3. authorized_keys file에서 user's key를 주석 처리하여 SSH가 작동하는지 확인하고 local machine에서 repository를 pull하거나 다음을 실행:
+
+   ```
+   ssh -T git@<GITLAB_DOMAIN>
+   ```
+
+   성공적인 pull 또는 환영 message는 file에 존재하지 않는 key를 GitLab이 database에서 찾을 수 있다는 의미.
+4. `authorized_keys` file 쓰기 권한 비활성화:
+
+   > GitLab 구성이 완료되어 UI 접속이 된 후에 진행.  
+   > SSH가 완벽하게 작동하는 것으로 확인될 때까지 쓰기 비활성화 금지.  
+   > 그렇지 않으면 file이 빨리 out-of-date됨.
+
+   1. 상당 표시줄에서 **Main menu > Admin** 선택.
+   2. 왼쪽 sidebar에서 **Settings > Network** 선택.
+   3. **Performance optimization** 확장.
+   4. **Use authorized_keys file to authenticate SSH keys** checkbox 선택 취소.
+   5. **Save changes** 선택.
+
+   다시 한 번 UI에서 user의 SSH key를 제거하고 새 key를 추가한 후 repository pull을 시도하여 SSH가 작동하는지 확인.  
+   그런 다음 최상의 성능을 위해 `authorized_keys` file을 백업하고 삭제 가능.  
+   현재 users의 kyes는 이미 database에 있으므로 migration하거나 users의 keys 재추가 불필요.
+
 <hr>
 
 ## 참고
 - **GitLab GEO** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/
 - **Database 복제** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/setup/database.html
+- **Database에서 authorized SSH keys를 빠르게 조회** - https://archives.docs.gitlab.com/15.11/ee/administration/operations/fast_ssh_key_lookup.html
