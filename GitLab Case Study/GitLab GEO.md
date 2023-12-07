@@ -297,7 +297,7 @@ GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access�
    # CentOS installations
    sudo service sshd reload
    ```
-3. authorized_keys file에서 user's key를 주석 처리하여 SSH가 작동하는지 확인하고 local machine에서 repository를 pull하거나 다음을 실행:
+3. `authorized_keys` file에서 user's key를 주석 처리하여 SSH가 작동하는지 확인하고 local machine에서 repository를 pull하거나 다음을 실행:
 
    ```
    ssh -T git@<GITLAB_DOMAIN>
@@ -306,6 +306,7 @@ GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access�
    성공적인 pull 또는 환영 message는 file에 존재하지 않는 key를 GitLab이 database에서 찾을 수 있다는 의미.
 4. `authorized_keys` file 쓰기 권한 비활성화:
 
+   > **Primary** site에서만 진행.  
    > GitLab 구성이 완료되어 UI 접속이 된 후에 진행.  
    > SSH가 완벽하게 작동하는 것으로 확인될 때까지 쓰기 비활성화 금지.  
    > 그렇지 않으면 file이 빨리 out-of-date됨.
