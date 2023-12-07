@@ -372,6 +372,78 @@ Sites 간에 자동으로 복제할 수 있는 수단이 있을 때까지 **seco
 <br>
 
 ### Step 2. Primary site의 SSH host keys를 수동으로 복제
+GitLab은 system에 설치된 SSH daemon과 통합되어 모든 access 요청이 처리되는 user(일반적으로 `git`)를 지정.
+
+재해 복구 상황에서 GitLab system 관리자는 **secondary** site를 **primary** site로 승격.  
+**Primary** domain의 DNS records도 새 **primary** site(이전의 **secondary** site)를 가리키도록 update 필요.  
+이렇게 하면 Git 원격 및 API URLs를 update 불필요.
+
+이로 인해 SSH host key 불일치로 인해 새로 승격된 **primary** site에 대한 모든 SSH 요청이 실패하게 되는데, 이를 방지하려면 **primary** SSH host keys를 **secondary** site에 수동으로 복제 필요.
+
+1. **Secondary** site의 **각 node**에 SSH로 접속하고 root로 login:
+
+   ```
+   sudo -i
+   ```
+2. 기존 SSH host keys backup:
+
+   ```
+   find /etc/ssh -iname 'ssh_host_*' -exec cp {} {}.backup.`date +%F` \;
+   ```
+3. **Primary** site에서 OpenSSH host keys 복사:
+
+   **root** user를 사용하여 SSH traffic을 제공하는 **primary** site의 **nodes**(일반적으로 main GitLab Rails application nodes) 중 하나에 access할 수 있는 경우:
+   ```
+   scp root@<primary_node_fqdn>:/etc/ssh/ssh_host_*_key* /etc/ssh
+   ```
+
+   `scp`를 사용할 수 없는 경우:
+   ```
+   # Primary site의 node에서 실행
+   sudo tar --transform 's/.*\///g' -zcvf ~/geo-host-key.tar.gz /etc/ssh/ssh_host_*_key*
+
+   # 생성된 geo-host-key.tar.gz을 secondary site의 각 node로 옮긴 후 진행:
+   tar zxvf ~/geo-host-key.tar.gz -C /etc/ssh
+   ```
+4. **Secondary** site의 **각 node**에서 file 권한이 올바른지 확인:
+
+   ```
+   chown root:root /etc/ssh/ssh_host_*_key*
+   chmod 0600 /etc/ssh/ssh_host_*_key
+   ```
+5. Key fingerprint 일치를 확인하려면 각 site의 **primary** node와 **secondary** node 모두에서 다음 명령을 실행:
+
+   ```
+   for file in /etc/ssh/ssh_host_*_key; do ssh-keygen -lf $file; done
+   ```
+
+   다음과 유사한 출력을 얻어야 하며 두 nodes에서 모두 동일해야 함:
+   ```
+   1024 SHA256:FEZX2jQa2bcsd/fn/uxBzxhKdx4Imc4raXrHwsbtP0M root@serverhostname (DSA)
+   256 SHA256:uw98R35Uf+fYEQ/UnJD9Br4NXUFPv7JAUln5uHlgSeY root@serverhostname (ECDSA)
+   256 SHA256:sqOUWcraZQKd89y/QQv/iynPTOGQxcOTIXU/LsoPmnM root@serverhostname (ED25519)
+   2048 SHA256:qwa+rgir2Oy86QI+PZi/QVR+MSmrdrpsuH7YyKknC+s root@serverhostname (RSA)
+   ```
+6. 기존 private keys에 대한 올바른 public keys가 있는지 확인:
+
+   ```
+   for file in /etc/ssh/ssh_host_*_key; do ssh-keygen -lf $file; done
+   for file in /etc/ssh/ssh_host_*_key.pub; do ssh-keygen -lf $file; done
+   ```
+
+   > Private keys 및 public keys 명령의 출력은 동일한 fingerprint를 생성해야 함.
+7. **Secondary** site의 **각 node**에서 `sshd` 재시작:
+   ```
+   # Debian or Ubuntu installations
+   sudo service ssh reload
+
+   # CentOS installations
+   sudo service sshd reload
+   ```
+8. SSH가 여전히 작동하는지 확인.
+
+   새 terminal에서 GitLab **secondary** server에 SSH를 통해 연결.  
+   연결할 수 없는 경우 이전 단계에 따라 권한이 올바른지 확인.
 
 <br>
 
