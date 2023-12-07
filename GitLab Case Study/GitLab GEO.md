@@ -514,6 +514,30 @@ Geo는 HTTP/HTTPS를 통해 저장소를 동기화하므로 해당 clone 방법 
 <br>
 
 ### Step 5. Secondary site가 제대로 작동하는지 확인
+**Primary** site에서 사용한 것과 동일한 자격 증명을 사용하여 **secondary** site에 login 가능. Login한 후 진행:
+
+1. 상단 표시줄에서 **Main menu > Admin** 선택.
+2. 왼쪽 sidebar에서 **Geo > Sites** 선택.
+3. **Secondary** Geo site로 올바르게 식별되고 Geo가 활성화되어 있는지 확인.
+
+초기 복제에는 다소 시간이 걸릴 수 있고, site 상태 또는 'backfill'이 아직 진행 중일 가능성 존재.  
+Browser에 있는 **primary** site의 **Geo Sites** dashboard에서 각 Geo site의 동기화 process monitoring 가능.  
+![geo_dashboard_v14_0](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/49f6c468-3aa7-43b4-94c6-a102747c913f)
+
+Dashboard에서 명백하게 드러날 수 있는 가장 확실한 두 가지 문제:
+1. Database 복제가 제대로 작동하지 않음.
+2. Instance 간 알림이 작동하지 않음. 이 경우 다음 중 하나일 가능성 존재:
+   - 사용자 정의 인증서 또는 사용자 정의 CA를 사용.
+   - Instance에 방화벽이 설정되어 있는 경우.
+
+**Secondary** site를 비활성화하면 동기화 process가 중지됨.
+
+현재 동기화되는 내용:
+- Git repositories.
+- Wikis.
+- LFS 객체.
+- Issues, 병합 요청, snippets, 댓글 attachments.
+- Users, groups 및 project avatars.
 
 <hr>
 
