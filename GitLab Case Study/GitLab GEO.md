@@ -321,9 +321,36 @@ GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access�
    그런 다음 최상의 성능을 위해 `authorized_keys` file을 백업하고 삭제 가능.  
    현재 users의 kyes는 이미 database에 있으므로 migration하거나 users의 keys 재추가 불필요.
 
+<br>
+
+## **Secondary** site 구성
+이는 보조 Geo 사이트 설정의 마지막 단계
+
+> [!IMPORTANT]
+> 보조 사이트 에 대해서는 사용자 정의 인증을 설정 하지 마십시오 . 이는 기본 사이트 에서 처리됩니다 . 보조 사이트는 읽기 전용 복제본 이므로 관리 영역 에 액세스해야 하는 모든 변경은 기본 사이트 에서 수행되어야 합니다 .
+
+### Step 1. GitLab secret 값을 수동으로 복제
+
+<br>
+
+### Step 2. Primary site의 SSH host keys를 수동으로 복제
+
+<br>
+
+### Step 3. Secondary site 추가
+
+<br>
+
+### Step 4. HTTP/HTTPS 및 SSH를 통한 Git access 활성화
+
+<br>
+
+### Step 5. Secondary site가 제대로 작동하는지 확인
+
 <hr>
 
 ## 참고
 - **GitLab GEO** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/
 - **Database 복제** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/setup/database.html
 - **Database에서 authorized SSH keys를 빠르게 조회** - https://archives.docs.gitlab.com/15.11/ee/administration/operations/fast_ssh_key_lookup.html
+- **GEO 구성** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/replication/configuration.html
