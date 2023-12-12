@@ -294,8 +294,8 @@ GitLab Shell은 SSH key의 fingerprint를 사용하여 user가 GitLab에 access�
 
    ```
    Match User git    # Apply the AuthorizedKeysCommands to the git user only
-   AuthorizedKeysCommand /opt/gitlab/embedded/service/gitlab-shell/bin/gitlab-shell-authorized-keys-check git %u %k
-   AuthorizedKeysCommandUser git
+     AuthorizedKeysCommand /opt/gitlab/embedded/service/gitlab-shell/bin/gitlab-shell-authorized-keys-check git %u %k
+     AuthorizedKeysCommandUser git
    Match all    # End match, settings apply to all users again
    ```
 2. OpenSSH reload:
