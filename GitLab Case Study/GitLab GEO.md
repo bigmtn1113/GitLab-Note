@@ -199,17 +199,27 @@ Secondary | Any	| Primary	| 5432 | TCP
       -h <primary_site_ip>
    ```
 
+   > 위의 명령어를 수행할 수 없을 경우 다음과 같이 실행:  
+   > ```
+   > gitlab-psql \
+   >    --list \
+   >    -U gitlab_replicator \
+   >    -d "dbname=gitlabhq_production sslmode=verify-ca" \
+   >    -W \
+   >    -h <primary_site_ip>
+   > ```
+
    Message가 표시되면 첫 번째 단계에서 `gitlab_replicator` user에 대해 설정한 일반 text 비밀번호를 입력.  
    모두 올바르게 작동했다면 **primary** site의 databases 목록이 표시되어야 함.
 
    여기서 연결에 실패하면 TLS 구성이 올바르지 않음을 나타냄.  
    **Primary** site의 `~gitlab-psql/data/server.crt` 내용이 **secondary** site의 `~gitlab-psql/.postgresql/root.crt` 내용과 일치하는지 확인.
-7. `/etc/gitlab/gitlab.rb`를 편집해서 역할을 `geo_secondary_role`로 설정:
+8. `/etc/gitlab/gitlab.rb`를 편집해서 역할을 `geo_secondary_role`로 설정:
 
    ```ruby
    roles(['geo_secondary_role'])
    ```
-8. PostgreSQL 구성:
+9. PostgreSQL 구성:
 
    이 단계는 **primary** instance를 구성한 방법과 유사.
    
@@ -222,12 +232,12 @@ Secondary | Any	| Primary	| 5432 | TCP
 
    gitlab_rails['db_password'] = '<your_password_here>'
    ```
-9. 변경 사항이 적용되도록 GitLab을 재구성:
+10. 변경 사항이 적용되도록 GitLab을 재구성:
 
    ```
    gitlab-ctl reconfigure
    ```
-10. IP 변경 사항을 적용하려면 PostgreSQL을 재시작:
+11. IP 변경 사항을 적용하려면 PostgreSQL을 재시작:
 
     ```
     gitlab-ctl restart postgresql
