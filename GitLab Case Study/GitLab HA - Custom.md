@@ -285,7 +285,7 @@ Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL�
 1. GitLab용 database user 생성(d option은 db name):
 
    ```
-   sudo psql -U postgres -d template1 -c "CREATE USER gitlab WITH LOGIN PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
+   sudo psql -U postgres -d template1 -c "CREATE USER gitlab WITH PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
    ```
 
 2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성:
@@ -305,7 +305,7 @@ Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL�
 4. 새 user로 새 database에 연결:
 
    ```
-   sudo psql -U gitlab -H -d gitlabhq_production
+   sudo psql -U gitlab -d gitlabhq_production -H
    ```
 
 5. 확장 module인 pg_trgm, btree_gist, plpgsql이 활성화되어 있는지 각각 확인. enabled가 t로 출력:
