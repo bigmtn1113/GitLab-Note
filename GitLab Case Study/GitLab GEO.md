@@ -234,9 +234,9 @@ Secondary | Any	| Primary	| 5432 | TCP
    ```
 10. 변경 사항이 적용되도록 GitLab을 재구성:
 
-   ```
-   gitlab-ctl reconfigure
-   ```
+    ```
+    gitlab-ctl reconfigure
+    ```
 11. IP 변경 사항을 적용하려면 PostgreSQL을 재시작:
 
     ```
