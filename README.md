@@ -36,6 +36,7 @@
   - [로컬 파일의 backup lifetime 제한(이전 backups 정리)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/%EB%A1%9C%EC%BB%AC%20%ED%8C%8C%EC%9D%BC%EC%9D%98%20backup%20lifetime%20%EC%A0%9C%ED%95%9C(%EC%9D%B4%EC%A0%84%20backups%20%EC%A0%95%EB%A6%AC).md)
 - [Users 조정](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95)
   - [최근 활동이 없는 users 비활성화](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95/%EC%B5%9C%EA%B7%BC%20%ED%99%9C%EB%8F%99%EC%9D%B4%20%EC%97%86%EB%8A%94%20users%20%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94.md)
+  - [최근 활동이 없는 users 차단](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95/%EC%B5%9C%EA%B7%BC%20%ED%99%9C%EB%8F%99%EC%9D%B4%20%EC%97%86%EB%8A%94%20users%20%EC%B0%A8%EB%8B%A8.md)
   - [휴면 users 자동 비활성화](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95/%ED%9C%B4%EB%A9%B4%20users%20%EC%9E%90%EB%8F%99%20%EB%B9%84%ED%99%9C%EC%84%B1%ED%99%94%20.md)
 - [Amazon S3 사용 - Docker](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Amazon%20S3%20%EC%82%AC%EC%9A%A9%20-%20Docker.md)
 - [Amazon S3 사용 - Helm chart](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Amazon%20S3%20%EC%82%AC%EC%9A%A9%20-%20Helm%20chart.md)
