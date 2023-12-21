@@ -1,8 +1,8 @@
-# 최근 활동이 없는 users deactivatation
+# 최근 활동이 없는 users deactivation
 
 <br>
 
-관리자는 최근 활동이 없는 users deactivatation 가능.
+관리자는 최근 활동이 없는 users deactivation 가능.
 
 <br>
 
@@ -27,4 +27,4 @@
 <hr>
 
 ## 참고
-- **최근 활동이 없는 users deactivatation** - https://docs.gitlab.com/ee/administration/moderate_users.html#deactivate-users-that-have-no-recent-activity
+- **최근 활동이 없는 users deactivation** - https://docs.gitlab.com/ee/administration/moderate_users.html#deactivate-users-that-have-no-recent-activity
