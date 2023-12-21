@@ -1,8 +1,8 @@
-# 최근 활동이 없는 users 차단
+# 최근 활동이 없는 users block
 
 <br>
 
-관리자는 최근 활동이 없는 users 차단 가능.
+관리자는 최근 활동이 없는 users block 가능.
 
 <br>
 
@@ -27,4 +27,4 @@
 <hr>
 
 ## 참고
-- **최근 활동이 없는 users 차단** - https://docs.gitlab.com/ee/administration/moderate_users.html#block-users-that-have-no-recent-activity
+- **최근 활동이 없는 users block** - https://docs.gitlab.com/ee/administration/moderate_users.html#block-users-that-have-no-recent-activity
