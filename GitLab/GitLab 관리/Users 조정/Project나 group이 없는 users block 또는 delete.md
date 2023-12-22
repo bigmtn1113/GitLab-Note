@@ -23,6 +23,15 @@
      users.each { |user|  user.blocked? ? nil  : user.block! }
      ```
 
+     > 위의 작업으로 인해 block된 users activation:  
+     > ```ruby
+     > users = User.where('id NOT IN (select distinct(user_id) from project_authorizations)')
+     >
+     > users.count
+     >
+     > users.each { |user|  user.blocked? ? user.activate! : nil }
+     > ```
+
    - Delete users:
      ```ruby
      users = User.where('id NOT IN (select distinct(user_id) from project_authorizations)')
