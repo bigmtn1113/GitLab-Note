@@ -70,6 +70,7 @@
   - [Projects API](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9/Projects%20API.md)
 - [GitLab subscription](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20subscription)
   - [GitLab self-managed 구독 사용자 합계 보기](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20subscription/GitLab%20self-managed%20%EA%B5%AC%EB%8F%85%20%EC%82%AC%EC%9A%A9%EC%9E%90%20%ED%95%A9%EA%B3%84%20%EB%B3%B4%EA%B8%B0.md)
+- [Emails on push](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Emails%20on%20push.md)
 - [GitLab CICD variables](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20CICD%20variables.md)
 - [GitLab Container Registry 사용](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20Container%20Registry%20%EC%82%AC%EC%9A%A9.md)
 - [Jira](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Jira.md)
