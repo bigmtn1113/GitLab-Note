@@ -13,6 +13,22 @@ Geo는 GitLab instances의 local 읽기 전용 sites를 제공.
 
 <br>
 
+## Glossary
+Geo의 모든 측면을 설명하기 위해 정의된 용어.  
+명확하게 정의된 용어 집합을 사용하면 효율적인 의사소통 및 혼란 방지 가능.
+
+용어 | 정의	| 범위 
+:---: | :---: | :---:
+Node | 특정 역할 또는 전체(예: Rails application node)로 GitLab을 실행하는 개별 server. | GitLab
+Site | 단일 GitLab application을 실행하는 하나 또는 nodes 모음. 단일 node 또는 다중 node일 수 있음. | GitLab
+Single-node site | 정확히 하나의 node를 사용하는 GitLab의 특정 구성. | GitLab
+Multi-node site | 둘 이상의 nodes를 사용하는 GitLab의 특정 구성. | GitLab
+Primary site | 하나 이상의 secondary site에서 데이터가 복제되는 GitLab site. Primary site는 하나만 존재. | Geo-specific
+Secondary site | Primary site의 data를 복제하도록 구성된 GitLab site. 하나 이상의 secondary sites가 있을 수 있음. | Geo-specific
+Geo deployment | 정확히 하나의 primary site가 하나 이상의 secondary sites에 의해 복제되는 두 개 이상의 GitLab site 모음. | Geo-specific
+
+<br>
+
 ## 요구사항
 - 독립적으로 작동하는 두 개 이상의 GitLab sites.
 - Primary site에 GitLab Premium license 이상 적용.
@@ -553,6 +569,7 @@ Dashboard에서 명백하게 드러날 수 있는 가장 확실한 두 가지 �
 
 ## 참고
 - **GitLab GEO** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/
+- **Geo Glossary** - https://docs.gitlab.com/ee/administration/geo/glossary.html
 - **Database 복제** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/setup/database.html
 - **Database에서 authorized SSH keys를 빠르게 조회** - https://archives.docs.gitlab.com/15.11/ee/administration/operations/fast_ssh_key_lookup.html
 - **GEO 구성** - https://archives.docs.gitlab.com/15.11/ee/administration/geo/replication/configuration.html
