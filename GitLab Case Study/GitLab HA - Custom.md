@@ -18,42 +18,48 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 
 ### Components
 상황에 맞춰서 custom하게 components 분리 가능.  
-본 page에선 ★ 표시되어 있는 것만 분리 구성.  
-(★★는 하나로 합쳐서 구성)
+본 page에선 ★ 표시되어 있는 것만 구성.  
 
-- **GitLab Rails** ★★  
-  GitLab의 핵심 요소.  
-  여러 Components와 상호작용하는 역할 수행.
-- **Sidekiq** ★★  
-  Background job processor이며 Redis를 job 대기열의 data 저장소로 사용.
-- **Redis/Sentinel** ★  
-  Sidekiq을 사용하여 작업 처리 대기열로 사용되며, 모든 사용자 session과 background job 대기열을 저장.
 - **External Load Balancer** ★  
   GitLab URL 접근 시 GitLab application servers로 traffic을 routing.
 - **Internal Load Balancer** ★  
   PgBouncer 및 Praefect(Gitaly Cluster)에 대한 연결과 같이 GitLab 환경에 필요한 내부 연결의 균형을 유지하는 데 사용.
+- **Redis/Sentinel** ★  
+  Sidekiq을 사용하여 작업 처리 대기열로 사용되며, 모든 사용자 session과 background job 대기열을 저장.
+- Consul  
+  Service 검색 및 구성을 위한 도구.
+- **PostgreSQL** ★  
+  GitLab용 Database.
+- PGBouncer  
+  Database 연결 사용을 최적화할 목적으로 connection pooling에 PgBouncer를 사용.
+- **Praefect PostgreSQL** ★  
+  Praefect가 Gitaly Cluster 상태에 data를 저장하기 위해 사용.  
+  Repositories가 위치한 곳 및 일부 대기중인 작업들에 대한 metadata 포함.  
+  > Server 자원 요구 사항이 상대적으로 낮음.
 - **Praefect** ★  
   모든 traffic을 Gitaly storage nodes로 routing하여 Gitaly cluster를 제공.  
   요청을 검사하고 이를 올바른 Gitaly backend로 routing하려고 시도하면 Gitaly가 작동 중인지 확인하고 data 사본이 최신 상태인지 확인하는 등의 작업 수행.
 - **Gitaly** ★  
   GitLab의 Git access 속도가 느려지는 문제를 해결하기 위해 구축한 Git repositories에 대한 높은 수준의 RPC access를 제공하는 service.  
   GitLab에서 Git data를 읽고 쓰는 용도로 사용.
-- **PostgreSQL** ★  
-  GitLab용 Database.
-- **Praefect PostgreSQL** ★  
-  Praefect가 Gitaly Cluster 상태에 data를 저장하기 위해 사용.  
-  Repositories가 위치한 곳 및 일부 대기중인 작업들에 대한 metadata 포함.  
-  > 요구 사항이 상대적으로 낮음.
-- Object storage  
-  다양한 유형의 data를 보관하기 위해 사용.
+- **Sidekiq** ★  
+  Background job processor이며 Redis를 job 대기열의 data 저장소로 사용.
+- **GitLab Rails** ★  
+  GitLab의 핵심 요소.  
+  여러 Components와 상호작용하는 역할 수행.
 - Prometheus  
   GitLab을 monitoring하기 위한 service.
 - Grafana  
   Prometheus 성능 지표를 data source로 가져오고 지표를 시각화에 도움이 되는 graphs 및 dashboards로 rendering하는 service.
-- Consul  
-  Service 검색 및 구성을 위한 도구.
-- PGBouncer  
-  Database 연결 사용을 최적화할 목적으로 connection pooling에 PgBouncer를 사용.
+- Object storage  
+  다양한 유형의 data를 보관하기 위해 사용.
+
+> [!NOTE]
+> 일부 components는 합쳐서 구성:  
+> - External Load Balancer + Internal Load Balancer
+> - Redis + Sentinel
+> - PostgreSQL + Praefect PostgreSQL
+> - Sidekiq + GitLab Rails
 
 <br>
 
@@ -344,9 +350,6 @@ Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 �
 
 ### Praefect PostgreSQL 구성
 Gitaly Cluster의 routing 및 transaction 관리자인 Praefect는 Gitaly Cluster 상태에 data를 저장하기 위해 자체 database server가 필요.
-
-> [!IMPORTANT]  
-> [PostgreSQL 구성](#postgresql-구성) 후 진행
 
 1. 관리 access 권한으로 Praefect PostgreSQL에 연결:
 
