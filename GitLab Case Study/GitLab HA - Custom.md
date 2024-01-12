@@ -276,6 +276,13 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
    gitlab-ctl reconfigure
    ```
 
+#### ※ Redis Primary와 Replica 상태 확인
+```
+/opt/gitlab/embedded/bin/redis-cli -h <REDIS_SENTINEL_1_HOST> -a '<REDIS_PASSWORD>' info replication
+/opt/gitlab/embedded/bin/redis-cli -h <REDIS_SENTINEL_2_HOST> -a '<REDIS_PASSWORD>' info replication
+/opt/gitlab/embedded/bin/redis-cli -h <REDIS_SENTINEL_3_HOST> -a '<REDIS_PASSWORD>' info replication
+```
+
 <br>
 
 ## PostgreSQL 구성
