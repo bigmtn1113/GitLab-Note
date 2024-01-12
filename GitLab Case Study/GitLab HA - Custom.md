@@ -545,10 +545,12 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
 2. `/etc/gitlab/gitlab.rb` 수정:
 
    ```ruby
+   gitaly['enable'] = false
+   postgresql['enable'] = false
+   redis['enable'] = false
    prometheus['enable'] = false
    alertmanager['enable'] = false
    grafana['enable'] = false
-   gitlab_exporter['enable'] = false
    gitlab_kas['enable'] = false
 
    external_url 'https://<GITLAB_DOMAIN>'
@@ -560,26 +562,6 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
    nginx['listen_https'] = false
    nginx['redirect_http_to_https'] = false
 
-   gitaly['enable'] = false
-   git_data_dirs({
-      "default" => {
-         "gitaly_address" => "tcp://<INTERNAL_LOAD_BALANCER_HOST>:2305", # internal load balancer IP
-         "gitaly_token" => '<PRAEFECT_EXTERNAL_TOKEN>'
-      }
-   })
-
-   postgresql['enable'] = false
-   gitlab_rails['db_adapter'] = 'postgresql'
-   gitlab_rails['db_encoding'] = 'utf8'
-   gitlab_rails['db_database'] = 'gitlabhq_production'
-   gitlab_rails['db_username'] = 'gitlab'
-   gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
-   gitlab_rails['db_port'] = 5432
-   gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
-
-   gitlab_rails['auto_migrate'] = false
-
-   redis['enable'] = false
    redis['master_name'] = 'gitlab-redis'
    redis['master_password'] = '<REDIS_PASSWORD>'
 
@@ -589,10 +571,25 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
       {'host' => '<REDIS_SENTINEL_3_HOST>', 'port' => 26379},
    ]
 
+   git_data_dirs({
+      "default" => {
+         "gitaly_address" => "tcp://<INTERNAL_LOAD_BALANCER_HOST>:2305", # internal load balancer IP
+         "gitaly_token" => '<PRAEFECT_EXTERNAL_TOKEN>'
+      }
+   })
+
+   gitlab_rails['db_host'] = '<POSTGRESQL_HOST>'
+   gitlab_rails['db_port'] = 5432
+   gitlab_rails['db_password'] = '<GITLAB_SQL_PASSWORD>'
+
+   gitlab_rails['auto_migrate'] = false
+
    sidekiq['enable'] = true
    sidekiq['listen_address'] = "0.0.0.0"
    sidekiq['queue_groups'] = ['*'] * 2
    sidekiq['max_concurrency'] = 20
+
+   roles(['application_role'])
    ```
 
 3. 구성한 첫 번째 Linux package node(ex. Primary Redis/Sentinel instance)의 `/etc/gitlab/gitlab-secrets.json`을 복사하고 이 server에 교체.
@@ -600,13 +597,19 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
 4. 구성한 첫 번째 Omnibus node(ex. Primary Redis/Sentinel instance)에서 SSH host keys(`/etc/ssh/ssh_host_*_key*` 형식의 이름)를 복사하고 이 server에 교체.  
    이렇게 하면 사용자가 load balancing된 Rails nodes에 도달할 때 host 불일치 오류가 발생하지 않음.
 
-5. 모든 migrations가 활성화 되었는지 확인:
+5. GitLab 재구성:
+
+   ```
+   gitlab-ctl reconfigure
+   ```
+
+6. 모든 migrations가 활성화 되었는지 확인(하나의 node에서만 진행):
 
    ```
    gitlab-rake gitlab:db:configure
    ```
 
-6. Database에서 authorized SSH keys를 빠르게 조회하도록 구성.  
+7. Database에서 authorized SSH keys를 빠르게 조회하도록 구성(하나의 node에서만 진행).  
    OpenSSH는 선형 검색을 통해 user에게 권한을 부여하는 key를 검색하므로 users 수가 증가함에 따라 일반 SSH 작업이 느려짐.
    User에게 GitLab access 권한이 없는 경우와 같은 최악의 경우 OpenSSH는 전체 file을 scan하여 key를 검색.
    여기에는 상당한 시간과 disk I/O가 소요될 수 있으며 이로 인해 users가 repository에 push하거나 pull하려는 시도가 지연됨.
@@ -623,6 +626,7 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
       AuthorizedKeysCommandUser git
       Match all    # End match, settings apply to all users again
       ```
+
    2. OpenSSH reload:
 
       ```
@@ -632,6 +636,7 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
       # CentOS installations
       sudo service sshd reload
       ```
+
    3. `authorized_keys` file에서 user's key를 주석 처리하여 SSH가 작동하는지 확인하고 local machine에서 repository를 pull하거나 다음을 실행:
 
       ```
@@ -640,39 +645,7 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
 
       성공적인 pull 또는 환영 message는 file에 존재하지 않는 key를 GitLab이 database에서 찾을 수 있다는 의미.
 
-7. GitLab 재구성:
-
-   ```
-   gitlab-ctl reconfigure
-   ```
-
-8. 증분 logging 활성화.
-
-   GitLab Runner는 통합 객체 storage를 사용하는 경우에도, Omnibus GitLab이 기본적으로 disk의 `/var/opt/gitlab/gitlab-ci/builds`에 임시로 cache하는 chunks로 job logs를 반환.  
-   기본 구성을 사용하면 이 directory는 모든 GitLab Rails 및 Sidekiq nodes에서 NFS를 통해 공유되어야 함.  
-   NFS를 통한 job logs 공유는 지원되지만 증분 logging(NFS node가 배포되지 않은 경우 필요)을 활성화하여 NFS 사용을 피하는 것을 권장.  
-   증분 logging은 job logs의 임시 caching을 위해 disk 공간 대신 ​​Redis를 사용.
-
-   job이 완료된 후 background job이 job log를 보관.  
-   Log는 기본적으로 artifacts directory로 이동되거나 구성된 경우 객체 storage로 이동됨.  
-   두 개 이상의 servers에서 실행되는 Rails 및 Sidekiq이 포함된 확장 architecture에서는 file system의 두 위치를 NFS를 사용하여 공유해야 하는데 이는 권장되지 않음.
-
-   > 객체 storage 활성화 후 진행.
-
-   1. Rails console open:
-
-      ```
-      gitlab-rails console
-      ```
-   2. 기능 flag 활성화:
-
-      ```ruby
-      Feature.enable(:ci_enable_live_trace)
-      ```
-
-      실행 중인 job의 logs는 계속해서 disk에 기록되지만 새 jobs는 증분 logging을 사용.
-
-   3. `authorized_keys` file 쓰기 권한 비활성화:
+   4. `authorized_keys` file 쓰기 권한 비활성화:
 
       > GitLab 구성이 완료되어 UI 접속이 된 후에 진행.  
       > SSH가 완벽하게 작동하는 것으로 확인될 때까지 쓰기 비활성화 금지.  
@@ -688,27 +661,39 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
       그런 다음 최상의 성능을 위해 `authorized_keys` file을 백업하고 삭제 가능.  
       현재 users의 kyes는 이미 database에 있으므로 migration하거나 users의 keys 재추가 불필요.
 
-10. Node가 Gitaly에 연결할 수 있는지 확인:
+7. GitLab 재구성:
 
-    ```
-    gitlab-rake gitlab:gitaly:check
-    ```
+   ```
+   gitlab-ctl reconfigure
+   ```
 
-11. GitLab services가 실행 중인지 확인:
+8. 각 Gitaly node에서 Git Hooks가 GitLab에 도달할 수 있는지 확인.
+
+   각 Gitaly node에서 실행:
+   ```
+   sudo /opt/gitlab/embedded/bin/gitaly check /var/opt/gitlab/gitaly/config.toml
+   ```
+
+9. Node가 Gitaly에 연결할 수 있는지 확인:
+
+   ```
+   gitlab-rake gitlab:gitaly:check
+   ```
+
+10. GitLab services가 실행 중인지 확인:
 
     ```
     gitlab-ctl status
     ```
 
-
-13. 새 project를 생성하여 모든 것이 작동하는지 확인.
+11. 새 project를 생성하여 모든 것이 작동하는지 확인.
 
     조회한 repository에 content가 있도록 "Initialize repository with a README" 상자 선택.  
     project가 생성되고 README file이 보이면 제대로 된 것.
 
-14. Repository가 정상적으로 servers에 저장되었는지 확인.
+12. Repository가 정상적으로 servers에 저장되었는지 확인.
 
-    Praefects에서 repository metadata 확인.
+    Praefects에서 repository metadata 확인:
     ```
     sudo /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml metadata -repository-id <repository-id>
     ```
@@ -734,9 +719,8 @@ echo $?
 <hr>
 
 ## 참고
-- **GitLab 참조 architecture: 최대 3,000명의 사용자** - https://docs.gitlab.com/ee/administration/reference_architectures/3k_users.html
-- **Standalone PostgreSQL database 설정** - https://docs.gitlab.com/charts/advanced/external-db/external-omnibus-psql.html
-- **Gitaly Cluster 구성** - https://docs.gitlab.com/ee/administration/gitaly/praefect.html
-- **Database에서 authorized SSH keys를 빠르게 조회** - https://docs.gitlab.com/ee/administration/operations/fast_ssh_key_lookup.html
-- **증분 logging 활성화** - https://docs.gitlab.com/ee/administration/reference_architectures/3k_users.html#enable-incremental-logging
-- **Repository metadata 보기** - https://docs.gitlab.com/ee/administration/gitaly/troubleshooting.html#view-repository-metadata
+- **GitLab 참조 architecture: 최대 3,000명의 사용자** - https://archives.docs.gitlab.com/15.11/ee/administration/reference_architectures/3k_users.html
+- **Standalone PostgreSQL database 설정** - https://archives.docs.gitlab.com/15.11/charts/advanced/external-db/external-omnibus-psql.html
+- **Gitaly Cluster 구성** - https://archives.docs.gitlab.com/15.11/ee/administration/gitaly/praefect.html
+- **Database에서 authorized SSH keys를 빠르게 조회** - https://archives.docs.gitlab.com/15.11/ee/administration/operations/fast_ssh_key_lookup.html
+- **Repository metadata 보기** - https://archives.docs.gitlab.com/15.11/ee/administration/gitaly/troubleshooting.html
