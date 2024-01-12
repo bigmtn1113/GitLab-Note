@@ -288,6 +288,12 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 <br>
 
 ## PostgreSQL 구성
+Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL용 관리형 service 사용 가능.  
+또는 Linux package와 별도로 자체 PostgreSQL instance 또는 cluster를 관리하도록 선택 가능.
+
+> [!NOTE]  
+> 해당 내용은 Linux package 구성이며, 확장성이 고려되지 않은 구성임을 참고.
+
 1. GitLab Linux package download 및 install.
 
 2. 원하는 password의 MD5 hash 생성:
@@ -316,6 +322,18 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
    gitlab_rails['auto_migrate'] = false
    gitlab_rails['db_username'] = "gitlab"
    gitlab_rails['db_password'] = "<GITLAB_SQL_PASSWORD>"
+   ```
+
+4. PostgreSQL 재구성:
+
+   ```
+   gitlab-ctl reconfigure
+   ```
+
+5. PostgreSQL 재시작:
+
+   ```
+   gitlab-ctl restart postgresql
    ```
 
 <br>
