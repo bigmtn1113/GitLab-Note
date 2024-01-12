@@ -100,11 +100,13 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 - **GITLAB_DOMAIN**
   - gitlab-example.com
 - **REDIS_PASSWORD**
-  - P@ssw0rd1!
+  - P@ssw0rd01!
 - **GITLAB_SQL_PASSWORD**
-  - P@ssw0rd1!
+  - P@ssw0rd01!
+- **MD5_HASH_OF_GITLAB_SQL_PASSWORD**
+  - a1d2360a2c420590d73fc1ac6378ff4e
 - **PRAEFECT_SQL_PASSWORD**
-  - P@ssw0rd1!
+  - P@ssw0rd01!
 - **PRAEFECT_EXTERNAL_TOKEN**
   - 624A79DED9D1FAD49E574A722DE1FE421312321BEACB4DF18677D11DFE5C44A1
 - **PRAEFECT_INTERNAL_TOKEN**
@@ -286,58 +288,34 @@ Primary 및 replica Redis nodes 모두 `redis['password']`에 정의된 동일�
 <br>
 
 ## PostgreSQL 구성
-Cloud provider에서 GitLab을 hosting하는 경우 선택적으로 PostgreSQL용 관리형 service 사용 가능.  
-또는 Linux package와 별도로 자체 PostgreSQL instance 또는 cluster를 관리하도록 선택 가능.
+1. GitLab Linux package download 및 install.
 
-1. GitLab용 database user 생성(d option은 db name):
-
-   ```
-   sudo psql -U postgres -d template1 -c "CREATE USER gitlab WITH LOGIN PASSWORD '<GITLAB_SQL_PASSWORD>' CREATEDB;"
-   ```
-
-2. 확장 module인 pg_trgm, btree_gist, plpgsql 생성:
+2. 원하는 password의 MD5 hash 생성:
 
    ```
-   sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS pg_trgm;"
-   sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS btree_gist;"
-   sudo psql -U postgres -d template1 -c "CREATE EXTENSION IF NOT EXISTS plpgsql;"
+   gitlab-ctl pg-password-md5 gitlab
    ```
 
-3. GitLab production database를 생성하고 새 user에게 database에 대한 모든 권한을 부여:
+3. `/etc/gitlab/gitlab.rb` 수정:
 
-   ```
-   sudo psql -U postgres -d template1 -c "CREATE DATABASE gitlabhq_production OWNER gitlab;"
-   ```
+   ```ruby
+   sidekiq['enable'] = false
+   puma['enable'] = false
+   registry['enable'] = false
+   gitaly['enable'] = false
+   gitlab_workhorse['enable'] = false
+   nginx['enable'] = false
+   prometheus_monitoring['enable'] = false
+   redis['enable'] = false
 
-4. 새 user로 새 database에 연결:
+   postgresql['listen_address'] = '0.0.0.0'
+   postgresql['sql_user_password'] = "<MD5_HASH_OF_GITLAB_SQL_PASSWORD>"    # `gitlab-ctl pg-password-md5 gitlab`을 통해 생성한 hash 입력.
+   postgresql['md5_auth_cidr_addresses'] = ['0.0.0.0/0']
+   postgresql['trust_auth_cidr_addresses'] = ['0.0.0.0/0']
 
-   ```
-   sudo psql -U gitlab -d gitlabhq_production -H
-   ```
-
-5. 확장 module인 pg_trgm, btree_gist, plpgsql이 활성화되어 있는지 각각 확인. enabled가 t로 출력:
-
-   ```sql
-   SELECT true AS enabled
-   FROM pg_available_extensions
-   WHERE name = 'pg_trgm'
-   AND installed_version IS NOT NULL;
-
-   SELECT true AS enabled
-   FROM pg_available_extensions
-   WHERE name = 'btree_gist'
-   AND installed_version IS NOT NULL;
-
-   SELECT true AS enabled
-   FROM pg_available_extensions
-   WHERE name = 'plpgsql'
-   AND installed_version IS NOT NULL;
-   ```
-
-6. DB session 종료:
-
-   ```sql
-   gitlabhq_production> \q
+   gitlab_rails['auto_migrate'] = false
+   gitlab_rails['db_username'] = "gitlab"
+   gitlab_rails['db_password'] = "<GITLAB_SQL_PASSWORD>"
    ```
 
 <br>
@@ -733,8 +711,7 @@ echo $?
 
 ## 참고
 - **GitLab 참조 architecture: 최대 3,000명의 사용자** - https://docs.gitlab.com/ee/administration/reference_architectures/3k_users.html
-- **외부 PostgreSQL 설정** - https://docs.gitlab.com/ee/administration/postgresql/external.html
-- **Database 설정** - https://docs.gitlab.com/ee/install/installation.html#7-database
+- **Standalone PostgreSQL database 설정** - https://docs.gitlab.com/charts/advanced/external-db/external-omnibus-psql.html
 - **Gitaly Cluster 구성** - https://docs.gitlab.com/ee/administration/gitaly/praefect.html
 - **Database에서 authorized SSH keys를 빠르게 조회** - https://docs.gitlab.com/ee/administration/operations/fast_ssh_key_lookup.html
 - **증분 logging 활성화** - https://docs.gitlab.com/ee/administration/reference_architectures/3k_users.html#enable-incremental-logging
