@@ -661,12 +661,6 @@ Sidekiq, Rails에는 Redis, PostgreSQL 및 Gitaly instances에 대한 연결이 
       그런 다음 최상의 성능을 위해 `authorized_keys` file을 백업하고 삭제 가능.  
       현재 users의 kyes는 이미 database에 있으므로 migration하거나 users의 keys 재추가 불필요.
 
-7. GitLab 재구성:
-
-   ```
-   gitlab-ctl reconfigure
-   ```
-
 8. 각 Gitaly node에서 Git Hooks가 GitLab에 도달할 수 있는지 확인.
 
    각 Gitaly node에서 실행:
