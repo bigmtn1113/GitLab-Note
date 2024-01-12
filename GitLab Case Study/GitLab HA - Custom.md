@@ -479,6 +479,27 @@ Praefect node가 여러 개인 경우 하나의 node를 deploy node로 지정.
    sudo -u git /opt/gitlab/embedded/bin/praefect -config /var/opt/gitlab/praefect/config.toml sql-ping
    ```
 
+#### ※ git role 및 git database 생성
+Praefect 구성 후 git role 및 git database가 존재하지 않는다는 오류가 발생할 경우, 진행.
+
+1. 관리 access 권한으로 Praefect PostgreSQL에 연결:
+
+   ```
+   sudo gitlab-psql -d template1 -h <PRAEFECT_POSTGRESQL_HOST>
+   ```
+
+2. Praefect에서 사용할 새 user인 `praefect` 생성:
+
+   ```sql
+   CREATE ROLE git WITH LOGIN CREATEDB PASSWORD '<PRAEFECT_SQL_PASSWORD>';
+   ```
+
+3. `praefect`를 소유자로 새 database인 `praefect_production` 생성:
+
+   ```sql
+   CREATE DATABASE git WITH OWNER git ENCODING UTF8;
+   ```
+
 <br>
 
 ### Gitaly 구성
