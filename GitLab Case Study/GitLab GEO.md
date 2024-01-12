@@ -21,11 +21,11 @@ Geo의 모든 측면을 설명하기 위해 정의된 용어.
 :---: | :---: | :---:
 Node | 특정 역할 또는 전체(예: Rails application node)로 GitLab을 실행하는 개별 server. | GitLab
 Site | 단일 GitLab application을 실행하는 하나 또는 nodes 모음. 단일 node 또는 다중 node일 수 있음. | GitLab
-Single-node site | 정확히 하나의 node를 사용하는 GitLab의 특정 구성. | GitLab
-Multi-node site | 둘 이상의 nodes를 사용하는 GitLab의 특정 구성. | GitLab
+Single-node site | 정확히 하나의 node를 사용하는 GitLab의 특정 구성.<br>![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/7978cdef-69eb-48ed-a157-a21eb44d3e30) | GitLab
+Multi-node site | 둘 이상의 nodes를 사용하는 GitLab의 특정 구성.<br>![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/6a4cfb34-6860-4175-9909-2db83782e09f) | GitLab
 Primary site | 하나 이상의 secondary site에서 데이터가 복제되는 GitLab site. Primary site는 하나만 존재. | Geo-specific
 Secondary site | Primary site의 data를 복제하도록 구성된 GitLab site. 하나 이상의 secondary sites가 있을 수 있음. | Geo-specific
-Geo deployment | 정확히 하나의 primary site가 하나 이상의 secondary sites에 의해 복제되는 두 개 이상의 GitLab site 모음. | Geo-specific
+Geo deployment | 정확히 하나의 primary site가 하나 이상의 secondary sites에 의해 복제되는 두 개 이상의 GitLab site 모음.<br>![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/58c5ed2a-b5c3-4b9b-98ee-ec42ab41841c)<br>![image](https://github.com/bigmtn1113/GitLab-Note/assets/46125158/b4038bc3-d2ca-42b2-ba80-d2c8ffbdf0e3) | Geo-specific
 
 <br>
 
