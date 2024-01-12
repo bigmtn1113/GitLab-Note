@@ -18,7 +18,7 @@ GitLab HA 구성을 위해서 **GitLab package (Omnibus)** 를 이용하는 방�
 
 ### Components
 상황에 맞춰서 custom하게 components 분리 가능.  
-본 page에선 ★ 표시되어 있는 것만 구성.  
+해당 내용에선 ★ 표시되어 있는 것만 구성.  
 
 - **External Load Balancer** ★  
   GitLab URL 접근 시 GitLab application servers로 traffic을 routing.
@@ -351,16 +351,19 @@ Gitaly Cluster는 Git repositories 저장을 위해 GitLab에서 제공하고 �
 ### Praefect PostgreSQL 구성
 Gitaly Cluster의 routing 및 transaction 관리자인 Praefect는 Gitaly Cluster 상태에 data를 저장하기 위해 자체 database server가 필요.
 
+> [!NOTE]
+> 원래는 별도 server에서 진행하지만, 해당 내용에선 위에서 구성한 PostgreSQL server에서 진행.
+
 1. 관리 access 권한으로 Praefect PostgreSQL에 연결:
 
    ```
-   sudo psql -U postgres -d template1 -h <PRAEFECT_POSTGRESQL_HOST>
+   sudo gitlab-psql -d template1 -h <PRAEFECT_POSTGRESQL_HOST>
    ```
 
 2. Praefect에서 사용할 새 user인 `praefect` 생성:
 
    ```sql
-   CREATE ROLE praefect WITH LOGIN PASSWORD '<PRAEFECT_SQL_PASSWORD>';
+   CREATE ROLE praefect WITH LOGIN CREATEDB PASSWORD '<PRAEFECT_SQL_PASSWORD>';
    ```
 
 3. `praefect`를 소유자로 새 database인 `praefect_production` 생성:
