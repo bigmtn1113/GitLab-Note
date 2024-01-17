@@ -5,10 +5,71 @@
 Git remote repository를 clone하려고 할 때, 필요한 부분만 clone 가능.  
 혹은 network 상태가 불안정하거나 repository 용량이 너무 클 경우에도 이용 가능.
 
+오류 예시:
+
+```
+error: RPC failed; curl 18 transfer closed with outstanding read data remaining
+error: 6372 bytes of body are still expected
+fetch-pack: unexpected disconnect while reading sideband packet
+fatal: early EOF
+fatal: fetch-pack: invalid index-pack output
+```
+
 <br>
 
-## 내용
-### 내용
+## 단일 branch를 clone한 상태에서 전체 clone
+1. 단일 branch를 clone 및 가장 최근 commit history 개수만큼 clone:
+
+   ```
+   git clone --branch <branch-name> --depth <number-of-commits> <remote-url>
+   ```
+
+2. Repository 이동:
+
+   ```
+   cd <repository-name>
+   ```
+
+3. Remote branch 및 commit history 확인:
+
+   ```
+   git branch -a
+   git log
+   ```
+
+4. 모든 branches clone을 위해 remote 설정 변경:
+
+   - Case 1:
+
+     ```
+     git remote set-branches origin '*'
+     ```
+
+   - Case 2:
+
+     ```
+     git config remote.origin.fetch
+     # +refs/heads/<branch-name>:refs/remotes/origin/<branch-name>
+
+     git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+     ```
+
+   - Case 3:
+
+     `.git/config`에서 `fetch = +refs/heads/<branch-name>:refs/remotes/origin/<branch-name>` 부분을 `fetch = +refs/heads/*:refs/remotes/origin/*`로 수정.
+
+5. 변경한 remote 설정 update 후 remote branch 확인:
+
+   ```
+   git remote update
+   git branch -a
+   ```
+
+6. 현재 branch의 나머지 commit history clone:
+
+   ```
+   git fetch --unshallow
+   ```
 
 <hr>
 
