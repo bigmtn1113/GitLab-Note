@@ -18,26 +18,26 @@ fatal: fetch-pack: invalid index-pack output
 <br>
 
 ## 단일 branch를 clone한 상태에서 전체 clone
-1. 단일 branch를 clone 및 가장 최근 commit history 개수만큼 clone:
+1. **단일 branch를 clone 및 가장 최근 commit history 개수만큼 clone:**
 
    ```
    git clone --branch <branch-name> --depth <number-of-commits> <remote-url>
    ```
 
-2. Repository 이동:
+2. **Repository 이동:**
 
    ```
    cd <repository-name>
    ```
 
-3. Remote branch 및 commit history 확인:
+3. **Remote branch 및 commit history 확인:**
 
    ```
    git branch -a
    git log
    ```
 
-4. 모든 branches clone을 위해 remote 설정 변경:
+4. **모든 branches clone을 위해 remote 설정 변경:**
 
    - Case 1:
 
@@ -58,14 +58,14 @@ fatal: fetch-pack: invalid index-pack output
 
      `.git/config`에서 `fetch = +refs/heads/<branch-name>:refs/remotes/origin/<branch-name>` 부분을 `fetch = +refs/heads/*:refs/remotes/origin/*`로 수정.
 
-5. 변경한 remote 설정 update 후 remote branch 확인:
+5. **변경한 remote 설정 update 후 remote branch 확인:**
 
    ```
    git remote update
    git branch -a
    ```
 
-6. 현재 branch의 나머지 commit history clone:
+6. **현재 branch의 나머지 commit history clone:**
 
    ```
    git fetch --unshallow
