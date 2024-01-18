@@ -50,6 +50,7 @@
 - [Health Check](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Health%20Check.md)
 - [Instance template repository](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Instance%20template%20repository.md)
 - [Load balancer SSL terminate](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Load%20balancer%20SSL%20terminate.md)
+- [Omnibus GitLab의 PostgreSQL data를 다른 directory에 저장](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20GitLab%EC%9D%98%20PostgreSQL%20data%EB%A5%BC%20%EB%8B%A4%EB%A5%B8%20directory%EC%97%90%20%EC%A0%80%EC%9E%A5.md)
 - [Omnibus Logrotate(로그 순환)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20Logrotate(%EB%A1%9C%EA%B7%B8%20%EC%88%9C%ED%99%98).md)
 - [Omnibus to Helm chart migration](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20to%20Helm%20chart%20migration.md)
 - [Prometheus 및 Grafana](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Prometheus%20%EB%B0%8F%20Grafana.md)
