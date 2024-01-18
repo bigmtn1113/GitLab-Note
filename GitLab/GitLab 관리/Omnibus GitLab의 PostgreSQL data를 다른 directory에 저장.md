@@ -30,7 +30,7 @@
    gitlab-ctl stop
    ```
 
-3. gitlab.rb 수정:
+3. `/etc/gitlab/gitlab.rb` 수정:
 
    ```ruby
    postgresql['dir'] = "<new location>"
