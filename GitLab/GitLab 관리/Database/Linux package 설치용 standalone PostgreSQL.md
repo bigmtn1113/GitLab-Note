@@ -32,6 +32,7 @@ Database service를 GitLab application servers와 별도로 hosting하려면 Lin
    pgbouncer_exporter['enable'] = false
    redis_exporter['enable'] = false
    gitlab_exporter['enable'] = false
+   # prometheus_monitoring['enable'] = false    # Monitoring 하지 않을 경우
 
    postgresql['listen_address'] = '0.0.0.0'
    postgresql['port'] = 5432
