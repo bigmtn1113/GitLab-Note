@@ -8,17 +8,19 @@ Linux package를 이용해 GitLab 설치 후, 독립적인 PostgreSQL database �
 
 ## Linux package 설치 구성
 
-> [!NOTE]  
-> - `DB_USERNAME`: 기본 username은 `gitlab`.
-> - `DB_PASSSWORD`: Encoding 되지 않은 값.
-> - `DB_ENCODED_PASSWORD`: `DB_PASSWORD`의 encoding된 값. 다음 방법으로도 생성 가능:
+- `DB_USERNAME`: 기본 username은 `gitlab`.
+- `DB_PASSSWORD`: Encoding 되지 않은 값.
+- `DB_ENCODED_PASSWORD`: `DB_PASSWORD`의 encoding된 값.
+- `AUTH_CIDR_ADDRESSMD5`: MD5 인증을 위한 CIDR을 구성하려면, cluster 또는 gateway의 가능한 가장 작은 subnets이어야 함.
+
+> [!NOTE]
+> - `DB_ENCODED_PASSWORD`는 다음 방법으로도 생성 가능:
 >
 >   - `echo -n 'DB_PASSSWORDDB_USERNAME' | md5sum - | cut -d' ' -f1`  
 >	    `DB_USERNAME` 및 `DB_PASSWORD`를 실제 값으로 대체하여 생성.
 >
 >   - `gitlab-ctl pg-password-md5 DB_USERNAME`  
 >	    `DB_USERNAME`을 대체하고, 'Enter password:'가 표시되면 `DB_PASSWORD`를 입력하여 생성.
-> - `AUTH_CIDR_ADDRESSMD5`: MD5 인증을 위한 CIDR을 구성하려면, cluster 또는 gateway의 가능한 가장 작은 subnets이어야 함.
 
 1. `/etc/gitlab/gitlab.rb` 수정:
 
