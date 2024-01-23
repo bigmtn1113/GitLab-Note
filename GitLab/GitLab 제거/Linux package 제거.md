@@ -1,4 +1,4 @@
-# Linux package (Omnibus) 제거
+# Linux package 제거
 
 <br>
 
@@ -48,4 +48,4 @@ Linux pacakge를 제거할 때, data(repositories, database, configuration)를 �
 <hr>
 
 ## 참고
-- **Uninstall the Linux package (Omnibus)** - https://gitlab.com/gitlab-org/omnibus-gitlab/-/blob/master/doc/installation/index.md#uninstall-the-linux-package-omnibus
+- **Uninstall the Linux package** - https://gitlab.com/gitlab-org/omnibus-gitlab/-/blob/master/doc/installation/index.md#uninstall-the-linux-package-omnibus
