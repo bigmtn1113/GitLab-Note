@@ -1,4 +1,4 @@
-# Omnibus GitLab CE to EE 변환
+# Linux package CE to EE 변환
 
 <br>
 
@@ -107,6 +107,6 @@ sudo gitlab-rake gitlab:doctor:secrets
 <hr>
 
 ## 참고
-- **Omnibus GitLab CE to EE** - https://docs.gitlab.com/ee/update/package/convert_to_ee.html
+- **Linux package CE to EE** - https://docs.gitlab.com/ee/update/package/convert_to_ee.html
 - **Backup GitLab** - https://docs.gitlab.com/ee/raketasks/backup_gitlab.html
-- **Backup and restore Omnibus GitLab configuration** - https://docs.gitlab.com/omnibus/settings/backups.html
+- **Backup and restore Linux package configuration** - https://docs.gitlab.com/omnibus/settings/backups.html
