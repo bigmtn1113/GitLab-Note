@@ -1,4 +1,4 @@
-# Omnibus to Helm chart migration
+# Linux package to Helm chart migration
 
 <br>
 
@@ -22,7 +22,7 @@ $ sudo gitlab-backup create
 명시적으로 변경하지 않는 한 backup file은 `/var/opt/gitlab/backups`에 저장
 
 ### 3. Secrets부터 시작하여 package 기반 설치에서 Helm chart로 backup 복원
-Omnibus GitLab instance로부터 rails secret을 복원하려면, secrets은 `/etc/gitlab/gitlab-secrets.json` file에 JSON 형식으로 저장되므로
+Linux package instance로부터 rails secret을 복원하려면, secrets은 `/etc/gitlab/gitlab-secrets.json` file에 JSON 형식으로 저장되므로
 File을 YAML 형식으로 변환한 후 secret을 생성
 
 #### 1\) `/etc/gitlab/gitlab-secrets.json` file을 `kubectl` 명령을 실행하는 workstation에 파일 복사
