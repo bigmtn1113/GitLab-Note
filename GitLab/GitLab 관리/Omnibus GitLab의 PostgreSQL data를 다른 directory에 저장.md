@@ -1,4 +1,4 @@
-# Omnibus GitLab의 PostgreSQL data를 다른 directory에 저장
+# Linux package의 PostgreSQL data를 다른 directory에 저장
 
 <br>
 
@@ -51,4 +51,4 @@
 <hr>
 
 ## 참고
-- **Omnibus GitLab의 PostgreSQL data를 다른 directory에 저장** - https://docs.gitlab.com/omnibus/settings/database.html#store-postgresql-data-in-a-different-directory
+- **Linux package의 PostgreSQL data를 다른 directory에 저장** - https://docs.gitlab.com/omnibus/settings/database.html#store-postgresql-data-in-a-different-directory
