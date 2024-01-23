@@ -35,6 +35,8 @@
   - [Docker](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Docker.md)
   - [Helm chart (Kubernetes)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/Helm%20chart%20(Kubernetes).md)
   - [로컬 파일의 backup lifetime 제한(이전 backups 정리)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Backup%20and%20restore/%EB%A1%9C%EC%BB%AC%20%ED%8C%8C%EC%9D%BC%EC%9D%98%20backup%20lifetime%20%EC%A0%9C%ED%95%9C(%EC%9D%B4%EC%A0%84%20backups%20%EC%A0%95%EB%A6%AC).md)
+- [Database](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Database)
+  - [Standalone PostgreSQL database setting](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Database/Standalone%20PostgreSQL%20database%20setting.md)
 - [Users 조정](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95)
   - [Project나 group이 없는 users block 또는 delete](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95/Project%EB%82%98%20group%EC%9D%B4%20%EC%97%86%EB%8A%94%20users%20block%20%EB%98%90%EB%8A%94%20delete.md)
   - [최근 활동이 없는 users deactivation](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95/%EC%B5%9C%EA%B7%BC%20%ED%99%9C%EB%8F%99%EC%9D%B4%20%EC%97%86%EB%8A%94%20users%20deactivation.md)
