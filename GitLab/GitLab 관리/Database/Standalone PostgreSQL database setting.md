@@ -2,7 +2,8 @@
 
 <br>
 
-Linux package를 이용해 GitLab 설치 후, 독립적인 PostgreSQL database 용도로 사용 가능.
+Linux package를 이용해 GitLab 설치 후, 독립적인 PostgreSQL database 용도로 사용 가능.  
+이 package는 charts의 services와의 호환성이 보장되는 services의 versions를 제공.
 
 <br>
 
@@ -18,9 +19,6 @@ Linux package를 이용해 GitLab 설치 후, 독립적인 PostgreSQL database �
 >
 >   - `echo -n 'DB_PASSSWORDDB_USERNAME' | md5sum - | cut -d' ' -f1`  
 >	    `DB_USERNAME` 및 `DB_PASSWORD`를 실제 값으로 대체하여 생성.
->
->   - `gitlab-ctl pg-password-md5 DB_USERNAME`  
->	    `DB_USERNAME`을 대체하고, 'Enter password:'가 표시되면 `DB_PASSWORD`를 입력하여 생성.
 
 1. `/etc/gitlab/gitlab.rb` 수정:
 
