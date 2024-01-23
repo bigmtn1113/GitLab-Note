@@ -50,10 +50,10 @@
 - [GitLab 관리 시작하기](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/GitLab%20%EA%B4%80%EB%A6%AC%20%EC%8B%9C%EC%9E%91%ED%95%98%EA%B8%B0.md)
 - [Health Check](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Health%20Check.md)
 - [Instance template repository](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Instance%20template%20repository.md)
+- [Linux package Logrotate(로그 순환)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Linux%20package%20Logrotate(%EB%A1%9C%EA%B7%B8%20%EC%88%9C%ED%99%98).md)
+- [Linux package to Helm chart migration](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Linux%20package%20to%20Helm%20chart%20migration.md)
+- [Linux package의 PostgreSQL data를 다른 directory에 저장](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Linux%20package%EC%9D%98%20PostgreSQL%20data%EB%A5%BC%20%EB%8B%A4%EB%A5%B8%20directory%EC%97%90%20%EC%A0%80%EC%9E%A5.md)
 - [Load balancer SSL terminate](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Load%20balancer%20SSL%20terminate.md)
-- [Omnibus GitLab의 PostgreSQL data를 다른 directory에 저장](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20GitLab%EC%9D%98%20PostgreSQL%20data%EB%A5%BC%20%EB%8B%A4%EB%A5%B8%20directory%EC%97%90%20%EC%A0%80%EC%9E%A5.md)
-- [Omnibus Logrotate(로그 순환)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20Logrotate(%EB%A1%9C%EA%B7%B8%20%EC%88%9C%ED%99%98).md)
-- [Omnibus to Helm chart migration](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Omnibus%20to%20Helm%20chart%20migration.md)
 - [Prometheus 및 Grafana](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Prometheus%20%EB%B0%8F%20Grafana.md)
 - [User 비밀번호 재설정](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/User%20%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8%20%EC%9E%AC%EC%84%A4%EC%A0%95.md)
 - [gitlabrb_sanitizer - gitlab.rb 파일 소독](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/gitlabrb_sanitizer%20-%20gitlab.rb%20%ED%8C%8C%EC%9D%BC%20%EC%86%8C%EB%8F%85.md)
@@ -88,7 +88,7 @@
 
 ### ⭐ GitLab 설치
 - [Amazon EC2 위에 Docker로 GitLab 설치](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Amazon%20EC2%20%EC%9C%84%EC%97%90%20Docker%EB%A1%9C%20GitLab%20%EC%84%A4%EC%B9%98.md)
-- [Omnibus GitLab CE to EE 변환](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Omnibus%20GitLab%20CE%20to%20EE%20%EB%B3%80%ED%99%98.md)
+- [Linux package GitLab CE to EE 변환](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Linux%20package%20CE%20to%20EE%20%EB%B3%80%ED%99%98.md)
 
 <hr>
 
