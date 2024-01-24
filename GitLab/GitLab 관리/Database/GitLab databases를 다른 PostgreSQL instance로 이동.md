@@ -57,6 +57,69 @@
    sudo gitlab-ctl start
    ```
 
+<br>
+
+## Test
+
+1. Linux package가 설치된 GitLab에 SSH 접속.
+
+2. `gitlab-psql` user로 전환:
+
+   ```
+   su gitlab-psql
+   ```
+
+3. Source에서 databases dump:
+
+   > `pg_dump`를 실행할 때 gitlabhq_production.psql 저장 경로로 인해 'Permission denided'가 뜰 경우, 다음과 같이 `/tmp/gitlabhq_production.psql`로 경로를 지정.
+
+   ```
+   /opt/gitlab/embedded/bin/pg_dump -h /var/opt/gitlab/postgresql/ -c -C -f /tmp/gitlabhq_production.sql gitlabhq_production
+   ```
+
+4. `/tmp/gitlabhq_production.sql`을 다른 PostgreSQL instance로 복사.
+
+5. 다른 PostgreSQL instance에 SSH 접속.
+
+6. PostgreSQL DB 접속:
+
+   ```
+   psql -U postgres
+   ```
+
+7. Database를 복원하기 전, `gitlab` role 생성:
+
+   > DB_PASSWORD는 실제 값으로 대체하며, 추후 `/etc/gitlab/gitlab.rb`에서 사용.
+   
+   ```sql
+   CREATE ROLE gitlab WITH LOGIN PASSWORD '<DB_PASSWORD>';
+   ```
+
+8. Databases를 대상으로 복원(동일한 이름을 가진 기존 databases overwrite 진행):
+
+   ```
+   psql -U postgres -f gitlabhq_production.sql postgres
+   ```
+
+9. `/etc/gitlab/gitlab.rb`의 대상 PostgreSQL instance에 대한 적절한 연결 세부 정보로 GitLab 애플리케이션 서버를 구성:
+
+   ```ruby
+   gitlab_rails['db_host'] = '<destination postgresql host>'
+   gitlab_rails['db_password'] = '<DB_PASSWORD>'
+   ```
+
+10. 변경 사항 적용:
+
+    ```
+    sudo gitlab-ctl reconfigure
+    ```
+
+11. GitLab 시작:
+
+    ```
+    sudo gitlab-ctl start
+    ```
+
 <hr>
 
 ## 참고
