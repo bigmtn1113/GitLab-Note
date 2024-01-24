@@ -114,12 +114,6 @@
     sudo gitlab-ctl reconfigure
     ```
 
-11. GitLab 시작:
-
-    ```
-    sudo gitlab-ctl start
-    ```
-
 <hr>
 
 ## 참고
