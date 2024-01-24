@@ -89,7 +89,7 @@
 
 7. Database를 복원하기 전, `gitlab` role 생성:
 
-   > DB_PASSWORD는 실제 값으로 대체하며, 추후 `/etc/gitlab/gitlab.rb`에서 사용.
+   > `DB_PASSWORD`는 실제 값으로 대체하며, 추후 `/etc/gitlab/gitlab.rb`에서 사용.
    
    ```sql
    CREATE ROLE gitlab WITH LOGIN PASSWORD '<DB_PASSWORD>';
