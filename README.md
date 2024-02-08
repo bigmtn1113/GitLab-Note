@@ -41,7 +41,7 @@
   - [Linux package의 PostgreSQL data를 다른 directory에 저장](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Database/Linux%20package%EC%9D%98%20PostgreSQL%20data%EB%A5%BC%20%EB%8B%A4%EB%A5%B8%20directory%EC%97%90%20%EC%A0%80%EC%9E%A5.md)
   - [Standalone PostgreSQL database setting](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Database/Standalone%20PostgreSQL%20database%20setting.md)
 - [Geo](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Geo)
-  - [Geo secondary site replication 재설정](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Geo/Geo%20secondary%20site%20replication%20%EC%9E%AC%EC%84%A4%EC%A0%95.md)
+  - [Geo secondary site 복제 재설정](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Geo/Geo%20secondary%20site%20%EB%B3%B5%EC%A0%9C%20%EC%9E%AC%EC%84%A4%EC%A0%95.md)
 - [Users 조정](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95)
   - [Project나 group이 없는 users block 또는 delete](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95/Project%EB%82%98%20group%EC%9D%B4%20%EC%97%86%EB%8A%94%20users%20block%20%EB%98%90%EB%8A%94%20delete.md)
   - [최근 활동이 없는 users deactivation](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EA%B4%80%EB%A6%AC/Users%20%EC%A1%B0%EC%A0%95/%EC%B5%9C%EA%B7%BC%20%ED%99%9C%EB%8F%99%EC%9D%B4%20%EC%97%86%EB%8A%94%20users%20deactivation.md)
