@@ -84,4 +84,4 @@
 <hr>
 
 ## 참고
-- **Geo secondary site replication 재설정** - https://docs.gitlab.com/ee/administration/geo/replication/troubleshooting.html#resetting-geo-secondary-site-replication
+- **Geo secondary site 복제 재설정** - https://docs.gitlab.com/ee/administration/geo/replication/troubleshooting.html#resetting-geo-secondary-site-replication
