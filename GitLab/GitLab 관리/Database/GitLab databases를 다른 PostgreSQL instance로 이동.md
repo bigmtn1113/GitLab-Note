@@ -101,7 +101,7 @@
    psql -U postgres -f gitlabhq_production.sql postgres
    ```
 
-9. `/etc/gitlab/gitlab.rb`의 대상 PostgreSQL instance에 대한 적절한 연결 세부 정보로 GitLab 애플리케이션 서버를 구성:
+9. `/etc/gitlab/gitlab.rb`의 대상 PostgreSQL instance에 대한 적절한 연결 세부 정보로 GitLab application server를 구성:
 
    ```ruby
    gitlab_rails['db_host'] = '<destination postgresql host>'
