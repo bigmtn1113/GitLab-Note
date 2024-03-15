@@ -50,7 +50,13 @@ Billable users 수는 Admin Area에 하루에 한 번 보고됨.
    user-d, user-d@example.com
    ```
 
-3. GitLab dashboard에서 사용자 수와 비교할 경우, GitLab web UI에서 다음과 같은 경로에서 확인:
+   ※ Users 수만 조회할 경우 다음과 같이 실행:
+
+   ```ruby
+   User.billable.count
+   ```
+
+3. GitLab dashboard에서 users 수와 비교할 경우, GitLab web UI에서 다음과 같은 경로에서 확인:
 
    1. 좌측 sidebar 하단에 있는 **Admin Area** 선택.
    2. **Overview > Dashboard** 선택.
