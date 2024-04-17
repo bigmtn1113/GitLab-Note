@@ -18,13 +18,13 @@
     $ chmod +x pre-receive
     $ chown git:git pre-receive
     ```
-7. Server hook가 예상대로 작동하도록 코드 작성
+7. Server hook가 예상대로 작동하도록 script 작성
 
 <br>
 
 ## Test
-### pre-receive 코드 작성
-어떤 경우라도 `exit 1`로 return하면서 Read-only 권한만 가지도록 설정하는 코드 작성  
+### pre-receive script 작성
+어떤 경우라도 `exit 1`로 return하면서 Read-only 권한만 가지도록 설정하는 script 작성  
 return 값이 0일 경우에만 push 가능
 
 ```bash
@@ -53,3 +53,34 @@ exit 1
 - **Git server hooks** - https://docs.gitlab.com/ee/administration/server_hooks.html
 - **Server-Side Hooks** - https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks#_server_side_hooks
 - **pre-receive-hooks script** - https://github.com/github/platform-samples/tree/master/pre-receive-hooks
+
+#### ※ Jira issue 명시 규칙 script
+
+```bash
+#!/bin/bash
+
+zero_commit="0000000000000000000000000000000000000000"
+
+while read oldrev newrev refname; do
+  # Skip branch deletion
+  if [ "$newrev" = "$zero_commit" ]; then
+    continue
+  fi
+
+  # Iterate over commits in the push
+  for commit in $(git rev-list $oldrev..$newrev); do
+    # Extract commit message
+    message=$(git log --format=%B -n 1 $commit)
+
+    # Check if commit message contains a Jira ID (e.g., ABC-123)
+    if ! grep -Eq '([A-Z]+-[0-9]+|([A-Z]+)([A-Z]+)([A-Z]+)-[0-9]+)' <<< "$message"; then
+      echo "Commit $commit does not contain a Jira ID. Please include a Jira ID in your commit message."
+      exit 1
+    fi
+  done
+done
+```
+
+- ex. ABC-123
+- Jira issue의 영문자 부분은 대문자
+- 단순 commit 뿐만 아니라, merge request 할 때 title도 해당 규칙 준수
