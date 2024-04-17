@@ -94,6 +94,7 @@
 
 ### ⭐ GitLab 설치
 - [Amazon EC2 위에 Docker로 GitLab 설치](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Amazon%20EC2%20%EC%9C%84%EC%97%90%20Docker%EB%A1%9C%20GitLab%20%EC%84%A4%EC%B9%98.md)
+- [Linux package GitLab 수동 설치](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Linux%20package%20GitLab%20%EC%88%98%EB%8F%99%20%EC%84%A4%EC%B9%98.md)
 - [Linux package GitLab CE to EE 변환](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%84%A4%EC%B9%98/Linux%20package%20CE%20to%20EE%20%EB%B3%80%ED%99%98.md)
 
 <hr>
