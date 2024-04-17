@@ -12,4 +12,4 @@
 <hr>
 
 ## 참고
-- **Linux package GitLab 수동 설치** - https://docs.gitlab.com/ee/update/package/index.html#upgrade-using-the-official-repositories
+- **Linux package GitLab 수동 설치** - https://docs.gitlab.com/ee/update/package/#upgrade-using-a-manually-downloaded-package
