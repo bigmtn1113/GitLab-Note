@@ -11,7 +11,7 @@ GitLab을 처음 설치하거나 upgrade하는 데 사용 가능.
 <br>
 
 ## 절차
-1. package의 [official repository](https://packages.gitlab.com/gitlab/)를 방문.
+1. package의 [official repository](https://packages.gitlab.com/gitlab/) 방문.
 2. 설치하려는 version(ex: 14.1.8)을 검색하여 목록을 Filltering.  
    단일 version에 대해 지원되는 배포 및 architecture마다 하나씩 여러 package가 존재할 수 있음. File 이름이 동일할 수 있으므로, 옆에는 배포를 나타내는 lable이 존재.
 3. 설치하려는 package version을 찾고 목록에서 file 이름을 선택.
