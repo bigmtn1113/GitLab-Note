@@ -1,8 +1,8 @@
-# Private container registry의 image 접근
+# Private container registry의 image를 base image로 사용
 
 <br>
 
-내용
+`docker pull`이 아닌, base image를 private container registry에서 pull해서 사용 가능.
 
 <br>
 
