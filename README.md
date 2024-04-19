@@ -69,7 +69,7 @@
   - [Cache](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Cache.md)
   - [Include](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Include.md)
   - [Job artifacts](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Job%20artifacts.md)
-  - [Private container registry의 image 접근](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Private%20container%20registry%EC%9D%98%20image%20%EC%A0%91%EA%B7%BC.md)
+  - [Private container registry의 image를 base image로 사용](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/Private%20container%20registry%EC%9D%98%20image%EB%A5%BC%20base%20image%EB%A1%9C%20%EC%82%AC%EC%9A%A9.md)
   - [extends](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/extends.md)
   - [git clone 및 git push](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/.gitlab-ci.yml%20%EC%82%AC%EC%9A%A9/git%20clone%20%EB%B0%8F%20git%20push.md)
 - [API 사용](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/API%20%EC%82%AC%EC%9A%A9)
