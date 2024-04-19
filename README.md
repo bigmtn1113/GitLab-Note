@@ -84,6 +84,7 @@
 - [GitLab Container Registry 사용](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/GitLab%20Container%20Registry%20%EC%82%AC%EC%9A%A9.md)
 - [Jira](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Jira.md)
 - [Offline SAST](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Offline%20SAST.md)
+- [Private container registry의 image 접근](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Private%20container%20registry%EC%9D%98%20image%20%EC%A0%91%EA%B7%BC.md)
 - [Push mirroring](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Push%20mirroring.md)
 - [Push rules](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Push%20rules.md)
 - [Repository 복제(git clone)](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab/GitLab%20%EC%82%AC%EC%9A%A9/Repository%20%EB%B3%B5%EC%A0%9C(git%20clone).md)
