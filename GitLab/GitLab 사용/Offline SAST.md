@@ -50,6 +50,12 @@ $ docker push localhost:5000/semgrep:3
 
 ### `.gitlab-ci.yml`
 ```yaml
+include:
+  - local: SAST.gitlab-ci.yml
+
+variables:
+  SECURE_ANALYZERS_PREFIX: "localost:5000"
+
 stages:
   - build
   - test
@@ -58,29 +64,10 @@ build-job:
   stage: build
   script:
     - echo "Test build-job"
-
-include:
-  - local: SAST.gitlab-ci.yml
 ```
 
-`local` 옵션으로 registry.gitlab.com에 있는 template이 아닌 현재 repository에 있는 `SAST.gitlab-ci.yml` 파일 사용
-
-### `SAST.gitlab-ci.yml`
-```yaml
-# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/
-#
-# Configure SAST with CI/CD variables (https://docs.gitlab.com/ee/ci/variables/index.html).
-# List of available variables: https://docs.gitlab.com/ee/user/application_security/sast/index.html#available-variables
-
-variables:
-  # Setting this variable will affect all Security templates
-  # (SAST, Dependency Scanning, ...)
-  SECURE_ANALYZERS_PREFIX: "localost:5000"
-...
-```
-
-Registry 주소를 localhost로 설정  
-semgrep-sast job이 이 변수를 참고하여 images 접근
+`local` option으로 registry.gitlab.com에 있는 template이 아닌 현재 repository에 있는 `SAST.gitlab-ci.yml` 파일 사용.  
+`variables` option으로 registry 주소를 localhost로 설정(`SAST.gitlab-ci.yml`에 명시된 변수(`SECURE_ANALYZERS_PREFIX`) overwrite). semgrep-sast job이 이 변수를 참고하여 image 접근.
 
 - **registry.gitlab.com 접근할 경우**
   
