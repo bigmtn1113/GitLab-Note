@@ -7,7 +7,7 @@
 - [GitHub commit 시, contributions(잔디) 문제](https://github.com/bigmtn1113/GitLab-Note/blob/master/Git/GitHub%20commit%20%EC%8B%9C%2C%20contributions(%EC%9E%94%EB%94%94)%20%EB%AC%B8%EC%A0%9C.md)
 - [LF will be replaced by CRLF or CRLF will be replaced by LF 오류](https://github.com/bigmtn1113/GitLab-Note/blob/master/Git/LF%20will%20be%20replaced%20by%20CRLF%20or%20CRLF%20will%20be%20replaced%20by%20LF%20%EC%98%A4%EB%A5%98.md)
 - [Repository의 일부분 clone](https://github.com/bigmtn1113/GitLab-Note/blob/master/Git/Repository%EC%9D%98%20%EC%9D%BC%EB%B6%80%EB%B6%84%20clone.md)
-- [fetal: the remote end hung up unexpectedly error 해결](https://github.com/bigmtn1113/GitLab-Note/blob/master/Git/fetal%3A%20the%20remote%20end%20hung%20up%20unexpectedly%20error%20%ED%95%B4%EA%B2%B0.md)
+- [the remote end hung up unexpectedly error 해결](https://github.com/bigmtn1113/GitLab-Note/blob/master/Git/the%20remote%20end%20hung%20up%20unexpectedly%20error%20%ED%95%B4%EA%B2%B0.md)
 - [git config](https://github.com/bigmtn1113/GitLab-Note/blob/master/Git/git%20config.md)
 
 <br>
