@@ -16,6 +16,7 @@
 - [GitLab API와 script를 이용해 각종 이력을 csv 파일로 추출](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20API%EC%99%80%20script%EB%A5%BC%20%EC%9D%B4%EC%9A%A9%ED%95%B4%20%EA%B0%81%EC%A2%85%20%EC%9D%B4%EB%A0%A5%EC%9D%84%20csv%20%ED%8C%8C%EC%9D%BC%EB%A1%9C%20%EC%B6%94%EC%B6%9C)
 - [GitLab과 AWS CodeDeploy를 사용한 AWS EC2에 Java 배포 방법 소개](https://github.com/bigmtn1113/GitLab-Note/tree/master/GitLab%20Case%20Study/GitLab%EA%B3%BC%20AWS%20CodeDeploy%EB%A5%BC%20%EC%82%AC%EC%9A%A9%ED%95%9C%20AWS%20EC2%EC%97%90%20Java%20%EB%B0%B0%ED%8F%AC%20%EB%B0%A9%EB%B2%95%20%EC%86%8C%EA%B0%9C)
 - [GitLab GEO](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20GEO.md)
+- [Admin page 사용 시, 500 error 발생](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/Admin%20page%20%EC%82%AC%EC%9A%A9%20%EC%8B%9C%2C%20500%20error%20%EB%B0%9C%EC%83%9D.md)
 - [GitLab HA - Custom](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20HA%20-%20Custom.md)
 - [GitLab billable users list 확인](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20billable%20users%20list%20%ED%99%95%EC%9D%B8.md)
 - [GitLab runner on Windows에서 한글 깨짐 현상 해결](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20runner%20on%20Windows%EC%97%90%EC%84%9C%20%ED%95%9C%EA%B8%80%20%EA%B9%A8%EC%A7%90%20%ED%98%84%EC%83%81%20%ED%95%B4%EA%B2%B0.md)
