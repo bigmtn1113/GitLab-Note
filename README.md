@@ -24,6 +24,7 @@
 <br>
 
 ## GitLab-Runner
+- [GitLab Runner offline install](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab-Runner/GitLab%20Runner%20offline%20install.md)
 - [GitLab Runner 등록](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab-Runner/GitLab%20Runner%20%EB%93%B1%EB%A1%9D.md)
 - [GitLab Runner 설치 및 실행](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab-Runner/GitLab%20Runner%20%EC%84%A4%EC%B9%98%20%EB%B0%8F%20%EC%8B%A4%ED%96%89.md)
 
