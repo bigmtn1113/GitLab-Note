@@ -82,9 +82,12 @@ System에 맞는 최신 package를 download한 후, 다음과 같이 진행.
 <br>
 
 ## Binary file 사용
+※ Arch 및 version 모두 위의 내용과 같이, system에 맞춰 적절히 변경.
+
 ### Install
 1. System에 맞는 binary download:
    ```shell
+   # Linux arm64
    sudo curl -L --output /usr/local/bin/gitlab-runner "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-linux-amd64"
    ```
 
@@ -104,6 +107,17 @@ System에 맞는 최신 package를 download한 후, 다음과 같이 진행.
    sudo gitlab-runner start
    ```
 
+5. Helper image download.
+
+   Runner binary에는 미리 build된 helper images가 포함되어 있지 않으니, 해당 version의 helper image archive를 적절한 위치에 download:
+   ```shell
+   mkdir -p /usr/local/bin/out/helper-images
+   cd /usr/local/bin/out/helper-images
+
+   # Linux arm64 ubuntu
+   wget https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/helper-images/prebuilt-ubuntu-arm64.tar.xz
+   ```
+
 <br>
 
 ### Upgrade
@@ -114,6 +128,7 @@ System에 맞는 최신 package를 download한 후, 다음과 같이 진행.
 
 2. 대체할 GitLab Runner file download:
    ```shell
+   # Linux arm64
    sudo curl -L --output /usr/local/bin/gitlab-runner "https://s3.dualstack.us-east-1.amazonaws.com/gitlab-runner-downloads/latest/binaries/gitlab-runner-linux-amd64"
    ```
 
