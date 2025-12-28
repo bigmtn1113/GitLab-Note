@@ -20,6 +20,7 @@
 - [GitLab HA - Custom](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20HA%20-%20Custom.md)
 - [GitLab billable users list 확인](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20billable%20users%20list%20%ED%99%95%EC%9D%B8.md)
 - [GitLab runner on Windows에서 한글 깨짐 현상 해결](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/GitLab%20runner%20on%20Windows%EC%97%90%EC%84%9C%20%ED%95%9C%EA%B8%80%20%EA%B9%A8%EC%A7%90%20%ED%98%84%EC%83%81%20%ED%95%B4%EA%B2%B0.md)
+- [Helm chart uninstall에도 minio PV 보존하는 법](https://github.com/bigmtn1113/GitLab-Note/blob/master/GitLab%20Case%20Study/Helm%20chart%20uninstall%EC%97%90%EB%8F%84%20minio%20PV%20%EB%B3%B4%EC%A1%B4%ED%95%98%EB%8A%94%20%EB%B2%95.md)
 
 <br>
 
