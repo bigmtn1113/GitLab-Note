@@ -1,4 +1,4 @@
-# Minio PV 자동 삭제 방지 - Helm chart
+# Helm chart uninstall에도 minio PV 보존하는 법
 Helm chart를 지울 때마다 Minio PV까지 사라져, data 손실이 발생하는 issue 존재.
 
 <br>
